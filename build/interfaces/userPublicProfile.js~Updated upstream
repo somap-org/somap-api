@@ -1,0 +1,10 @@
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.UserPublicProfile = void 0;
+var UserPublicProfile;
+(function (UserPublicProfile) {
+    UserPublicProfile.UserTypeEnum = {
+        CamUser: 'camUser',
+        ClassicUser: 'classicUser'
+    };
+})(UserPublicProfile = exports.UserPublicProfile || (exports.UserPublicProfile = {}));
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoidXNlclB1YmxpY1Byb2ZpbGUuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyIuLi8uLi9zcmMvaW50ZXJmYWNlcy91c2VyUHVibGljUHJvZmlsZS50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOztBQXNCQSxJQUFpQixpQkFBaUIsQ0FNakM7QUFORCxXQUFpQixpQkFBaUI7SUFFakIsOEJBQVksR0FBRztRQUN4QixPQUFPLEVBQUUsU0FBeUI7UUFDbEMsV0FBVyxFQUFFLGFBQTZCO0tBQzdDLENBQUM7QUFDTixDQUFDLEVBTmdCLGlCQUFpQixHQUFqQix5QkFBaUIsS0FBakIseUJBQWlCLFFBTWpDIn0=

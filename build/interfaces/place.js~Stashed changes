@@ -1,0 +1,60 @@
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+<<<<<<< Updated upstream:build/models/place.js
+exports.Place = void 0;
+const typegoose_1 = require("typegoose");
+let Lives = (() => {
+    class Lives extends typegoose_1.Typegoose {
+    }
+    __decorate([
+        typegoose_1.prop({ required: true }),
+        __metadata("design:type", String)
+    ], Lives.prototype, "createdAt", void 0);
+    __decorate([
+        typegoose_1.prop({ required: true, ref: 'User' }),
+        __metadata("design:type", Object)
+    ], Lives.prototype, "viewers", void 0);
+    return Lives;
+})();
+let Place = (() => {
+    class Place extends typegoose_1.Typegoose {
+    }
+    __decorate([
+        typegoose_1.prop({ required: true }),
+        __metadata("design:type", String)
+    ], Place.prototype, "name", void 0);
+    __decorate([
+        typegoose_1.prop({ required: true }),
+        __metadata("design:type", String)
+    ], Place.prototype, "description", void 0);
+    __decorate([
+        typegoose_1.prop({ required: true }),
+        __metadata("design:type", String)
+    ], Place.prototype, "address", void 0);
+    __decorate([
+        typegoose_1.prop({ required: true }),
+        __metadata("design:type", Object)
+    ], Place.prototype, "location", void 0);
+    __decorate([
+        typegoose_1.prop({ ref: 'User' }),
+        __metadata("design:type", Array)
+    ], Place.prototype, "peapleHere", void 0);
+    __decorate([
+        typegoose_1.prop({ required: true }),
+        __metadata("design:type", Array)
+    ], Place.prototype, "camLives", void 0);
+    return Place;
+})();
+exports.Place = Place;
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiUGxhY2UuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyIuLi8uLi9zcmMvbW9kZWxzL1BsYWNlLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7O0FBQUEseUNBQStDO0FBRy9DO0lBQUEsTUFBTSxLQUFNLFNBQVEscUJBQVM7S0FNNUI7SUFKRztRQURDLGdCQUFJLENBQUMsRUFBRSxRQUFRLEVBQUUsSUFBSSxFQUFFLENBQUM7OzRDQUNSO0lBR2pCO1FBREMsZ0JBQUksQ0FBQyxFQUFFLFFBQVEsRUFBRSxJQUFJLEVBQUUsR0FBRyxFQUFFLE1BQU0sRUFBQyxDQUFDOzswQ0FDbkI7SUFDdEIsWUFBQztLQUFBO0FBRUQ7SUFBQSxNQUFhLEtBQU0sU0FBUSxxQkFBUztLQW1CbkM7SUFqQkc7UUFEQyxnQkFBSSxDQUFDLEVBQUUsUUFBUSxFQUFFLElBQUksRUFBRSxDQUFDOzt1Q0FDWjtJQUViO1FBREMsZ0JBQUksQ0FBQyxFQUFFLFFBQVEsRUFBRSxJQUFJLEVBQUUsQ0FBQzs7OENBQ0w7SUFFcEI7UUFEQyxnQkFBSSxDQUFDLEVBQUUsUUFBUSxFQUFFLElBQUksRUFBRSxDQUFDOzswQ0FDVDtJQUVoQjtRQURDLGdCQUFJLENBQUMsRUFBRSxRQUFRLEVBQUUsSUFBSSxFQUFFLENBQUM7OzJDQU92QjtJQUVGO1FBREMsZ0JBQUksQ0FBQyxFQUFFLEdBQUcsRUFBRSxNQUFNLEVBQUUsQ0FBQzs7NkNBQ0U7SUFFeEI7UUFEQyxnQkFBSSxDQUFDLEVBQUUsUUFBUSxFQUFFLElBQUksRUFBRSxDQUFDOzsyQ0FDUjtJQUNyQixZQUFDO0tBQUE7QUFuQlksc0JBQUsifQ==
+=======
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoicGxhY2UuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyIuLi8uLi9zcmMvaW50ZXJmYWNlcy9wbGFjZS50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiIn0=
+>>>>>>> Stashed changes:build/interfaces/place.js

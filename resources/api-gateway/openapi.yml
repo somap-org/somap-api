@@ -1,0 +1,1783 @@
+openapi: 3.0.0
+info:
+  version: '1.0.0'
+  title: Backend RESTful API Interface
+components:
+  schemas:
+    objectId:
+      type: string
+      description: "MongoDB ObjectID"
+      example: "507f1f77bcf86cd799439011"
+    UserPublicProfile:
+      type: object
+      required:
+        - userId
+        - userType
+        - username
+        - profileImage
+        - followers
+        - following
+      properties:
+        userId:
+          $ref: "#/components/schemas/objectId"
+        userType:
+          type: string
+          enum: ["camUser", "classicUser"]
+          example: "camUser"
+        username:
+          type: string
+          example: "lucapirrone"
+        profileImage:
+          type: string
+          example: "http://www.example.com"
+        followers:
+          type: number
+          example: 574
+        following:
+          type: number
+          example: 869
+    UsersPublicProfile:
+      type: array
+      items:
+        $ref: "#/components/schemas/UserPublicProfile"
+      example: [
+      {
+        "userId": "507f1f77bcf86cd799439011",
+        "userType": "classic",
+        "firstName": "Mario",
+        "lastName": "Rossi",
+        "profileImage": "http://www.example.com"
+      },
+      {
+        "userId": "507f1f77bcf86cd799439011",
+        "userType": "classic",
+        "firstName": "Luca",
+        "lastName": "Bianchi",
+        "profileImage": "http://www.example.com"
+      },
+      {
+        "userId": "507f1f77bcf86cd799439011",
+        "userType": "camUser",
+        "firstName": "Francesco",
+        "lastName": "Brambilla",
+        "profileImage": "http://www.example.com"
+      }
+      ]
+    UserSettings:
+      type: object
+      required:
+        - userId
+        - enableNotification
+        - appearInPeopleHere
+        - profilePrivacy
+      properties:
+        userId:
+          $ref: "#/components/schemas/objectId"
+        enableNotification:
+          type: boolean
+          example: true
+        appearInPeopleHere:
+          type: boolean
+          example: true
+        profilePrivacy:
+          type: string
+          enum: ["public", "private"]
+          example: "public"
+    Place:
+      type: object
+      required:
+        - placeId
+        - name
+        - description
+        - address
+        - coordinates
+      properties:
+        placeId:
+          $ref: "#/components/schemas/objectId"
+        name:
+          type: string
+          example: "Omnia Club"
+        description:
+          type: string
+          example: "Very big discoteque"
+        address:
+          type: string
+          example: "Via Roma 1, Milano MI"
+        coordinates:
+          type: object
+          required:
+            - longitude
+            - latitude
+          properties:
+            latitude:
+              type: integer
+              example: "42.7170741"
+            longitude:
+              type: integer
+              example: "12.6198393"
+    Places:
+      type: array
+      items:
+        $ref: "#/components/schemas/Place"
+      example: [
+      {
+        "placeId": "977f1f77bcf88md799439043",
+        "name": "Omnia Club",
+        "description": "Very big discoteque",
+        "address": "Via Roma 1, Milano MI",
+        "coordinates": {
+          "latitude": 0,
+          "longitude": 0
+        },
+        "camLives": [
+        {
+          "createdAt": "2019-08-12T17:52:17-05:00",
+          "viewers": [
+          {
+            "userId": "507f1f77bcf86cd799439011",
+            "userType": "camUser",
+            "firstName": "Luca",
+            "lastName": "Pirrone",
+            "profileImage": "https://barbarapicci.files.wordpress.com/2014/12/giochi-di-profilo1.jpg?w=640",
+            "followersCount": 472,
+            "followingCount": 382
+          }
+          ]
+        }
+        ]
+      },
+      {
+        "placeId": "977f1f77bcf88md799439043",
+        "name": "Pacha 2.0",
+        "description": "Very small discoteque",
+        "address": "Via Milano 1, Roma RM",
+        "coordinates": {
+          "latitude": 0,
+          "longitude": 0
+        },
+        "camLives": [
+        {
+          "createdAt": "2019-08-12T17:52:17-05:00",
+          "viewers": [
+          {
+            "userId": "507f1f77bcf86cd799439011",
+            "userType": "camUser",
+            "firstName": "Luca",
+            "lastName": "Pirrone",
+            "profileImage": "https://barbarapicci.files.wordpress.com/2014/12/giochi-di-profilo1.jpg?w=640",
+            "followersCount": 472,
+            "followingCount": 382
+          }
+          ]
+        }
+        ]
+      }
+      ]
+    Activity:
+      type: object
+      required:
+        - name
+        - date
+        - description
+        - thumbnail
+      properties:
+        activityId:
+          $ref: "#/components/schemas/objectId"
+        name:
+          type: string
+          example: "White Party"
+        date:
+          type: string
+          example: "2020-05-21T13:00:35+00:00"
+        description:
+          type: string
+          example: "Very big white party"
+        thumbnail:
+          type: string
+          example: "https://barbarapicci.files.wordpress.com/2014/12/giochi-di-profilo1.jpg?w=640"
+    Activities:
+      type: array
+      items:
+        $ref: "#/components/schemas/Activity"
+      example: [
+      {
+        "activityId": "977f1f77bcf88md799439043",
+        "name": "White Party",
+        "date": "2020-05-21T13:00:35+00:00",
+        "description": "Very big white party",
+        "thumbnail": "https://s1.wklcdn.com/image_35/1059170/6706815/3739102Master.jpg"
+      },
+      {
+        "activityId": "977f1f77bcf88md799439043",
+        "name": "Black Party",
+        "date": "2019-05-21T13:00:35+00:00",
+        "description": "Very big black party",
+        "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTYYuE9q0d0Zj7GeaZ-IM1RD5PSbRachwgt77QF8k2ek_76d3gq&usqp=CAU"
+      }
+      ]
+    Live:
+      type: object
+      required:
+        - createdAt
+      properties:
+        createdAt:
+          type: string
+          example: "2019-08-12T17:52:17-05:00"
+        placeId:
+          $ref: "#/components/schemas/objectId"
+        liveId:
+          $ref: "#/components/schemas/objectId"
+    Lives:
+      type: array
+      items:
+        $ref: "#/components/schemas/Live"
+      example: [
+      {
+        "createdAt": "2019-08-12T17:52:17-05:00",
+        "viewers": [
+        {
+          "userId": "507f1f77bcf86cd799439011",
+          "userType": "classic",
+          "firstName": "Mario",
+          "lastName": "Rossi",
+          "profileImage": "https://barbarapicci.files.wordpress.com/2014/12/giochi-di-profilo1.jpg?w=640",
+          "followersCount": 4561,
+          "followingCount": 1284
+        }
+        ]
+      },
+      {
+        "createdAt": "2019-08-12T17:52:17-05:00",
+        "viewers": [
+        {
+          "userId": "507f1f34bcf86cd799439011",
+          "userType": "classic",
+          "firstName": "Luca",
+          "lastName": "Bianchi",
+          "profileImage": "https://barbarapicci.files.wordpress.com/2014/12/giochi-di-profilo1.jpg?w=640",
+          "followersCount": 7894,
+          "followingCount": 3254
+        }
+        ]
+      }
+      ]
+    Post:
+      type: object
+      required:
+        - postId
+        - author
+        - postedAt
+        - body
+        - sharedCount
+        - likesCount
+        - commentsCount
+      properties:
+        postId:
+          $ref: "#/components/schemas/objectId"
+        author:
+          $ref: "#/components/schemas/UserPublicProfile"
+        postedAt:
+          type: string
+          example: ""
+        body:
+          type: string
+          example: "This is my first post"
+        medias:
+          type: array
+          items:
+            type: string
+            example: "www.photourl.com"
+        sharedCount:
+          type: integer
+          example: 21
+        likesCount:
+          type: integer
+          example: 257
+        commentsCount:
+          type: integer
+          example: 8
+        sharedPost:
+          description: "It is undefined when it does not have a shared post. It is null when the shared post has been deleted."
+          $ref: "#/components/schemas/Post"
+    NewPost:
+      type: object
+      required:
+        - body
+      properties:
+        body:
+          type: string
+          example: "This is my fisrt post"
+        sharedPost:
+          type: string
+    Posts:
+      type: array
+      items:
+        $ref: "#/components/schemas/Post"
+      example: [
+      {
+        "postId": "977f1f77bcf88md799439043",
+        "author": {
+          "userId": "507f1f77bcf86cd799439011",
+          "userType": "classic",
+          "username": "Luca",
+          "profileImage": "https://barbarapicci.files.wordpress.com/2014/12/giochi-di-profilo1.jpg?w=640",
+          "followersCount": 472,
+          "followingCount": 382
+        },
+        "postedAt": "string",
+        "body": "This is my fisrt post",
+        "medias": [
+        {
+          "type": "image",
+          "mediaUri": "https://www.genova24.it/photogallery_new/images/2018/05/discoteca-470945.316x176.jpg"
+        }
+        ],
+        "sharedCount": 21,
+        "likesCount": 257,
+        "commentsCount": 8
+      },
+      {
+        "postId": "977f1f77bcf88md799439043",
+        "author": {
+          "userId": "507f1f77bcf86cd799439011",
+          "userType": "camUser",
+          "username": "lucapirrone",
+          "profileImage": "https://barbarapicci.files.wordpress.com/2014/12/giochi-di-profilo1.jpg?w=640",
+          "followersCount": 472,
+          "followingCount": 382
+        },
+        "postedAt": "string",
+        "body": "This is my fisrt post",
+        "medias": [
+        {
+          "type": "image",
+          "mediaUri": "https://www.genova24.it/photogallery_new/images/2018/05/discoteca-470945.316x176.jpg"
+        }
+        ],
+        "sharedCount": 21,
+        "likesCount": 257,
+        "commentsCount": 8,
+        "sharedPost": {
+          "postId": "977f1f77bcf88md799439043",
+          "profile": {
+            "userId": "507f1f77bcf86cd799439011",
+            "userType": "classic",
+            "firstName": "Luca",
+            "lastName": "Pirrone",
+            "profileImage": "https://barbarapicci.files.wordpress.com/2014/12/giochi-di-profilo1.jpg?w=640",
+            "followersCount": 472,
+            "followingCount": 382
+          },
+          "postedAt": "string",
+          "body": "This is my fisrt post",
+          "medias": [
+          {
+            "type": "image",
+            "mediaUri": "https://www.genova24.it/photogallery_new/images/2018/05/discoteca-470945.316x176.jpg"
+          }
+          ],
+          "sharedCount": 21,
+          "likesCount": 257,
+          "commentsCount": 8
+        }
+      }
+      ]
+    Media:
+      type: object
+      required:
+        - type
+        - mediaUri
+      properties:
+        type:
+          type: string
+          example: "image"
+        mediaUri:
+          type: string
+          example: "https://www.genova24.it/photogallery_new/images/2018/05/discoteca-470945.316x176.jpg"
+    Medias:
+      type: array
+      items:
+        $ref: '#/components/schemas/Media'
+      example: [
+      {
+        "type": "image",
+        "mediaUri": "https://www.genova24.it/photogallery_new/images/2018/05/discoteca-470945.316x176.jpg"
+      },
+      {
+        "type": "video",
+        "mediaUri": "https://docs.microsoft.com/it-it/azure/azure-functions/media/functions-openapi-definition/import-function-openapi.png"
+      }
+      ]
+    Comment:
+      type: object
+      required:
+        - commentId
+        - body
+        - author
+        - postedAt
+        - repliesCount
+        - likesCount
+      properties:
+        commentId:
+          $ref: "#/components/schemas/objectId"
+        body:
+          type: string
+          example: "Good photo!"
+        author:
+          $ref: "#/components/schemas/UserPublicProfile"
+        postedAt:
+          type: string
+          example: "2019-08-12T17:52:17-05:00"
+        repliesCount:
+          type: integer
+          example: 8
+        likesCount:
+          type: integer
+          example: 8
+    NewComment:
+      type: object
+      required:
+        - body
+      properties:
+        body:
+          type: string
+          example: "Good photo!"
+    Comments:
+      type: array
+      items:
+        $ref: "#/components/schemas/Comment"
+      example: [
+      {
+        "commentId": "977f1f77bcf88md799439043",
+        "body": "Good photo!",
+        "postedAt": "2019-08-12T17:52:17-05:00"
+      },
+      {
+        "commentId": "977f1f77bcf88md799439043",
+        "body": "I agree with u!",
+        "postedAt": "2019-08-12T17:52:17-05:00"
+      }
+      ]
+    Error:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
+  parameters:
+    userId:
+      name: userId
+      in: path
+      required: true
+      description: User id
+      schema:
+        type: string
+    placeId:
+      name: placeId
+      in: path
+      required: true
+      description: User id
+      schema:
+        type: string
+    targetId:
+      name: targetId
+      in: path
+      required: true
+      description: User target id
+      schema:
+        type: string
+    postId:
+      name: postId
+      in: path
+      required: true
+      description: Post id
+      schema:
+        type: string
+    commentId:
+      name: commentId
+      in: path
+      required: true
+      description: Comment id
+      schema:
+        type: string
+    activityId:
+      name: activityId
+      in: path
+      required: true
+      description: Activity id
+      schema:
+        type: string
+    liveId:
+      name: liveId
+      in: path
+      required: true
+      description: Live id
+      schema:
+        type: string
+    mediaId:
+      name: mediaId
+      in: path
+      required: true
+      description: Media id
+      schema:
+        type: string
+    page:
+      name: page
+      in: query
+      description: Page number for pagination
+      required: false
+      schema:
+        type: number
+    limit:
+      name: limit
+      in: query
+      description: Output limit
+      required: false
+      schema:
+        type: number
+x-amazon-apigateway-request-validators:
+  all:
+    validateRequestBody: true
+    validateRequestParameters: true
+  params-only:
+    validateRequestBody: false
+    validateRequestParameters: true
+  body-only:
+    validateRequestBody: true
+    validateRequestParameters: false
+paths:
+  /users/{userId}/profile:
+    get:
+      tags:
+        - user
+      summary: Get any user's public profile info
+      description: Get any and public user's public profile info (userId)
+      x-amazon-apigateway-request-validator: "params-only"
+      x-amazon-apigateway-auth: "AWS_IAM"
+      x-amazon-apigateway-integration:
+        type: "aws_proxy"
+        uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-getUserPublicProfile/invocations
+        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole
+        passthroughBehavior: "when_no_match"
+        httpMethod: "POST"
+      parameters:
+        - $ref: '#/components/parameters/userId'
+      responses:
+        '200':
+          description: User public profile
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserPublicProfile"
+  /users/{userId}/username:
+    put:
+      tags:
+        - user
+      summary: Change the username
+      description: Change user name if user is logged in
+      x-amazon-apigateway-request-validator: "all"
+      x-amazon-apigateway-auth: "AWS_IAM"
+      x-amazon-apigateway-integration:
+        type: "aws_proxy"
+        uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-editUsername/invocations
+        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole
+        passthroughBehavior: "when_no_match"
+        httpMethod: "POST"
+      parameters:
+        - $ref: '#/components/parameters/userId'
+      requestBody:
+        description: New username
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - username
+              properties:
+                username:
+                  type: string
+                  example: "lucapirrone"
+      responses:
+        '200':
+          description: Username changed
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - username
+                properties:
+                  username:
+                    type: string
+                    example: "lucapirrone"
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /users/{userId}/settings:
+    get:
+      tags:
+        - user
+      summary: Get user's settings
+      description: Get user's settings if logged in
+      x-amazon-apigateway-request-validator: "params-only"
+      x-amazon-apigateway-auth: "AWS_IAM"
+      x-amazon-apigateway-integration:
+        type: "aws_proxy"
+        uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-getUserSettings/invocations
+        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole
+        passthroughBehavior: "when_no_match"
+        httpMethod: "POST"
+      parameters:
+        - $ref: '#/components/parameters/userId'
+      responses:
+        '200':
+          description: User settings
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserSettings"
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    put:
+      tags:
+        - user
+      summary: Modify user's settings
+      description: Modify user's settings if logged in
+      x-amazon-apigateway-request-validator: "all"
+      x-amazon-apigateway-auth: "AWS_IAM"
+      x-amazon-apigateway-integration:
+        type: "aws_proxy"
+        uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-editUserSettings/invocations
+        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole
+        passthroughBehavior: "when_no_match"
+        httpMethod: "POST"
+      parameters:
+        - $ref: '#/components/parameters/userId'
+      requestBody:
+        description: New user settings
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserSettings'
+      responses:
+        '200':
+          description: User settings changed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserSettings"
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /place:
+    post:
+      tags:
+        - place
+      summary: Add place's info
+      description: place user place's info if logged in
+      x-amazon-apigateway-request-validator: "all"
+      x-amazon-apigateway-auth: "AWS_IAM"
+      x-amazon-apigateway-integration:
+        type: "aws_proxy"
+        uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-addPlace/invocations
+        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole
+        passthroughBehavior: "when_no_match"
+        httpMethod: "POST"
+      requestBody:
+        description: New place info
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Place"
+      responses:
+        '200':
+          description: User place changed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Place"
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /place/{placeId}:
+    get:
+      tags:
+        - place
+      summary: Get place info
+      description: Get any user's (userId) place info
+      x-amazon-apigateway-request-validator: "params-only"
+      x-amazon-apigateway-auth: "AWS_IAM"
+      x-amazon-apigateway-integration:
+        type: "aws_proxy"
+        uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-getPlace/invocations
+        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole
+        passthroughBehavior: "when_no_match"
+        httpMethod: "POST"
+      parameters:
+        - $ref: '#/components/parameters/placeId'
+      responses:
+        '200':
+          description: User place
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Place"
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    put:
+      tags:
+        - place
+      summary: Modify place's info
+      description: Modify user place's info if logged in
+      x-amazon-apigateway-request-validator: "all"
+      x-amazon-apigateway-auth: "AWS_IAM"
+      x-amazon-apigateway-integration:
+        type: "aws_proxy"
+        uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-editPlace/invocations
+        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole
+        passthroughBehavior: "when_no_match"
+        httpMethod: "POST"
+      parameters:
+        - $ref: '#/components/parameters/placeId'
+      requestBody:
+        description: New place info
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Place"
+      responses:
+        '200':
+          description: User place changed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Place"
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /place/{placeId}/lives:
+    get:
+      tags:
+        - place
+        - live
+      summary: Get lives info
+      description: Get place's lives
+      x-amazon-apigateway-request-validator: "params-only"
+      x-amazon-apigateway-auth: "AWS_IAM"
+      x-amazon-apigateway-integration:
+        type: "aws_proxy"
+        uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-getLives/invocations
+        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole
+        passthroughBehavior: "when_no_match"
+        httpMethod: "POST"
+      parameters:
+        - $ref: '#/components/parameters/placeId'
+      responses:
+        '200':
+          description: Lives info
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Lives"
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    post:
+      tags:
+        - place
+        - live
+      summary: Add live info
+      description: Add live info. User must be logged in
+      x-amazon-apigateway-request-validator: "all"
+      x-amazon-apigateway-auth: "AWS_IAM"
+      x-amazon-apigateway-integration:
+        type: "aws_proxy"
+        uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-addLive/invocations
+        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole
+        passthroughBehavior: "when_no_match"
+        httpMethod: "POST"
+      parameters:
+        - $ref: '#/components/parameters/placeId'
+      requestBody:
+        description: New live info
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Live"
+      responses:
+        '200':
+          description: Live added
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Live"
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /place/{placeId}/lives/{liveId}:
+    get:
+      tags:
+        - live
+        - place
+      summary: Get live info
+      description: Get place's live info
+      x-amazon-apigateway-request-validator: "params-only"
+      x-amazon-apigateway-auth: "AWS_IAM"
+      x-amazon-apigateway-integration:
+        type: "aws_proxy"
+        uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-getLive/invocations
+        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole
+        passthroughBehavior: "when_no_match"
+        httpMethod: "POST"
+      parameters:
+        - $ref: '#/components/parameters/placeId'
+        - $ref: '#/components/parameters/liveId'
+      responses:
+        '200':
+          description: Live info
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Live"
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    put:
+      tags:
+        - live
+        - place
+      summary: Edit live info
+      description: Edit live info. User must be logged in
+      x-amazon-apigateway-request-validator: "all"
+      x-amazon-apigateway-auth: "AWS_IAM"
+      x-amazon-apigateway-integration:
+        type: "aws_proxy"
+        uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-editLive/invocations
+        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole
+        passthroughBehavior: "when_no_match"
+        httpMethod: "POST"
+      parameters:
+        - $ref: '#/components/parameters/placeId'
+        - $ref: '#/components/parameters/liveId'
+      requestBody:
+        description: New live info
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Live"
+      responses:
+        '200':
+          description: Live changed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Live"
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    delete:
+      tags:
+        - live
+        - place
+      summary: Delete live
+      description: Delete live. User cam must be logged in.
+      x-amazon-apigateway-request-validator: "params-only"
+      x-amazon-apigateway-auth: "AWS_IAM"
+      x-amazon-apigateway-integration:
+        type: "aws_proxy"
+        uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-deleteLive/invocations
+        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole
+        passthroughBehavior: "when_no_match"
+        httpMethod: "POST"
+      parameters:
+        - $ref: '#/components/parameters/userId'
+        - $ref: '#/components/parameters/placeId'
+        - $ref: '#/components/parameters/liveId'
+      responses:
+        '200':
+          description: Activity deleted succesfull
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /places:
+    get:
+      tags:
+        - place
+      summary: Get places list inside position range
+      description: Returns the list of positions within the position range. The position is indicated by coordinates (latitude and longitude) and the range is expressed in meters.
+      x-amazon-apigateway-request-validator: "params-only"
+      x-amazon-apigateway-auth: "AWS_IAM"
+      x-amazon-apigateway-integration:
+        type: "aws_proxy"
+        uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-getPlaces/invocations
+        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole
+        passthroughBehavior: "when_no_match"
+        httpMethod: "POST"
+      parameters:
+        - name: latitude
+          in: query
+          description: User postition latitude
+          required: true
+          schema:
+            type: number
+        - name: longitude
+          in: query
+          description: User postition longitude
+          required: true
+          schema:
+            type: number
+        - name: range
+          in: query
+          description: Search range in meters
+          required: true
+          schema:
+            type: number
+      responses:
+        '200':
+          description: Place result
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Places"
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /places/{placeId}/activity:
+    get:
+      tags:
+        - activity
+        - place
+      summary: Get place's activity list
+      description: Returns the place's activities. Using a query parameter, you can request past, scheduled and ongoing activities.
+      x-amazon-apigateway-request-validator: "params-only"
+      x-amazon-apigateway-auth: "AWS_IAM"
+      x-amazon-apigateway-integration:
+        type: "aws_proxy"
+        uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-getActivities/invocations
+        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole
+        passthroughBehavior: "when_no_match"
+        httpMethod: "POST"
+      parameters:
+        - $ref: '#/components/parameters/userId'
+        - $ref: '#/components/parameters/placeId'
+        - name: type
+          in: query
+          description: Activity type (past, ongoing and scheduled)
+          required: true
+          schema:
+            type: string
+        - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/limit'
+      responses:
+        '200':
+          description: Activities result
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: "#/components/schemas/Activity"
+                  - $ref: "#/components/schemas/Activities"
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    post:
+      tags:
+        - activity
+        - place
+      summary: Add activity
+      description: Add activity. User must be logged in
+      x-amazon-apigateway-request-validator: "all"
+      x-amazon-apigateway-auth: "AWS_IAM"
+      x-amazon-apigateway-integration:
+        type: "aws_proxy"
+        uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-addActivity/invocations
+        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole
+        passthroughBehavior: "when_no_match"
+        httpMethod: "POST"
+      parameters:
+        - $ref: '#/components/parameters/placeId'
+      requestBody:
+        description: New activity
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Activity"
+      responses:
+        '200':
+          description: Activity added
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Activity"
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /places/{placeId}/activity/{activityId}:
+    put:
+      tags:
+        - activity
+        - place
+      summary: Edit activity
+      description: Edit activity. User must be logged in.
+      x-amazon-apigateway-request-validator: "all"
+      x-amazon-apigateway-auth: "AWS_IAM"
+      x-amazon-apigateway-integration:
+        type: "aws_proxy"
+        uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-editActivity/invocations
+        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole
+        passthroughBehavior: "when_no_match"
+        httpMethod: "POST"
+      parameters:
+        - $ref: '#/components/parameters/placeId'
+        - $ref: '#/components/parameters/activityId'
+      requestBody:
+        description: New activity
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Activity"
+      responses:
+        '200':
+          description: Activity changed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Activity"
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    delete:
+      tags:
+        - activity
+        - place
+      summary: Delete activity
+      description: Delete activity. User must be logged in.
+      x-amazon-apigateway-request-validator: "params-only"
+      x-amazon-apigateway-auth: "AWS_IAM"
+      x-amazon-apigateway-integration:
+        type: "aws_proxy"
+        uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-deleteActivity/invocations
+        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole
+        passthroughBehavior: "when_no_match"
+        httpMethod: "POST"
+      parameters:
+        - $ref: '#/components/parameters/userId'
+        - $ref: '#/components/parameters/placeId'
+        - $ref: '#/components/parameters/activityId'
+      responses:
+        '200':
+          description: Activity deleted succesfull
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /users/{userId}/followers:
+    get:
+      tags:
+        - userGraph
+      summary: Get followers list
+      description: Get public informations by followers list
+      x-amazon-apigateway-request-validator: "params-only"
+      x-amazon-apigateway-auth: "AWS_IAM"
+      x-amazon-apigateway-integration:
+        type: "aws_proxy"
+        uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-getFollowersList/invocations
+        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole
+        passthroughBehavior: "when_no_match"
+        httpMethod: "POST"
+      parameters:
+        - $ref: '#/components/parameters/userId'
+        - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/limit'
+      responses:
+        '200':
+          description: Users public profile
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UsersPublicProfile"
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /users/{userId}/following:
+    get:
+      tags:
+        - userGraph
+      summary: Get following list
+      description: Get public informations by following list
+      x-amazon-apigateway-request-validator: "params-only"
+      x-amazon-apigateway-auth: "AWS_IAM"
+      x-amazon-apigateway-integration:
+        type: "aws_proxy"
+        uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-getFollowingList/invocations
+        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole
+        passthroughBehavior: "when_no_match"
+        httpMethod: "POST"
+      parameters:
+        - $ref: '#/components/parameters/userId'
+        - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/limit'
+      responses:
+        '200':
+          description: Users public profile
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UsersPublicProfile"
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /users/{userId}/following/{targetId}:
+    post:
+      tags:
+        - userGraph
+      summary: Follow user
+      description: Follow user (userId follow targetId). UserId must be logged in
+      x-amazon-apigateway-request-validator: "all"
+      x-amazon-apigateway-auth: "AWS_IAM"
+      x-amazon-apigateway-integration:
+        type: "aws_proxy"
+        uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-follow/invocations
+        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole
+        passthroughBehavior: "when_no_match"
+        httpMethod: "POST"
+      parameters:
+        - $ref: '#/components/parameters/userId'
+        - $ref: '#/components/parameters/targetId'
+      responses:
+        '200':
+          description: Following succesfull
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    delete:
+      tags:
+        - userGraph
+      summary: Unfollow user
+      description: Unfollow user (userId funollow targetId). UserId must be logged in
+      x-amazon-apigateway-request-validator: "params-only"
+      x-amazon-apigateway-auth: "AWS_IAM"
+      x-amazon-apigateway-integration:
+        type: "aws_proxy"
+        uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-unfollow/invocations
+        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole
+        passthroughBehavior: "when_no_match"
+        httpMethod: "POST"
+      parameters:
+        - $ref: '#/components/parameters/userId'
+        - $ref: '#/components/parameters/targetId'
+      responses:
+        '200':
+          description: Unfollowing succesfull
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /users/{userId}/posts:
+    get:
+      tags:
+        - post
+        - user
+      summary: Get user post
+      description: Get the list of posts published in the user's profile (userId)
+      x-amazon-apigateway-request-validator: "params-only"
+      x-amazon-apigateway-auth: "AWS_IAM"
+      x-amazon-apigateway-integration:
+        type: "aws_proxy"
+        uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-getPosts/invocations
+        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole
+        passthroughBehavior: "when_no_match"
+        httpMethod: "POST"
+      parameters:
+        - $ref: '#/components/parameters/userId'
+        - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/limit'
+      responses:
+        '200':
+          description: Posts result
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Posts"
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    post:
+      tags:
+        - post
+        - user
+      summary: Add user posts
+      description: Add post inside the user's profile (userId)
+      x-amazon-apigateway-request-validator: "all"
+      x-amazon-apigateway-auth: "AWS_IAM"
+      x-amazon-apigateway-integration:
+        type: "aws_proxy"
+        uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-addPost/invocations
+        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole
+        passthroughBehavior: "when_no_match"
+        httpMethod: "POST"
+      parameters:
+        - $ref: '#/components/parameters/userId'
+      requestBody:
+        description: New user post
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/NewPost"
+      responses:
+        '200':
+          description: Post added
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Post"
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /posts/{postId}:
+    get:
+      tags:
+        - post
+      summary: Get user post
+      description: Get post (postId) by the user (userId) profile. Any user can publish to any user profile (if public).
+      x-amazon-apigateway-request-validator: "all"
+      x-amazon-apigateway-auth: "AWS_IAM"
+      x-amazon-apigateway-integration:
+        type: "aws_proxy"
+        uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-getPost/invocations
+        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole
+        passthroughBehavior: "when_no_match"
+        httpMethod: "POST"
+      parameters:
+        - $ref: '#/components/parameters/userId'
+        - $ref: '#/components/parameters/postId'
+      responses:
+        '200':
+          description: Posts result
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Post"
+    put:
+      tags:
+        - post
+      summary: Edit user posts
+      description: Edit post (postId) in the user (userId) profile. Author user must be logged in
+      x-amazon-apigateway-request-validator: "all"
+      x-amazon-apigateway-auth: "AWS_IAM"
+      x-amazon-apigateway-integration:
+        type: "aws_proxy"
+        uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-editPost/invocations
+        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole
+        passthroughBehavior: "when_no_match"
+        httpMethod: "POST"
+      parameters:
+        - $ref: '#/components/parameters/userId'
+        - $ref: '#/components/parameters/postId'
+      requestBody:
+        description: New user post
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/NewPost"
+      responses:
+        '200':
+          description: Post changed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Post"
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    delete:
+      tags:
+        - post
+      summary: Delete user post
+      description: Delete post (postId) in the user (userId) profile. Author user must be logged in
+      x-amazon-apigateway-request-validator: "params-only"
+      x-amazon-apigateway-auth: "AWS_IAM"
+      x-amazon-apigateway-integration:
+        type: "aws_proxy"
+        uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-deletePost/invocations
+        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole
+        passthroughBehavior: "when_no_match"
+        httpMethod: "POST"
+      parameters:
+        - $ref: '#/components/parameters/userId'
+        - $ref: '#/components/parameters/postId'
+      responses:
+        '200':
+          description: Posts deleted succesfull
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /posts/{postId}/comments:
+    get:
+      tags:
+        - comment
+        - post
+      summary: Get post comments
+      description: Get post comments list
+      x-amazon-apigateway-request-validator: "params-only"
+      x-amazon-apigateway-auth: "AWS_IAM"
+      x-amazon-apigateway-integration:
+        type: "aws_proxy"
+        uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-getComments/invocations
+        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole
+        passthroughBehavior: "when_no_match"
+        httpMethod: "POST"
+      parameters:
+        - $ref: '#/components/parameters/userId'
+        - $ref: '#/components/parameters/postId'
+        - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/limit'
+      responses:
+        '200':
+          description: Post comments list
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Comments"
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    post:
+      tags:
+        - comment
+        - post
+      summary: Add post comment
+      description: Add post comment
+      x-amazon-apigateway-request-validator: "all"
+      x-amazon-apigateway-auth: "AWS_IAM"
+      x-amazon-apigateway-integration:
+        type: "aws_proxy"
+        uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-addComment/invocations
+        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole
+        passthroughBehavior: "when_no_match"
+        httpMethod: "POST"
+      parameters:
+        - $ref: '#/components/parameters/userId'
+        - $ref: '#/components/parameters/postId'
+      requestBody:
+        description: New post comment
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/NewComment"
+      responses:
+        '200':
+          description: Comment added
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Comment"
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /comments/{commentId}:
+    get:
+      tags:
+        - comment
+      summary: Get comment replies
+      description: Get comment replies
+      x-amazon-apigateway-request-validator: "params-only"
+      x-amazon-apigateway-auth: "AWS_IAM"
+      x-amazon-apigateway-integration:
+        type: "aws_proxy"
+        uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-getComments/invocations
+        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole
+        passthroughBehavior: "when_no_match"
+        httpMethod: "POST"
+      parameters:
+        - $ref: '#/components/parameters/userId'
+        - $ref: '#/components/parameters/postId'
+        - $ref: '#/components/parameters/commentId'
+      responses:
+        '200':
+          description: Comment result
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Comment"
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    put:
+      tags:
+        - comment
+      summary: Edit post comment
+      description: Edit post comment. Comment author must be logged in.
+      x-amazon-apigateway-request-validator: "all"
+      x-amazon-apigateway-auth: "AWS_IAM"
+      x-amazon-apigateway-integration:
+        type: "aws_proxy"
+        uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-editComment/invocations
+        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole
+        passthroughBehavior: "when_no_match"
+        httpMethod: "POST"
+      parameters:
+        - $ref: '#/components/parameters/userId'
+        - $ref: '#/components/parameters/postId'
+        - $ref: '#/components/parameters/commentId'
+      requestBody:
+        description: New post comment
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/NewComment"
+      responses:
+        '200':
+          description: Comment changed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Comment"
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    post:
+      tags:
+        - comment
+      summary: Add comment reply
+      description: Add comment reply
+      x-amazon-apigateway-request-validator: "all"
+      x-amazon-apigateway-auth: "AWS_IAM"
+      x-amazon-apigateway-integration:
+        type: "aws_proxy"
+        uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-addComment/invocations
+        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole
+        passthroughBehavior: "when_no_match"
+        httpMethod: "POST"
+      parameters:
+        - $ref: '#/components/parameters/userId'
+        - $ref: '#/components/parameters/postId'
+        - $ref: '#/components/parameters/commentId'
+      requestBody:
+        description: New post comment
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/NewComment"
+      responses:
+        '200':
+          description: Comment added
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Comment"
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    delete:
+      tags:
+        - comment
+      summary: Delete post comment
+      description: Delete post comment. Comment author must be logged in.
+      x-amazon-apigateway-request-validator: "params-only"
+      x-amazon-apigateway-auth: "AWS_IAM"
+      x-amazon-apigateway-integration:
+        type: "aws_proxy"
+        uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-deleteComment/invocations
+        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole
+        passthroughBehavior: "when_no_match"
+        httpMethod: "POST"
+      parameters:
+        - $ref: '#/components/parameters/userId'
+        - $ref: '#/components/parameters/postId'
+        - $ref: '#/components/parameters/commentId'
+      responses:
+        '200':
+          description: Comment deleted succesfull
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /posts/{postId}/likes:
+    get:
+      tags:
+        - like
+        - post
+      summary: Get users who liked post
+      description: Get users's public information who liked post
+      x-amazon-apigateway-request-validator: "params-only"
+      x-amazon-apigateway-auth: "AWS_IAM"
+      x-amazon-apigateway-integration:
+        type: "aws_proxy"
+        uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-getLikes/invocations
+        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole
+        passthroughBehavior: "when_no_match"
+        httpMethod: "POST"
+      parameters:
+        - $ref: '#/components/parameters/userId'
+        - $ref: '#/components/parameters/postId'
+        - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/limit'
+      responses:
+        '200':
+          description: Users's public info who liked it
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UsersPublicProfile"
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /posts/{postId}/likes/{userId}:
+    post:
+      tags:
+        - like
+        - post
+      summary: User (userId) like post (postId)
+      description: User (userId) like post (postId). UserId users must be logged in.
+      x-amazon-apigateway-request-validator: "all"
+      x-amazon-apigateway-auth: "AWS_IAM"
+      x-amazon-apigateway-integration:
+        type: "aws_proxy"
+        uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-addLike/invocations
+        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole
+        passthroughBehavior: "when_no_match"
+        httpMethod: "POST"
+      parameters:
+        - $ref: '#/components/parameters/postId'
+        - $ref: '#/components/parameters/userId'
+      responses:
+        '200':
+          description: Liked succesfull
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    delete:
+      tags:
+        - like
+        - post
+      summary: Delete like from post (postId) by user (userId)
+      description: Delete like from post (postId) by user (userId). UserId users must be logged in.
+      x-amazon-apigateway-request-validator: "params-only"
+      x-amazon-apigateway-auth: "AWS_IAM"
+      x-amazon-apigateway-integration:
+        type: "aws_proxy"
+        uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-deleteLike/invocations
+        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole
+        passthroughBehavior: "when_no_match"
+        httpMethod: "POST"
+      parameters:
+        - $ref: '#/components/parameters/postId'
+        - $ref: '#/components/parameters/userId'
+      responses:
+        '200':
+          description: Like deleted succesfull
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /comments/{commentId}/likes:
+    get:
+      tags:
+        - like
+        - comment
+      summary: Get users who liked comment
+      description: Get users's public information who liked comment
+      x-amazon-apigateway-request-validator: "params-only"
+      x-amazon-apigateway-auth: "AWS_IAM"
+      x-amazon-apigateway-integration:
+        type: "aws_proxy"
+        uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-getLikes/invocations
+        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole
+        passthroughBehavior: "when_no_match"
+        httpMethod: "POST"
+      parameters:
+        - $ref: '#/components/parameters/commentId'
+        - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/limit'
+      responses:
+        '200':
+          description: Users's public info who liked it
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UsersPublicProfile"
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /comments/{commentId}/likes/{userId}:
+    post:
+      tags:
+        - like
+        - comment
+      summary: User (userId) like comment (commentId)
+      description: User (userId) like comment (commentId)). UserId users must be logged in.
+      x-amazon-apigateway-request-validator: "all"
+      x-amazon-apigateway-auth: "AWS_IAM"
+      x-amazon-apigateway-integration:
+        type: "aws_proxy"
+        uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-addLike/invocations
+        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole
+        passthroughBehavior: "when_no_match"
+        httpMethod: "POST"
+      parameters:
+        - $ref: '#/components/parameters/commentId'
+        - $ref: '#/components/parameters/userId'
+      responses:
+        '200':
+          description: Liked succesfull
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    delete:
+      tags:
+        - like
+        - comment
+      summary: Delete like from comment (commentId) by user (userId)
+      description: Delete like from comment (commentId) by user (userId). UserId users must be logged in.
+      x-amazon-apigateway-request-validator: "params-only"
+      x-amazon-apigateway-auth: "AWS_IAM"
+      x-amazon-apigateway-integration:
+        type: "aws_proxy"
+        uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-deleteLike/invocations
+        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole
+        passthroughBehavior: "when_no_match"
+        httpMethod: "POST"
+      parameters:
+        - $ref: '#/components/parameters/commentId'
+        - $ref: '#/components/parameters/userId'
+      responses:
+        '200':
+          description: Like deleted succesfull
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+# Added by API Auto Mocking Plugin
+servers:
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/lucapirrone/soMapCial/1.0.0
