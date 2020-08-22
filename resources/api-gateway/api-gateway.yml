@@ -27,7 +27,7 @@ Outputs:
   ApiGatewayArn:
     Value:
       Fn::GetAtt:
-        - ApiGatewayDeployment
+        - ApiGatewayRestApi
         - Arn
     Export:
       Name: ${self:provider.stage}-ApiGatewayArn
