@@ -23,3 +23,11 @@ Resources:
     Properties:
       Name: ${self:service}
       Body: ${file(resources/api-gateway/openapi.yml)}
+Outputs:
+  ApiGatewayArn:
+    Value:
+      Fn::GetAtt:
+        - ApiGatewayDeployment
+        - Arn
+    Export:
+      Name: ${self:custom.stage}-ApiGatewayArn
