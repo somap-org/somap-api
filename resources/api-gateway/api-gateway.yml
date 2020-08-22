@@ -30,4 +30,4 @@ Outputs:
         - ApiGatewayDeployment
         - Arn
     Export:
-      Name: ${self:custom.stage}-ApiGatewayArn
+      Name: ${self:provider.stage}-ApiGatewayArn
