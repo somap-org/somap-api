@@ -99,6 +99,3 @@ functions:
 resources:
   # API Gateway
   - ${file(resources/api-gateway/api-gateway.yml)}
-  # Cognito
-  - ${file(resources/cognito/cognito-user-pool.yml)}
-  - ${file(resources/cognito/cognito-identity-pool.yml)}
