@@ -67,6 +67,7 @@ describe('Delete post', async () => {
                 }
             }
         };
+        event.body = JSON.stringify(event.body);
         response = await addPost(event);
         response.body = JSON.parse(response.body);
         let expectedBody:Post = {
@@ -115,6 +116,7 @@ describe('Delete post', async () => {
                 }
             }
         };
+        event.body = JSON.stringify(event.body);
         response = await addPost(event);
         response.body = JSON.parse(response.body);
         postMariorossi.sharedCount++;
@@ -163,6 +165,7 @@ describe('Delete post', async () => {
                 }
             }
         };
+        event.body = JSON.stringify(event.body);
         response = await addPost(event);
         response.body = JSON.parse(response.body);
         let expectedBody:Post = {
@@ -274,6 +277,7 @@ describe('Delete post', async () => {
                 }
             }
         };
+        event.body = JSON.stringify(event.body);
         response = await deletePost(event);
         response.body = JSON.parse(response.body);
         expectedResponse = {

@@ -69,6 +69,7 @@ describe('Get lives', async () => {
                 }
             }
         };
+        event.body = JSON.stringify(event.body);
         response = await addPlace(event);
         response.body = JSON.parse(response.body);
 
@@ -114,6 +115,7 @@ describe('Get lives', async () => {
                     }
                 }
             };
+            event.body = JSON.stringify(event.body);
             response = await addLive(event);
             response.body = JSON.parse(response.body);
             expectedResponse = {

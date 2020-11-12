@@ -70,6 +70,7 @@ describe('Edit activity', async () => {
                 }
             }
         };
+        event.body = JSON.stringify(event.body);
         response = await addPlace(event);
         response.body = JSON.parse(response.body);
 
@@ -111,6 +112,7 @@ describe('Edit activity', async () => {
                 }
             }
         };
+        event.body = JSON.stringify(event.body);
         response = await addPlace(event);
         response.body = JSON.parse(response.body);
 
@@ -151,6 +153,7 @@ describe('Edit activity', async () => {
                 }
             }
         };
+        event.body = JSON.stringify(event.body);
         response = await addActivity(event);
         response.body = JSON.parse(response.body);
         expectedResponse = {
@@ -189,6 +192,7 @@ describe('Edit activity', async () => {
                 }
             }
         };
+        event.body = JSON.stringify(event.body);
         response = await addActivity(event);
         response.body = JSON.parse(response.body);
         expectedResponse = {
@@ -254,6 +258,7 @@ describe('Edit activity', async () => {
                 ...activityBody
             }
         };
+        event.body = JSON.stringify(event.body);
         expectedResponse = {
             statusCode: 200,
             headers: {
@@ -291,6 +296,7 @@ describe('Edit activity', async () => {
                 ...activityBody
             }
         };
+        event.body = JSON.stringify(event.body);
         expectedResponse = {
             statusCode: 200,
             headers: {
@@ -337,6 +343,7 @@ describe('Edit activity', async () => {
             },
             body: {}
         };
+        event.body = JSON.stringify(event.body);
         let response = await editActivity(event);
         response.body = JSON.parse(response.body);
         expect(response).to.deep.equal(expectedResponse);
@@ -357,6 +364,7 @@ describe('Edit activity', async () => {
                 ...activityBody
             }
         };
+        event.body = JSON.stringify(event.body);
         expectedResponse = {
             statusCode: 401,
             headers: {

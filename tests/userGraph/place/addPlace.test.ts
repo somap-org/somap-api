@@ -79,6 +79,7 @@ describe('Add place', async () => {
                 }
             }
         };
+        event.body = JSON.stringify(event.body);
         response = await addPlace(event);
         response.body = JSON.parse(response.body);
 
@@ -128,6 +129,7 @@ describe('Add place', async () => {
             },
             "body": {}
         };
+        event.body = JSON.stringify(event.body);
         response = await addPlace(event);
         response.body = JSON.parse(response.body);
         expect(response).to.deep.equal(expectedResponse);

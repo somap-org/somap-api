@@ -68,6 +68,7 @@ describe('Add live', async () => {
                 }
             }
         };
+        event.body = JSON.stringify(event.body);
         response = await addPlace(event);
         response.body = JSON.parse(response.body);
 
@@ -109,6 +110,7 @@ describe('Add live', async () => {
                 }
             }
         };
+        event.body = JSON.stringify(event.body);
         response = await addPlace(event);
         response.body = JSON.parse(response.body);
 
@@ -172,6 +174,7 @@ describe('Add live', async () => {
                 }
             }
         };
+        event.body = JSON.stringify(event.body);
         response = await addLive(event);
         response.body = JSON.parse(response.body);
         expectedResponse = {
@@ -210,6 +213,7 @@ describe('Add live', async () => {
                 }
             }
         };
+        event.body = JSON.stringify(event.body);
         response = await addLive(event);
         response.body = JSON.parse(response.body);
         expectedResponse = {
@@ -248,6 +252,7 @@ describe('Add live', async () => {
                 }
             }
         };
+        event.body = JSON.stringify(event.body);
         response = await addLive(event);
         response.body = JSON.parse(response.body);
         expectedResponse = {
@@ -278,6 +283,7 @@ describe('Add live', async () => {
                 ...liveBody
             }
         };
+        event.body = JSON.stringify(event.body);
         response = await addLive(event);
         response.body = JSON.parse(response.body);
         expectedResponse = {

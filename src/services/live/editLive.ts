@@ -19,7 +19,7 @@ export async function main(event){
     const liveId = event.pathParameters.liveId;
 
     //Prendi parametri dalla richiesta
-    const body:Live = event.body;
+    const body:Live = JSON.parse(event.body);
 
 
     if(!await securityManager.isUserLogged() || !await securityManager.isUserCam() || !await securityManager.isUserCamPlaceOwner())

@@ -75,6 +75,7 @@ describe('Edit username', async () => {
                 username: "simoneverdi2"
             },
         };
+        event.body = JSON.stringify(event.body);
         let response = await editUsername(event);
         response.body = JSON.parse(response.body);
         expect(response).to.deep.equal(expectedResponse);
@@ -104,6 +105,7 @@ describe('Edit username', async () => {
             },
             body: {},
         };
+        event.body = JSON.stringify(event.body);
         let response = await editUsername(event);
         response.body = JSON.parse(response.body);
         expect(response).to.deep.equal(expectedResponse);

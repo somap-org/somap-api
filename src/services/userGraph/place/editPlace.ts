@@ -19,7 +19,7 @@ export async function main(event){
     const placeId = event.pathParameters.placeId;
 
     //Prendi parametri dalla richiesta
-    const body:Place = event.body;
+    const body:Place = JSON.parse(event.body);
 
     if(!await securityManager.isUserLogged() || !await securityManager.isUserCamPlaceOwner())
         return responseManager.send(401);
@@ -31,10 +31,10 @@ export async function main(event){
         address: body.address,
         location: {
             type: 'Point',
-            coordinates: {
-                latitude: body.coordinates.latitude,
-                longitude: body.coordinates.longitude
-            }
+            coordinates: [
+                body.coordinates.longitude,
+                body.coordinates.latitude
+            ]
         }
     };
 
@@ -46,8 +46,8 @@ export async function main(event){
             description: place.description,
             address: place.address,
             coordinates: {
-                latitude: place.location.coordinates.latitude,
-                longitude: place.location.coordinates.longitude
+                latitude: place.location.coordinates[1],
+                longitude: place.location.coordinates[0]
             },
             placeId: place['_id']
         };

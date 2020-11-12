@@ -154,6 +154,7 @@ describe('comment', async function () {
                 }
             }
         };
+        event.body = JSON.stringify(event.body);
         response = await addPost(event);
         response.body = JSON.parse(response.body);
         let expectedBody:Post = {
@@ -202,6 +203,7 @@ describe('comment', async function () {
                 }
             }
         };
+        event.body = JSON.stringify(event.body);
         response = await addPost(event);
         post1.sharedCount++;
         response.body = JSON.parse(response.body);
@@ -252,6 +254,7 @@ describe('comment', async function () {
                 }
             }
         };
+        event.body = JSON.stringify(event.body);
         response = await addComment(event);
         response.body = JSON.parse(response.body);
         let expectedBody:Comment = {
@@ -298,6 +301,7 @@ describe('comment', async function () {
                 }
             }
         };
+        event.body = JSON.stringify(event.body);
         response = await addComment(event);
         response.body = JSON.parse(response.body);
         let expectedBody:Comment = {
@@ -344,6 +348,7 @@ describe('comment', async function () {
                 }
             }
         };
+        event.body = JSON.stringify(event.body);
         response = await addComment(event);
         response.body = JSON.parse(response.body);
         let expectedBody:Comment = {
@@ -390,6 +395,7 @@ describe('comment', async function () {
                 }
             }
         };
+        event.body = JSON.stringify(event.body);
         response = await addComment(event);
         response.body = JSON.parse(response.body);
         let expectedBody:Comment = {
@@ -436,6 +442,7 @@ describe('comment', async function () {
                 }
             }
         };
+        event.body = JSON.stringify(event.body);
         response = await addComment(event);
         response.body = JSON.parse(response.body);
         let expectedBody:Comment = {
@@ -482,6 +489,7 @@ describe('comment', async function () {
                 }
             }
         };
+        event.body = JSON.stringify(event.body);
         response = await addComment(event);
         response.body = JSON.parse(response.body);
         let expectedBody:Comment = {
@@ -528,6 +536,7 @@ describe('comment', async function () {
                 }
             }
         };
+        event.body = JSON.stringify(event.body);
         response = await addComment(event);
         response.body = JSON.parse(response.body);
         let expectedBody:Comment = {
@@ -571,6 +580,7 @@ describe('comment', async function () {
                 ...postBody
             }
         };
+        event.body = JSON.stringify(event.body);
         response = await addComment(event);
         response.body = JSON.parse(response.body);
         expectedResponse = {
@@ -753,6 +763,7 @@ describe('comment', async function () {
                 }
             }
         };
+        event.body = JSON.stringify(event.body);
         response = await editComment(event);
         response.body = JSON.parse(response.body);
         let expectedBody:Post = {
@@ -791,6 +802,7 @@ describe('comment', async function () {
                 }
             }
         };
+        event.body = JSON.stringify(event.body);
         response = await editComment(event);
         response.body = JSON.parse(response.body);
         let expectedBody:Post = {
@@ -824,6 +836,7 @@ describe('comment', async function () {
                 ...postBody
             }
         };
+        event.body = JSON.stringify(event.body);
         response = await editComment(event);
         response.body = JSON.parse(response.body);
         expectedResponse = {

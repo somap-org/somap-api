@@ -69,6 +69,7 @@ describe('Delete live', async () => {
                 }
             }
         };
+        event.body = JSON.stringify(event.body);
         response = await addPlace(event);
         response.body = JSON.parse(response.body);
 
@@ -110,6 +111,7 @@ describe('Delete live', async () => {
                 }
             }
         };
+        event.body = JSON.stringify(event.body);
         response = await addPlace(event);
         response.body = JSON.parse(response.body);
 
@@ -166,6 +168,7 @@ describe('Delete live', async () => {
                 }
             }
         };
+        event.body = JSON.stringify(event.body);
         response = await addLive(event);
         response.body = JSON.parse(response.body);
         expectedResponse = {
@@ -201,6 +204,7 @@ describe('Delete live', async () => {
                 }
             }
         };
+        event.body = JSON.stringify(event.body);
         response = await addLive(event);
         response.body = JSON.parse(response.body);
         expectedResponse = {

@@ -21,6 +21,8 @@ describe('Get user public profile', async () => {
             }
         };
         loggedUser = await signUp(event);
+        loggedUser = loggedUser.toJSON();
+        loggedUser.publicProfile.userType = loggedUser.userType;
         expect(loggedUser).to.not.be.null;
     });
     before('Signing up test other users', async () => {
@@ -37,6 +39,8 @@ describe('Get user public profile', async () => {
             }
         };
         otherUser = await signUp(event);
+        otherUser = otherUser.toJSON();
+        otherUser.publicProfile.userType = otherUser.userType;
         expect(otherUser).to.not.be.null;
     });
 

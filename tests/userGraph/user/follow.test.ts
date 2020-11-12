@@ -25,7 +25,8 @@ describe('Follower service', async () => {
                 }
             }
         };
-        mariorossi = await signUp(event);
+        mariorossi = (await signUp(event)).toJSON();
+        mariorossi.publicProfile.userType = mariorossi.userType;
         expect(mariorossi).to.not.be.null;
     });
     before('Signing up fabiobianchi user', async () => {
@@ -41,7 +42,8 @@ describe('Follower service', async () => {
                 }
             }
         };
-        fabiobianchi = await signUp(event);
+        fabiobianchi = (await signUp(event)).toJSON();
+        fabiobianchi.publicProfile.userType = fabiobianchi.userType;
         expect(fabiobianchi).to.not.be.null;
     });
 
@@ -163,6 +165,7 @@ describe('Follower service', async () => {
         };
         response = await getUserPublicProfile(event);
         response.body = JSON.parse(response.body);
+        console.log(response);
         expect(response).to.deep.equal(expectedResponse);
     });
     it('Check mario.followingList is null', async () => {
@@ -664,7 +667,6 @@ describe('Follower service', async () => {
         };
         response = await getFollowersList(event);
         response.body = JSON.parse(response.body);
-        ;
         expect(response).to.deep.equal(expectedResponse);
     });
     it('Check mario.followingList contain fabio', async () => {

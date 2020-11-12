@@ -19,15 +19,15 @@ export class SecurityManager {
 
         let user = await this.repo.getUserByCognitoId(this.event.requestContext?.identity?.cognitoIdentityId);
         if (!user) {
-            //console.log("User not found");
+            console.log("User not found");
             return false;
         }
         if (user['_id'].toString() == this.event.pathParameters?.userId.toString()) {
-            //console.log("Authorized");
+            console.log("Authorized");
             return true;
         }
         else {
-            //console.log("Not Authorized: "+user['_id']+"-"+this.event.pathParameters.userId);
+            console.log("Not Authorized: "+user['_id']+"-"+this.event.pathParameters.userId);
             return false;
         }
         return false;

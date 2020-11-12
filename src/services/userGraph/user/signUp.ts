@@ -55,8 +55,7 @@ export async function main(event) {
             return null;
 
         try {
-            await repo.signUpUser(user);
-            return event;
+            return  await repo.signUpUser(user);
         } catch (e) {
             return null;
         }

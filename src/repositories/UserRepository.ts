@@ -31,7 +31,7 @@ export class UserRepository {
     }
 
     async signUpUser(user: User) {
-        return UserModel.create(user);
+        return await UserModel.create(user);
     }
 
     async editUsername(userId: string, username: string): Promise<User> {

@@ -69,6 +69,7 @@ describe('Get activities', async () => {
                 }
             }
         };
+        event.body = JSON.stringify(event.body);
         response = await addPlace(event);
         response.body = JSON.parse(response.body);
 
@@ -122,6 +123,7 @@ describe('Get activities', async () => {
                     }
                 }
             };
+            event.body = JSON.stringify(event.body);
             response = await addActivity(event);
             response.body = JSON.parse(response.body);
             expectedResponse = {

@@ -15,10 +15,10 @@ export class Place extends Typegoose {
     @prop({ required: true })
     location: {
         type: string,
-        coordinates: {
-            latitude: number,
-            longitude: number
-        }
+        coordinates: [
+          number,   //longitude
+          number    //latitude
+        ]
     };
     @prop({ ref: 'User', required: false })
     peapleHere: Ref<User>[];

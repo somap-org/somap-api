@@ -21,6 +21,7 @@ describe('Get user settings', async () => {
             }
         };
         loggedUser = await signUp(event);
+        loggedUser = loggedUser.toJSON();
         expect(loggedUser).to.not.be.null;
     });
     before('Signing up test other users', async () => {
@@ -37,6 +38,7 @@ describe('Get user settings', async () => {
             }
         };
         otherUser = await signUp(event);
+        otherUser = otherUser.toJSON();
         expect(otherUser).to.not.be.null;
     });
 
@@ -73,6 +75,7 @@ describe('Get user settings', async () => {
                 userId: loggedUser['_id'].toString()
             },
         };
+        console.log(loggedUser.settings);
         let response = await getUserSettings(event);
         response.body = JSON.parse(response.body);
         expect(response).to.deep.equal(expectedResponse);

@@ -64,6 +64,7 @@ describe('Edit activity', async () => {
                 }
             }
         };
+        event.body = JSON.stringify(event.body);
         response = await addPost(event);
         response.body = JSON.parse(response.body);
         let expectedBody:Post = {
@@ -112,6 +113,7 @@ describe('Edit activity', async () => {
                 }
             }
         };
+        event.body = JSON.stringify(event.body);
         response = await addPost(event);
         response.body = JSON.parse(response.body);
         postLogged.sharedCount++;
@@ -160,6 +162,7 @@ describe('Edit activity', async () => {
                 }
             }
         };
+        event.body = JSON.stringify(event.body);
         response = await addPost(event);
         response.body = JSON.parse(response.body);
         let expectedBody:Post = {
@@ -233,6 +236,7 @@ describe('Edit activity', async () => {
                 }
             }
         };
+        event.body = JSON.stringify(event.body);
         response = await editPost(event);
         response.body = JSON.parse(response.body);
         let expectedBody:Post = {
@@ -273,6 +277,7 @@ describe('Edit activity', async () => {
                 }
             }
         };
+        event.body = JSON.stringify(event.body);
         response = await editPost(event);
         response.body = JSON.parse(response.body);
         let expectedBody:Post = {
@@ -312,6 +317,7 @@ describe('Edit activity', async () => {
                 }
             }
         };
+        event.body = JSON.stringify(event.body);
         response = await editPost(event);
         response.body = JSON.parse(response.body);
         let expectedBody:Post = {
@@ -351,6 +357,7 @@ describe('Edit activity', async () => {
                 }
             }
         };
+        event.body = JSON.stringify(event.body);
         response = await editPost(event);
         response.body = JSON.parse(response.body);
         expectedResponse = {

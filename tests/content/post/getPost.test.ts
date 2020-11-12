@@ -69,6 +69,7 @@ describe('Get post/posts', async () => {
                 }
             }
         };
+        event.body = JSON.stringify(event.body);
         response = await addPost(event);
         response.body = JSON.parse(response.body);
         let expectedBody:Post = {
@@ -117,6 +118,7 @@ describe('Get post/posts', async () => {
                 }
             }
         };
+        event.body = JSON.stringify(event.body);
         response = await addPost(event);
         response.body = JSON.parse(response.body);
         postMariorossi.sharedCount++;
@@ -166,6 +168,7 @@ describe('Get post/posts', async () => {
                 }
             }
         };
+        event.body = JSON.stringify(event.body);
         response = await addPost(event);
         response.body = JSON.parse(response.body);
         let expectedBody:Post = {
@@ -335,6 +338,7 @@ describe('Get post/posts', async () => {
                 ...postFabiobianchi
             }
         };
+        event.body = JSON.stringify(event.body);
         response = await getPost(event);
         response.body = JSON.parse(response.body);
         expectedResponse = {

@@ -30,8 +30,8 @@ export async function main(event){
 
         for (const place of places) {
             let coordinates:PlaceCoordinates = {
-                latitude: place.location.coordinates.latitude,
-                longitude: place.location.coordinates.longitude
+                latitude: place.location.coordinates[1],
+                longitude: place.location.coordinates[0]
             };
             response.push({
                 placeId: place['_id'],

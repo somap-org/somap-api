@@ -35,7 +35,7 @@ export async function main(event){
     const authorId = await userRepo.getUserByCognitoId(event.requestContext?.identity?.cognitoIdentityId);
 
     //Prendi parametri dalla richiesta
-    const body:NewComment = event.body;
+    const body:NewComment = JSON.parse(event.body);
 
     if(!await securityManager.isUserLogged())
         return responseManager.send(401);

@@ -27,7 +27,7 @@ export class PlaceRepository {
         let places = await PlaceModel.find({
             location: {
                 $near: {
-                    $geometry: { type: "Point",  coordinates: [latitude, longitude] },
+                    $geometry: { type: "Point",  coordinates: [longitude, latitude] },
                     $maxDistance: range
                 }
             }

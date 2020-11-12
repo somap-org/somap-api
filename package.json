@@ -4,7 +4,10 @@
   "description": "A Node.js starter for the Serverless Framework with async/await and unit test support",
   "scripts": {
     "build:dev": "tsc && sls deploy",
-    "test": "mocha -r ts-node/register tests/**/*.test.ts"
+    "test": "mocha -r ts-node/register tests/**/*.test.ts",
+    "test:content": "mocha -r ts-node/register tests/content/**/*.test.ts",
+    "test:live": "mocha -r ts-node/register tests/live/**/*.test.ts",
+    "test:userGraph": "mocha -r ts-node/register tests/userGraph/**/*.test.ts"
   },
   "author": "Luca Pirrone",
   "license": "MIT",

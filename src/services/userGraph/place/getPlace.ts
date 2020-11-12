@@ -22,8 +22,8 @@ export async function main(event){
     try {
         let place = await repo.getPlace(placeId);
         let coordinates:PlaceCoordinates = {
-            latitude: place.location.coordinates.latitude,
-            longitude: place.location.coordinates.longitude
+            latitude: place.location.coordinates[1],
+            longitude: place.location.coordinates[0]
         };
         let response:Place = {
             placeId: place['_id'],
