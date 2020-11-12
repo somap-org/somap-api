@@ -7,7 +7,7 @@ plugins:
 provider:
   name: aws
   runtime: nodejs10.x
-  stage: dev
+  stage: ${opt:stage, 'dev'}
   region: eu-central-1
   accountId: 593794886287
 functions:
