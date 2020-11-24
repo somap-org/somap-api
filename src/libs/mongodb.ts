@@ -3,7 +3,7 @@ let database: Mongoose.Connection;
 export const connect = () => {
     // add your own uri below
     //const uri = "mongodb+srv://admin:XXIFBvTuizWIgWvw@somapcial-qhoqb.mongodb.net/"+db;
-    const uri = "mongodb://admin:XXIFBvTuizWIgWvw@somapcial-shard-00-00-qhoqb.mongodb.net:27017,somapcial-shard-00-01-qhoqb.mongodb.net:27017,somapcial-shard-00-02-qhoqb.mongodb.net:27017/"+"somap"+"?ssl=true&replicaSet=soMapCial-shard-0&authSource=admin&retryWrites=true&w=majority";
+    const uri = "mongodb://admin:XXIFBvTuizWIgWvw@somapcial-shard-00-00-qhoqb.mongodb.net:27017,somapcial-shard-00-01-qhoqb.mongodb.net:27017,somapcial-shard-00-02-qhoqb.mongodb.net:27017/somap-"+process.env.STAGE+"?ssl=true&replicaSet=soMapCial-shard-0&authSource=admin&retryWrites=true&w=majority";
     if (database) {
         return;
     }

@@ -10,6 +10,9 @@ provider:
   stage: ${opt:stage, 'dev'}
   region: eu-central-1
   accountId: 593794886287
+  environment:
+    STAGE: ${self:provider.stage}
+    API_VERSION: ${self:provider.version}
 functions:
   signUp:
     handler: build/services/userGraph/user/signUp.main
@@ -46,7 +49,7 @@ functions:
     handler: build/services/live/deleteLive.main
   getLives:
     handler: build/services/live/getLives.main
-    
+
   getActivities:
     handler: build/services/content/activity/getActivities.main
   getActivity:
@@ -57,16 +60,16 @@ functions:
     handler: build/services/content/activity/editActivity.main
   deleteActivity:
     handler: build/services/content/activity/deleteActivity.main
-    
+
   getFollowersList:
     handler: build/services/userGraph/user/getFollowersList.main
   getFollowingList:
-    handler: build/services/userGraph/user/getFollowingList.main 
+    handler: build/services/userGraph/user/getFollowingList.main
   follow:
-    handler: build/services/userGraph/user/follow.main 
+    handler: build/services/userGraph/user/follow.main
   unfollow:
-    handler: build/services/userGraph/user/unfollow.main 
-    
+    handler: build/services/userGraph/user/unfollow.main
+
   getPosts:
     handler: build/services/content/post/getPosts.main
   getPost:
@@ -77,7 +80,7 @@ functions:
     handler: build/services/content/post/editPost.main
   deletePost:
     handler: build/services/content/post/deletePost.main
-    
+
   getComments:
     handler: build/services/content/comment/getComments.main
   getComment:
@@ -95,7 +98,7 @@ functions:
     handler: build/services/content/like/getLikes.main
   deleteLike:
     handler: build/services/content/like/deleteLike.main
-  
+
 resources:
   # API Gateway
   - ${file(resources/api-gateway/api-gateway.yml)}
