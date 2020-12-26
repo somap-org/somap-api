@@ -22,7 +22,7 @@ describe('Add activity', async () => {
           "email_verified": true,
           "name": "Mario Rossi",
           "sub": "asdasd-1232132-asdasd",
-          "custom:userType": "CamUser"
+          "custom:userType": "camUser"
         }
       }
     };
@@ -38,7 +38,7 @@ describe('Add activity', async () => {
           "email_verified": true,
           "name": "Fabio Bianchi",
           "sub": "abcdevfefe-1232132-cofeve",
-          "custom:userType": "CamUser"
+          "custom:userType": "camUser"
         }
       }
     };
@@ -65,7 +65,7 @@ describe('Add activity', async () => {
       },
       "requestContext": {
         "identity": {
-          "cognitoIdentityId": loggedUser.cognitoId
+          "cognitoAuthenticationProvider": ':' + loggedUser.cognitoId
         }
       }
     };
@@ -107,7 +107,7 @@ describe('Add activity', async () => {
       },
       "requestContext": {
         "identity": {
-          "cognitoIdentityId": otherUser.cognitoId
+          "cognitoAuthenticationProvider": ':' + otherUser.cognitoId
         }
       }
     };
@@ -174,7 +174,7 @@ describe('Add activity', async () => {
       },
       "requestContext": {
         "identity": {
-          "cognitoIdentityId": loggedUser.cognitoId
+          "cognitoAuthenticationProvider": ':' + loggedUser.cognitoId
         }
       }
     };
@@ -216,7 +216,7 @@ describe('Add activity', async () => {
       },
       "requestContext": {
         "identity": {
-          "cognitoIdentityId": otherUser.cognitoId
+          "cognitoAuthenticationProvider": ':' + otherUser.cognitoId
         }
       }
     };
@@ -258,7 +258,7 @@ describe('Add activity', async () => {
       },
       "requestContext": {
         "identity": {
-          "cognitoIdentityId": loggedUser.cognitoId
+          "cognitoAuthenticationProvider": ':' + loggedUser.cognitoId
         }
       }
     };

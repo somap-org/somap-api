@@ -16,7 +16,7 @@ describe('Get user public profile', async () => {
                     "email_verified": true,
                     "name": "Mario Rossi",
                     "sub": "asdasd-1232132-asdasd",
-                    "custom:userType": "ClassicUser"
+                    "custom:userType": "classicUser"
                 }
             }
         };
@@ -34,7 +34,7 @@ describe('Get user public profile', async () => {
                     "email_verified": true,
                     "name": "Fabio Bianchi",
                     "sub": "abcdevfefe-1232132-cofeve",
-                    "custom:userType": "ClassicUser"
+                    "custom:userType": "classicUser"
                 }
             }
         };
@@ -53,7 +53,7 @@ describe('Get user public profile', async () => {
         expect(delResponse).to.be.true;
 
     });
-    
+
     it('User requested is same logged', async () => {
         event = {
             "pathParameters": {
@@ -61,7 +61,7 @@ describe('Get user public profile', async () => {
             },
             "requestContext": {
                 "identity": {
-                    "cognitoIdentityId": loggedUser.cognitoId
+                    "cognitoAuthenticationProvider": ':' + loggedUser.cognitoId
                 }
             }
         };
@@ -90,7 +90,7 @@ describe('Get user public profile', async () => {
             },
             "requestContext": {
                 "identity": {
-                    "cognitoIdentityId": loggedUser.cognitoId
+                    "cognitoAuthenticationProvider": ':' + loggedUser.cognitoId
                 }
             }
         };

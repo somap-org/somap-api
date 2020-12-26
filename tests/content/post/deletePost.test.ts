@@ -9,7 +9,7 @@ import {UserRepository} from "../../../src/repositories/UserRepository";
 
 let response;
 let event, expectedResponse;
-let mariorossi, fabiobianchi, 
+let mariorossi, fabiobianchi,
     postMariorossi: Post, //Post pubblicato da mariorossi sul suo profilo
     postFabiobianchi: Post, //Post pubblicato da fabiobianchi sul suo profilo con il post di mariorossi condiviso
     loggedPostOtherProfile: Post; //Post pubblicato da mariorossi sul profilo di fabiobianchi
@@ -25,7 +25,7 @@ describe('Delete post', async () => {
                     "email_verified": true,
                     "name": "Mario Rossi",
                     "sub": "asdasd-1232132-asdasd",
-                    "custom:userType": "CamUser"
+                    "custom:userType": "camUser"
                 }
             }
         };
@@ -41,7 +41,7 @@ describe('Delete post', async () => {
                     "email_verified": true,
                     "name": "Fabio Bianchi",
                     "sub": "abcdevfefe-1232132-cofeve",
-                    "custom:userType": "CamUser"
+                    "custom:userType": "camUser"
                 }
             }
         };
@@ -63,7 +63,7 @@ describe('Delete post', async () => {
             },
             "requestContext": {
                 "identity": {
-                    "cognitoIdentityId": mariorossi.cognitoId
+                    "cognitoAuthenticationProvider": ':' + mariorossi.cognitoId
                 }
             }
         };
@@ -112,7 +112,7 @@ describe('Delete post', async () => {
             },
             "requestContext": {
                 "identity": {
-                    "cognitoIdentityId": fabiobianchi.cognitoId
+                    "cognitoAuthenticationProvider": ':' + fabiobianchi.cognitoId
                 }
             }
         };
@@ -161,7 +161,7 @@ describe('Delete post', async () => {
             },
             "requestContext": {
                 "identity": {
-                    "cognitoIdentityId": mariorossi.cognitoId
+                    "cognitoAuthenticationProvider": ':' + mariorossi.cognitoId
                 }
             }
         };
@@ -213,7 +213,7 @@ describe('Delete post', async () => {
             },
             "requestContext": {
                 "identity": {
-                    "cognitoIdentityId": mariorossi.cognitoId
+                    "cognitoAuthenticationProvider": ':' + mariorossi.cognitoId
                 }
             }
         };
@@ -240,7 +240,7 @@ describe('Delete post', async () => {
             },
             "requestContext": {
                 "identity": {
-                    "cognitoIdentityId": fabiobianchi.cognitoId
+                    "cognitoAuthenticationProvider": ':' + fabiobianchi.cognitoId
                 }
             }
         };
@@ -273,7 +273,7 @@ describe('Delete post', async () => {
             },
             "requestContext": {
                 "identity": {
-                    "cognitoIdentityId": fabiobianchi.cognitoId
+                    "cognitoAuthenticationProvider": ':' + fabiobianchi.cognitoId
                 }
             }
         };
@@ -299,7 +299,7 @@ describe('Delete post', async () => {
             },
             "requestContext": {
                 "identity": {
-                    "cognitoIdentityId": mariorossi.cognitoId
+                    "cognitoAuthenticationProvider": ':' + mariorossi.cognitoId
                 }
             }
         };

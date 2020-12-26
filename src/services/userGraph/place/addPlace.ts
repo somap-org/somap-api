@@ -21,7 +21,7 @@ export async function main(event) {
   if (!await securityManager.isUserLogged() || !await securityManager.isUserCam())
     return responseManager.send(401);
 
-  let userLogged = await userRepo.getUserByCognitoId(event.requestContext?.identity?.cognitoIdentityId);
+  let userLogged = await userRepo.getUserByCognitoId(event.requestContext?.identity?.cognitoAuthenticationProvider.toString().slice(event.requestContext?.identity?.cognitoAuthenticationProvider.toString().lastIndexOf(':')+1));
 
   //Costruisce documento da aggiungere nel db
   let addPlace = {

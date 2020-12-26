@@ -22,7 +22,7 @@ describe('Get activities', async () => {
                     "email_verified": true,
                     "name": "Mario Rossi",
                     "sub": "asdasd-1232132-asdasd",
-                    "custom:userType": "CamUser"
+                    "custom:userType": "camUser"
                 }
             }
         };
@@ -38,7 +38,7 @@ describe('Get activities', async () => {
                     "email_verified": true,
                     "name": "Fabio Bianchi",
                     "sub": "abcdevfefe-1232132-cofeve",
-                    "custom:userType": "ClassicUser"
+                    "custom:userType": "classicUser"
                 }
             }
         };
@@ -65,7 +65,7 @@ describe('Get activities', async () => {
             },
             "requestContext": {
                 "identity": {
-                    "cognitoIdentityId": loggedUser.cognitoId
+                    "cognitoAuthenticationProvider": ':' + loggedUser.cognitoId
                 }
             }
         };
@@ -119,7 +119,7 @@ describe('Get activities', async () => {
                 },
                 "requestContext": {
                     "identity": {
-                        "cognitoIdentityId": loggedUser.cognitoId
+                        "cognitoAuthenticationProvider": ':' + loggedUser.cognitoId
                     }
                 }
             };
@@ -171,7 +171,7 @@ describe('Get activities', async () => {
             },
             "requestContext": {
                 "identity": {
-                    "cognitoIdentityId": loggedUser.cognitoId
+                    "cognitoAuthenticationProvider": ':' + loggedUser.cognitoId
                 }
             }
         };
@@ -195,7 +195,7 @@ describe('Get activities', async () => {
             },
             "requestContext": {
                 "identity": {
-                    "cognitoIdentityId": otherUser.cognitoId
+                    "cognitoAuthenticationProvider": ':' + otherUser.cognitoId
                 }
             }
         };

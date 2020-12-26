@@ -18,10 +18,10 @@ interface CognitoData {
     }
 }
 
-export async function main(event, context, callback) {
-    console.log('START MAIN');
+export async function main(event) {
+    //console.log('START MAIN');
     if (event.request?.userAttributes?.email && event.request?.userAttributes['custom:userType']) {
-        console.log('EMAIL AND USER TYPE FOUND', event.request.userAttributes.email, event.request?.userAttributes['custom:userType']);
+        //console.log('EMAIL AND USER TYPE FOUND', event.request.userAttributes.email, event.request?.userAttributes['custom:userType']);
         let repo = new UserRepository();
         let user;
 
@@ -53,27 +53,25 @@ export async function main(event, context, callback) {
         } else if (event.request.userAttributes['custom:userType'] == "camUser") {
             user.userType = UserTypes.CamUser;
         } else {
-            console.log('ERRORE: custom:userType non definito o errato');
-            return {}
+            //console.log('ERRORE: custom:userType non definito o errato');
+            return null;
         }
 
-        console.log('BUILDED USER', user);
+        //console.log('BUILDED USER', user);
 
         try {
             let userAdded = await repo.signUpUser(user);
-            console.log('USER ADDED', userAdded);
-            callback(null, event);
+            //console.log('USER ADDED', userAdded);
+            return userAdded;
         } catch (e) {
             console.log('ERROR ADDING USER', e);
             return null;
         }
-        callback(null, event);
 
     } else {
         console.log('ERROR EMAIL OR USER TYPE NOT FOUND');
         return null;
     }
-    callback(null, event);
 }
 
 export async function deleteUser(userId: string){

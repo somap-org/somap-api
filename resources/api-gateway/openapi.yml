@@ -1178,12 +1178,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/UsersPublicProfile"
-        default:
-          description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
   /users/{userId}/following:
     get:
       tags:

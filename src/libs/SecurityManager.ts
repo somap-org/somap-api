@@ -14,10 +14,10 @@ export class SecurityManager {
     }
 
     async isUserIdLogged(): Promise<boolean> {
-        if (typeof this.event.requestContext?.identity?.cognitoIdentityId == "undefined")
+        if (typeof this.event.requestContext?.identity?.cognitoAuthenticationProvider == "undefined")
             return false;
 
-        let user = await this.repo.getUserByCognitoId(this.event.requestContext?.identity?.cognitoIdentityId);
+        let user = await this.repo.getUserByCognitoId(this.event.requestContext?.identity?.cognitoAuthenticationProvider.toString().slice(this.event.requestContext?.identity?.cognitoAuthenticationProvider.toString().lastIndexOf(':')+1));
         if (!user) {
             console.log("User not found");
             return false;
@@ -34,41 +34,42 @@ export class SecurityManager {
     }
 
     async isUserLogged(): Promise<boolean> {
-        if (typeof this.event.requestContext?.identity?.cognitoIdentityId == undefined)
+        if (typeof this.event.requestContext?.identity?.cognitoAuthenticationProvider == undefined)
             return false;
 
-        let user = await this.repo.getUserByCognitoId(this.event.requestContext?.identity?.cognitoIdentityId);
+        let user = await this.repo.getUserByCognitoId(this.event.requestContext?.identity?.cognitoAuthenticationProvider.toString().slice(this.event.requestContext?.identity?.cognitoAuthenticationProvider.toString().lastIndexOf(':')+1));
         if (!user) {
             //console.log("User not found");
             return false;
         } else {
-            //console.log("Authorized");
+            //console.log("isUserLogged ok");
             return true
         }
     }
 
     async isUserCam(): Promise<boolean> {
-        if (typeof this.event.requestContext?.identity?.cognitoIdentityId == undefined)
+        if (typeof this.event.requestContext?.identity?.cognitoAuthenticationProvider == undefined)
             return false;
 
-        let user = await this.repo.getUserByCognitoId(this.event.requestContext?.identity?.cognitoIdentityId);
+        let user = await this.repo.getUserByCognitoId(this.event.requestContext?.identity?.cognitoAuthenticationProvider.toString().slice(this.event.requestContext?.identity?.cognitoAuthenticationProvider.toString().lastIndexOf(':')+1));
         if (!user) {
             //console.log("User not found");
             return false;
         } else {
             //console.log("Authorized");
-            if (user.userType == UserTypes.CamUser)
+            if (user.userType == UserTypes.CamUser) {
+                //console.log("isUserCam ok");
                 return true;
-            else
+            } else
                 return false;
         }
     }
 
     async isUserClassic(): Promise<boolean> {
-        if (typeof this.event.requestContext?.identity?.cognitoIdentityId == undefined)
+        if (typeof this.event.requestContext?.identity?.cognitoAuthenticationProvider == undefined)
             return false;
 
-        let user = await this.repo.getUserByCognitoId(this.event.requestContext?.identity?.cognitoIdentityId);
+        let user = await this.repo.getUserByCognitoId(this.event.requestContext?.identity?.cognitoAuthenticationProvider.toString().slice(this.event.requestContext?.identity?.cognitoAuthenticationProvider.toString().lastIndexOf(':')+1));
         if (!user) {
             //console.log("User not found");
             return false;
@@ -84,12 +85,12 @@ export class SecurityManager {
     async isUserCamPlaceOwner(): Promise<boolean> {
         let placeRepo = new PlaceRepository();
         if (
-            typeof this.event.requestContext?.identity?.cognitoIdentityId == "undefined" ||
+            typeof this.event.requestContext?.identity?.cognitoAuthenticationProvider == "undefined" ||
             typeof this.event.pathParameters?.placeId == "undefined"
         )
             return false;
 
-        let user = await this.repo.getUserByCognitoId(this.event.requestContext?.identity?.cognitoIdentityId);
+        let user = await this.repo.getUserByCognitoId(this.event.requestContext?.identity?.cognitoAuthenticationProvider.toString().slice(this.event.requestContext?.identity?.cognitoAuthenticationProvider.toString().lastIndexOf(':')+1));
         let place = await placeRepo.getPlace(this.event.pathParameters?.placeId.toString());
 
         if (!user || !place) {
@@ -98,6 +99,7 @@ export class SecurityManager {
         }
         if (user['_id'].toString() == place.camUser.toString()) {
             //console.log("Authorized");
+            //console.log("isUserCamPlaceOwner ok");
             return true;
         }
         else {
@@ -110,12 +112,12 @@ export class SecurityManager {
     async isUserPostOwner(): Promise<boolean> {
         let postRepo = new PostRepository();
         if (
-            typeof this.event.requestContext?.identity?.cognitoIdentityId == "undefined" ||
+            typeof this.event.requestContext?.identity?.cognitoAuthenticationProvider == "undefined" ||
             typeof this.event.pathParameters?.postId == "undefined"
         )
             return false;
 
-        let user = await this.repo.getUserByCognitoId(this.event.requestContext?.identity?.cognitoIdentityId);
+        let user = await this.repo.getUserByCognitoId(this.event.requestContext?.identity?.cognitoAuthenticationProvider.toString().slice(this.event.requestContext?.identity?.cognitoAuthenticationProvider.toString().lastIndexOf(':')+1));
         let post = await postRepo.getPost(this.event.pathParameters?.postId);
         if (user['_id'].toString() == post.author.toString()) {
             //console.log("Authorized");
@@ -131,12 +133,12 @@ export class SecurityManager {
     async isUserCommentOwner(): Promise<boolean> {
         let commentRepo = new CommentRepository();
         if (
-            typeof this.event.requestContext?.identity?.cognitoIdentityId == "undefined" ||
+            typeof this.event.requestContext?.identity?.cognitoAuthenticationProvider == "undefined" ||
             typeof this.event.pathParameters?.commentId == "undefined"
         )
             return false;
 
-        let user = await this.repo.getUserByCognitoId(this.event.requestContext?.identity?.cognitoIdentityId);
+        let user = await this.repo.getUserByCognitoId(this.event.requestContext?.identity?.cognitoAuthenticationProvider.toString().slice(this.event.requestContext?.identity?.cognitoAuthenticationProvider.toString().lastIndexOf(':')+1));
         let comment = await commentRepo.getComment(this.event.pathParameters?.commentId);
         if (user['_id'].toString() == comment.author.toString()) {
             //console.log("Authorized");
@@ -153,12 +155,12 @@ export class SecurityManager {
     async isUserLikeOwner(): Promise<boolean> {
         let commentRepo = new CommentRepository();
         if (
-            typeof this.event.requestContext?.identity?.cognitoIdentityId == "undefined" ||
+            typeof this.event.requestContext?.identity?.cognitoAuthenticationProvider == "undefined" ||
             typeof this.event.pathParameters?.userId == "undefined"
         )
             return false;
 
-        let user = await this.repo.getUserByCognitoId(this.event.requestContext?.identity?.cognitoIdentityId);
+        let user = await this.repo.getUserByCognitoId(this.event.requestContext?.identity?.cognitoAuthenticationProvider.toString().slice(this.event.requestContext?.identity?.cognitoAuthenticationProvider.toString().lastIndexOf(':')+1));
         if (user['_id'].toString() == this.event.pathParameters.userId.toString()) {
             //console.log("Authorized");
             return true;
