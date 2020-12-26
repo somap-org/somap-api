@@ -558,7 +558,8 @@ paths:
       summary: Get any user's public profile info
       description: Get any and public user's public profile info (userId)
       x-amazon-apigateway-request-validator: "params-only"
-      x-amazon-apigateway-auth: "AWS_IAM"
+      x-amazon-apigateway-auth:
+        type: "AWS_IAM"
       x-amazon-apigateway-integration:
         type: "aws_proxy"
         uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-getUserPublicProfile/invocations
@@ -581,7 +582,8 @@ paths:
       summary: Change the username
       description: Change user name if user is logged in
       x-amazon-apigateway-request-validator: "all"
-      x-amazon-apigateway-auth: "AWS_IAM"
+      x-amazon-apigateway-auth:
+        type: "AWS_IAM"
       x-amazon-apigateway-integration:
         type: "aws_proxy"
         uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-editUsername/invocations
@@ -629,7 +631,8 @@ paths:
       summary: Get user's settings
       description: Get user's settings if logged in
       x-amazon-apigateway-request-validator: "params-only"
-      x-amazon-apigateway-auth: "AWS_IAM"
+      x-amazon-apigateway-auth:
+        type: "AWS_IAM"
       x-amazon-apigateway-integration:
         type: "aws_proxy"
         uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-getUserSettings/invocations
@@ -657,7 +660,8 @@ paths:
       summary: Modify user's settings
       description: Modify user's settings if logged in
       x-amazon-apigateway-request-validator: "all"
-      x-amazon-apigateway-auth: "AWS_IAM"
+      x-amazon-apigateway-auth:
+        type: "AWS_IAM"
       x-amazon-apigateway-integration:
         type: "aws_proxy"
         uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-editUserSettings/invocations
@@ -694,7 +698,8 @@ paths:
       summary: Add place's info
       description: place user place's info if logged in
       x-amazon-apigateway-request-validator: "all"
-      x-amazon-apigateway-auth: "AWS_IAM"
+      x-amazon-apigateway-auth:
+        type: "AWS_IAM"
       x-amazon-apigateway-integration:
         type: "aws_proxy"
         uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-addPlace/invocations
@@ -728,7 +733,8 @@ paths:
       summary: Get place info
       description: Get any user's (userId) place info
       x-amazon-apigateway-request-validator: "params-only"
-      x-amazon-apigateway-auth: "AWS_IAM"
+      x-amazon-apigateway-auth:
+        type: "AWS_IAM"
       x-amazon-apigateway-integration:
         type: "aws_proxy"
         uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-getPlace/invocations
@@ -756,7 +762,8 @@ paths:
       summary: Modify place's info
       description: Modify user place's info if logged in
       x-amazon-apigateway-request-validator: "all"
-      x-amazon-apigateway-auth: "AWS_IAM"
+      x-amazon-apigateway-auth:
+        type: "AWS_IAM"
       x-amazon-apigateway-integration:
         type: "aws_proxy"
         uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-editPlace/invocations
@@ -793,7 +800,8 @@ paths:
       summary: Get lives info
       description: Get place's lives
       x-amazon-apigateway-request-validator: "params-only"
-      x-amazon-apigateway-auth: "AWS_IAM"
+      x-amazon-apigateway-auth:
+        type: "AWS_IAM"
       x-amazon-apigateway-integration:
         type: "aws_proxy"
         uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-getLives/invocations
@@ -822,7 +830,8 @@ paths:
       summary: Add live info
       description: Add live info. User must be logged in
       x-amazon-apigateway-request-validator: "all"
-      x-amazon-apigateway-auth: "AWS_IAM"
+      x-amazon-apigateway-auth:
+        type: "AWS_IAM"
       x-amazon-apigateway-integration:
         type: "aws_proxy"
         uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-addLive/invocations
@@ -859,7 +868,8 @@ paths:
       summary: Get live info
       description: Get place's live info
       x-amazon-apigateway-request-validator: "params-only"
-      x-amazon-apigateway-auth: "AWS_IAM"
+      x-amazon-apigateway-auth:
+        type: "AWS_IAM"
       x-amazon-apigateway-integration:
         type: "aws_proxy"
         uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-getLive/invocations
@@ -889,7 +899,8 @@ paths:
       summary: Edit live info
       description: Edit live info. User must be logged in
       x-amazon-apigateway-request-validator: "all"
-      x-amazon-apigateway-auth: "AWS_IAM"
+      x-amazon-apigateway-auth:
+        type: "AWS_IAM"
       x-amazon-apigateway-integration:
         type: "aws_proxy"
         uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-editLive/invocations
@@ -926,7 +937,8 @@ paths:
       summary: Delete live
       description: Delete live. User cam must be logged in.
       x-amazon-apigateway-request-validator: "params-only"
-      x-amazon-apigateway-auth: "AWS_IAM"
+      x-amazon-apigateway-auth:
+        type: "AWS_IAM"
       x-amazon-apigateway-integration:
         type: "aws_proxy"
         uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-deleteLive/invocations
@@ -953,7 +965,8 @@ paths:
       summary: Get places list inside position range
       description: Returns the list of positions within the position range. The position is indicated by coordinates (latitude and longitude) and the range is expressed in meters.
       x-amazon-apigateway-request-validator: "params-only"
-      x-amazon-apigateway-auth: "AWS_IAM"
+      x-amazon-apigateway-auth:
+        type: "AWS_IAM"
       x-amazon-apigateway-integration:
         type: "aws_proxy"
         uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-getPlaces/invocations
@@ -1000,7 +1013,8 @@ paths:
       summary: Get place's activity list
       description: Returns the place's activities. Using a query parameter, you can request past, scheduled and ongoing activities.
       x-amazon-apigateway-request-validator: "params-only"
-      x-amazon-apigateway-auth: "AWS_IAM"
+      x-amazon-apigateway-auth:
+        type: "AWS_IAM"
       x-amazon-apigateway-integration:
         type: "aws_proxy"
         uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-getActivities/invocations
@@ -1040,7 +1054,8 @@ paths:
       summary: Add activity
       description: Add activity. User must be logged in
       x-amazon-apigateway-request-validator: "all"
-      x-amazon-apigateway-auth: "AWS_IAM"
+      x-amazon-apigateway-auth:
+        type: "AWS_IAM"
       x-amazon-apigateway-integration:
         type: "aws_proxy"
         uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-addActivity/invocations
@@ -1077,7 +1092,8 @@ paths:
       summary: Edit activity
       description: Edit activity. User must be logged in.
       x-amazon-apigateway-request-validator: "all"
-      x-amazon-apigateway-auth: "AWS_IAM"
+      x-amazon-apigateway-auth:
+        type: "AWS_IAM"
       x-amazon-apigateway-integration:
         type: "aws_proxy"
         uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-editActivity/invocations
@@ -1114,7 +1130,8 @@ paths:
       summary: Delete activity
       description: Delete activity. User must be logged in.
       x-amazon-apigateway-request-validator: "params-only"
-      x-amazon-apigateway-auth: "AWS_IAM"
+      x-amazon-apigateway-auth:
+        type: "AWS_IAM"
       x-amazon-apigateway-integration:
         type: "aws_proxy"
         uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-deleteActivity/invocations
@@ -1142,7 +1159,8 @@ paths:
       summary: Get followers list
       description: Get public informations by followers list
       x-amazon-apigateway-request-validator: "params-only"
-      x-amazon-apigateway-auth: "AWS_IAM"
+      x-amazon-apigateway-auth:
+        type: "AWS_IAM"
       x-amazon-apigateway-integration:
         type: "aws_proxy"
         uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-getFollowersList/invocations
@@ -1173,7 +1191,8 @@ paths:
       summary: Get following list
       description: Get public informations by following list
       x-amazon-apigateway-request-validator: "params-only"
-      x-amazon-apigateway-auth: "AWS_IAM"
+      x-amazon-apigateway-auth:
+        type: "AWS_IAM"
       x-amazon-apigateway-integration:
         type: "aws_proxy"
         uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-getFollowingList/invocations
@@ -1204,7 +1223,8 @@ paths:
       summary: Follow user
       description: Follow user (userId follow targetId). UserId must be logged in
       x-amazon-apigateway-request-validator: "all"
-      x-amazon-apigateway-auth: "AWS_IAM"
+      x-amazon-apigateway-auth:
+        type: "AWS_IAM"
       x-amazon-apigateway-integration:
         type: "aws_proxy"
         uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-follow/invocations
@@ -1229,7 +1249,8 @@ paths:
       summary: Unfollow user
       description: Unfollow user (userId funollow targetId). UserId must be logged in
       x-amazon-apigateway-request-validator: "params-only"
-      x-amazon-apigateway-auth: "AWS_IAM"
+      x-amazon-apigateway-auth:
+        type: "AWS_IAM"
       x-amazon-apigateway-integration:
         type: "aws_proxy"
         uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-unfollow/invocations
@@ -1257,7 +1278,8 @@ paths:
       summary: Get user post
       description: Get the list of posts published in the user's profile (userId)
       x-amazon-apigateway-request-validator: "params-only"
-      x-amazon-apigateway-auth: "AWS_IAM"
+      x-amazon-apigateway-auth:
+        type: "AWS_IAM"
       x-amazon-apigateway-integration:
         type: "aws_proxy"
         uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-getPosts/invocations
@@ -1288,7 +1310,8 @@ paths:
       summary: Add user posts
       description: Add post inside the user's profile (userId)
       x-amazon-apigateway-request-validator: "all"
-      x-amazon-apigateway-auth: "AWS_IAM"
+      x-amazon-apigateway-auth:
+        type: "AWS_IAM"
       x-amazon-apigateway-integration:
         type: "aws_proxy"
         uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-addPost/invocations
@@ -1324,7 +1347,8 @@ paths:
       summary: Get user post
       description: Get post (postId) by the user (userId) profile. Any user can publish to any user profile (if public).
       x-amazon-apigateway-request-validator: "all"
-      x-amazon-apigateway-auth: "AWS_IAM"
+      x-amazon-apigateway-auth:
+        type: "AWS_IAM"
       x-amazon-apigateway-integration:
         type: "aws_proxy"
         uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-getPost/invocations
@@ -1347,7 +1371,8 @@ paths:
       summary: Edit user posts
       description: Edit post (postId) in the user (userId) profile. Author user must be logged in
       x-amazon-apigateway-request-validator: "all"
-      x-amazon-apigateway-auth: "AWS_IAM"
+      x-amazon-apigateway-auth:
+        type: "AWS_IAM"
       x-amazon-apigateway-integration:
         type: "aws_proxy"
         uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-editPost/invocations
@@ -1383,7 +1408,8 @@ paths:
       summary: Delete user post
       description: Delete post (postId) in the user (userId) profile. Author user must be logged in
       x-amazon-apigateway-request-validator: "params-only"
-      x-amazon-apigateway-auth: "AWS_IAM"
+      x-amazon-apigateway-auth:
+        type: "AWS_IAM"
       x-amazon-apigateway-integration:
         type: "aws_proxy"
         uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-deletePost/invocations
@@ -1411,7 +1437,8 @@ paths:
       summary: Get post comments
       description: Get post comments list
       x-amazon-apigateway-request-validator: "params-only"
-      x-amazon-apigateway-auth: "AWS_IAM"
+      x-amazon-apigateway-auth:
+        type: "AWS_IAM"
       x-amazon-apigateway-integration:
         type: "aws_proxy"
         uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-getComments/invocations
@@ -1443,7 +1470,8 @@ paths:
       summary: Add post comment
       description: Add post comment
       x-amazon-apigateway-request-validator: "all"
-      x-amazon-apigateway-auth: "AWS_IAM"
+      x-amazon-apigateway-auth:
+        type: "AWS_IAM"
       x-amazon-apigateway-integration:
         type: "aws_proxy"
         uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-addComment/invocations
@@ -1481,7 +1509,8 @@ paths:
       summary: Get comment replies
       description: Get comment replies
       x-amazon-apigateway-request-validator: "params-only"
-      x-amazon-apigateway-auth: "AWS_IAM"
+      x-amazon-apigateway-auth:
+        type: "AWS_IAM"
       x-amazon-apigateway-integration:
         type: "aws_proxy"
         uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-getComments/invocations
@@ -1511,7 +1540,8 @@ paths:
       summary: Edit post comment
       description: Edit post comment. Comment author must be logged in.
       x-amazon-apigateway-request-validator: "all"
-      x-amazon-apigateway-auth: "AWS_IAM"
+      x-amazon-apigateway-auth:
+        type: "AWS_IAM"
       x-amazon-apigateway-integration:
         type: "aws_proxy"
         uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-editComment/invocations
@@ -1548,7 +1578,8 @@ paths:
       summary: Add comment reply
       description: Add comment reply
       x-amazon-apigateway-request-validator: "all"
-      x-amazon-apigateway-auth: "AWS_IAM"
+      x-amazon-apigateway-auth:
+        type: "AWS_IAM"
       x-amazon-apigateway-integration:
         type: "aws_proxy"
         uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-addComment/invocations
@@ -1585,7 +1616,8 @@ paths:
       summary: Delete post comment
       description: Delete post comment. Comment author must be logged in.
       x-amazon-apigateway-request-validator: "params-only"
-      x-amazon-apigateway-auth: "AWS_IAM"
+      x-amazon-apigateway-auth:
+        type: "AWS_IAM"
       x-amazon-apigateway-integration:
         type: "aws_proxy"
         uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-deleteComment/invocations
@@ -1614,7 +1646,8 @@ paths:
       summary: Get users who liked post
       description: Get users's public information who liked post
       x-amazon-apigateway-request-validator: "params-only"
-      x-amazon-apigateway-auth: "AWS_IAM"
+      x-amazon-apigateway-auth:
+        type: "AWS_IAM"
       x-amazon-apigateway-integration:
         type: "aws_proxy"
         uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-getLikes/invocations
@@ -1647,7 +1680,8 @@ paths:
       summary: User (userId) like post (postId)
       description: User (userId) like post (postId). UserId users must be logged in.
       x-amazon-apigateway-request-validator: "all"
-      x-amazon-apigateway-auth: "AWS_IAM"
+      x-amazon-apigateway-auth:
+        type: "AWS_IAM"
       x-amazon-apigateway-integration:
         type: "aws_proxy"
         uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-addLike/invocations
@@ -1673,7 +1707,8 @@ paths:
       summary: Delete like from post (postId) by user (userId)
       description: Delete like from post (postId) by user (userId). UserId users must be logged in.
       x-amazon-apigateway-request-validator: "params-only"
-      x-amazon-apigateway-auth: "AWS_IAM"
+      x-amazon-apigateway-auth:
+        type: "AWS_IAM"
       x-amazon-apigateway-integration:
         type: "aws_proxy"
         uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-deleteLike/invocations
@@ -1700,7 +1735,8 @@ paths:
       summary: Get users who liked comment
       description: Get users's public information who liked comment
       x-amazon-apigateway-request-validator: "params-only"
-      x-amazon-apigateway-auth: "AWS_IAM"
+      x-amazon-apigateway-auth:
+        type: "AWS_IAM"
       x-amazon-apigateway-integration:
         type: "aws_proxy"
         uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-getLikes/invocations
@@ -1732,7 +1768,8 @@ paths:
       summary: User (userId) like comment (commentId)
       description: User (userId) like comment (commentId)). UserId users must be logged in.
       x-amazon-apigateway-request-validator: "all"
-      x-amazon-apigateway-auth: "AWS_IAM"
+      x-amazon-apigateway-auth:
+        type: "AWS_IAM"
       x-amazon-apigateway-integration:
         type: "aws_proxy"
         uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-addLike/invocations
@@ -1758,7 +1795,8 @@ paths:
       summary: Delete like from comment (commentId) by user (userId)
       description: Delete like from comment (commentId) by user (userId). UserId users must be logged in.
       x-amazon-apigateway-request-validator: "params-only"
-      x-amazon-apigateway-auth: "AWS_IAM"
+      x-amazon-apigateway-auth:
+        type: "AWS_IAM"
       x-amazon-apigateway-integration:
         type: "aws_proxy"
         uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-deleteLike/invocations
