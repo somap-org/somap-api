@@ -18,7 +18,7 @@ interface CognitoData {
     }
 }
 
-export async function main(event, context, callback) {
+export async function main(event) {
 
     if (event.request?.userAttributes?.email && event.request?.userAttributes['custom:userType']) {
         let repo = new UserRepository();
@@ -51,12 +51,14 @@ export async function main(event, context, callback) {
             user.userType = UserTypes.ClassicUser;
         } else if (event.request.userAttributes['custom:userType'] == "camUser") {
             user.userType = UserTypes.CamUser;
-        } else
-            return null;
+        } else {
+            console.log('ERRORE: custom:userType non definito o errato');
+            return {}
+        }
 
         try {
             await repo.signUpUser(user);
-            callback(null, event);
+            return event;
         } catch (e) {
             return null;
         }
