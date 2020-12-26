@@ -67,11 +67,13 @@ export async function main(event, context, callback) {
             console.log('ERROR ADDING USER', e);
             return null;
         }
+        callback(null, event);
 
     } else {
         console.log('ERROR EMAIL OR USER TYPE NOT FOUND');
         return null;
     }
+    callback(null, event);
 }
 
 export async function deleteUser(userId: string){
