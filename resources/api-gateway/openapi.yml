@@ -563,7 +563,7 @@ paths:
       x-amazon-apigateway-integration:
         type: "aws_proxy"
         uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-getUserPublicProfile/invocations
-        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole
+        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole-${self:provider.stage}
         passthroughBehavior: "when_no_match"
         httpMethod: "POST"
       parameters:
@@ -587,7 +587,7 @@ paths:
       x-amazon-apigateway-integration:
         type: "aws_proxy"
         uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-editUsername/invocations
-        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole
+        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole-${self:provider.stage}
         passthroughBehavior: "when_no_match"
         httpMethod: "POST"
       parameters:
@@ -636,7 +636,7 @@ paths:
       x-amazon-apigateway-integration:
         type: "aws_proxy"
         uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-getUserSettings/invocations
-        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole
+        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole-${self:provider.stage}
         passthroughBehavior: "when_no_match"
         httpMethod: "POST"
       parameters:
@@ -665,7 +665,7 @@ paths:
       x-amazon-apigateway-integration:
         type: "aws_proxy"
         uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-editUserSettings/invocations
-        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole
+        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole-${self:provider.stage}
         passthroughBehavior: "when_no_match"
         httpMethod: "POST"
       parameters:
@@ -703,7 +703,7 @@ paths:
       x-amazon-apigateway-integration:
         type: "aws_proxy"
         uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-addPlace/invocations
-        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole
+        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole-${self:provider.stage}
         passthroughBehavior: "when_no_match"
         httpMethod: "POST"
       requestBody:
@@ -738,7 +738,7 @@ paths:
       x-amazon-apigateway-integration:
         type: "aws_proxy"
         uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-getPlace/invocations
-        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole
+        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole-${self:provider.stage}
         passthroughBehavior: "when_no_match"
         httpMethod: "POST"
       parameters:
@@ -767,7 +767,7 @@ paths:
       x-amazon-apigateway-integration:
         type: "aws_proxy"
         uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-editPlace/invocations
-        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole
+        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole-${self:provider.stage}
         passthroughBehavior: "when_no_match"
         httpMethod: "POST"
       parameters:
@@ -805,7 +805,7 @@ paths:
       x-amazon-apigateway-integration:
         type: "aws_proxy"
         uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-getLives/invocations
-        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole
+        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole-${self:provider.stage}
         passthroughBehavior: "when_no_match"
         httpMethod: "POST"
       parameters:
@@ -835,7 +835,7 @@ paths:
       x-amazon-apigateway-integration:
         type: "aws_proxy"
         uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-addLive/invocations
-        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole
+        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole-${self:provider.stage}
         passthroughBehavior: "when_no_match"
         httpMethod: "POST"
       parameters:
@@ -873,7 +873,7 @@ paths:
       x-amazon-apigateway-integration:
         type: "aws_proxy"
         uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-getLive/invocations
-        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole
+        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole-${self:provider.stage}
         passthroughBehavior: "when_no_match"
         httpMethod: "POST"
       parameters:
@@ -904,7 +904,7 @@ paths:
       x-amazon-apigateway-integration:
         type: "aws_proxy"
         uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-editLive/invocations
-        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole
+        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole-${self:provider.stage}
         passthroughBehavior: "when_no_match"
         httpMethod: "POST"
       parameters:
@@ -942,7 +942,7 @@ paths:
       x-amazon-apigateway-integration:
         type: "aws_proxy"
         uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-deleteLive/invocations
-        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole
+        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole-${self:provider.stage}
         passthroughBehavior: "when_no_match"
         httpMethod: "POST"
       parameters:
@@ -970,7 +970,7 @@ paths:
       x-amazon-apigateway-integration:
         type: "aws_proxy"
         uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-getPlaces/invocations
-        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole
+        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole-${self:provider.stage}
         passthroughBehavior: "when_no_match"
         httpMethod: "POST"
       parameters:
@@ -1018,7 +1018,7 @@ paths:
       x-amazon-apigateway-integration:
         type: "aws_proxy"
         uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-getActivities/invocations
-        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole
+        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole-${self:provider.stage}
         passthroughBehavior: "when_no_match"
         httpMethod: "POST"
       parameters:
@@ -1059,7 +1059,7 @@ paths:
       x-amazon-apigateway-integration:
         type: "aws_proxy"
         uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-addActivity/invocations
-        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole
+        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole-${self:provider.stage}
         passthroughBehavior: "when_no_match"
         httpMethod: "POST"
       parameters:
@@ -1097,7 +1097,7 @@ paths:
       x-amazon-apigateway-integration:
         type: "aws_proxy"
         uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-editActivity/invocations
-        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole
+        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole-${self:provider.stage}
         passthroughBehavior: "when_no_match"
         httpMethod: "POST"
       parameters:
@@ -1135,7 +1135,7 @@ paths:
       x-amazon-apigateway-integration:
         type: "aws_proxy"
         uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-deleteActivity/invocations
-        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole
+        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole-${self:provider.stage}
         passthroughBehavior: "when_no_match"
         httpMethod: "POST"
       parameters:
@@ -1164,7 +1164,7 @@ paths:
       x-amazon-apigateway-integration:
         type: "aws_proxy"
         uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-getFollowersList/invocations
-        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole
+        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole-${self:provider.stage}
         passthroughBehavior: "when_no_match"
         httpMethod: "POST"
       parameters:
@@ -1196,7 +1196,7 @@ paths:
       x-amazon-apigateway-integration:
         type: "aws_proxy"
         uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-getFollowingList/invocations
-        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole
+        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole-${self:provider.stage}
         passthroughBehavior: "when_no_match"
         httpMethod: "POST"
       parameters:
@@ -1228,7 +1228,7 @@ paths:
       x-amazon-apigateway-integration:
         type: "aws_proxy"
         uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-follow/invocations
-        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole
+        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole-${self:provider.stage}
         passthroughBehavior: "when_no_match"
         httpMethod: "POST"
       parameters:
@@ -1254,7 +1254,7 @@ paths:
       x-amazon-apigateway-integration:
         type: "aws_proxy"
         uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-unfollow/invocations
-        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole
+        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole-${self:provider.stage}
         passthroughBehavior: "when_no_match"
         httpMethod: "POST"
       parameters:
@@ -1283,7 +1283,7 @@ paths:
       x-amazon-apigateway-integration:
         type: "aws_proxy"
         uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-getPosts/invocations
-        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole
+        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole-${self:provider.stage}
         passthroughBehavior: "when_no_match"
         httpMethod: "POST"
       parameters:
@@ -1315,7 +1315,7 @@ paths:
       x-amazon-apigateway-integration:
         type: "aws_proxy"
         uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-addPost/invocations
-        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole
+        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole-${self:provider.stage}
         passthroughBehavior: "when_no_match"
         httpMethod: "POST"
       parameters:
@@ -1352,7 +1352,7 @@ paths:
       x-amazon-apigateway-integration:
         type: "aws_proxy"
         uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-getPost/invocations
-        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole
+        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole-${self:provider.stage}
         passthroughBehavior: "when_no_match"
         httpMethod: "POST"
       parameters:
@@ -1376,7 +1376,7 @@ paths:
       x-amazon-apigateway-integration:
         type: "aws_proxy"
         uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-editPost/invocations
-        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole
+        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole-${self:provider.stage}
         passthroughBehavior: "when_no_match"
         httpMethod: "POST"
       parameters:
@@ -1413,7 +1413,7 @@ paths:
       x-amazon-apigateway-integration:
         type: "aws_proxy"
         uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-deletePost/invocations
-        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole
+        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole-${self:provider.stage}
         passthroughBehavior: "when_no_match"
         httpMethod: "POST"
       parameters:
@@ -1442,7 +1442,7 @@ paths:
       x-amazon-apigateway-integration:
         type: "aws_proxy"
         uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-getComments/invocations
-        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole
+        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole-${self:provider.stage}
         passthroughBehavior: "when_no_match"
         httpMethod: "POST"
       parameters:
@@ -1475,7 +1475,7 @@ paths:
       x-amazon-apigateway-integration:
         type: "aws_proxy"
         uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-addComment/invocations
-        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole
+        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole-${self:provider.stage}
         passthroughBehavior: "when_no_match"
         httpMethod: "POST"
       parameters:
@@ -1514,7 +1514,7 @@ paths:
       x-amazon-apigateway-integration:
         type: "aws_proxy"
         uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-getComments/invocations
-        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole
+        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole-${self:provider.stage}
         passthroughBehavior: "when_no_match"
         httpMethod: "POST"
       parameters:
@@ -1545,7 +1545,7 @@ paths:
       x-amazon-apigateway-integration:
         type: "aws_proxy"
         uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-editComment/invocations
-        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole
+        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole-${self:provider.stage}
         passthroughBehavior: "when_no_match"
         httpMethod: "POST"
       parameters:
@@ -1583,7 +1583,7 @@ paths:
       x-amazon-apigateway-integration:
         type: "aws_proxy"
         uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-addComment/invocations
-        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole
+        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole-${self:provider.stage}
         passthroughBehavior: "when_no_match"
         httpMethod: "POST"
       parameters:
@@ -1621,7 +1621,7 @@ paths:
       x-amazon-apigateway-integration:
         type: "aws_proxy"
         uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-deleteComment/invocations
-        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole
+        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole-${self:provider.stage}
         passthroughBehavior: "when_no_match"
         httpMethod: "POST"
       parameters:
@@ -1651,7 +1651,7 @@ paths:
       x-amazon-apigateway-integration:
         type: "aws_proxy"
         uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-getLikes/invocations
-        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole
+        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole-${self:provider.stage}
         passthroughBehavior: "when_no_match"
         httpMethod: "POST"
       parameters:
@@ -1685,7 +1685,7 @@ paths:
       x-amazon-apigateway-integration:
         type: "aws_proxy"
         uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-addLike/invocations
-        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole
+        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole-${self:provider.stage}
         passthroughBehavior: "when_no_match"
         httpMethod: "POST"
       parameters:
@@ -1712,7 +1712,7 @@ paths:
       x-amazon-apigateway-integration:
         type: "aws_proxy"
         uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-deleteLike/invocations
-        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole
+        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole-${self:provider.stage}
         passthroughBehavior: "when_no_match"
         httpMethod: "POST"
       parameters:
@@ -1740,7 +1740,7 @@ paths:
       x-amazon-apigateway-integration:
         type: "aws_proxy"
         uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-getLikes/invocations
-        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole
+        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole-${self:provider.stage}
         passthroughBehavior: "when_no_match"
         httpMethod: "POST"
       parameters:
@@ -1773,7 +1773,7 @@ paths:
       x-amazon-apigateway-integration:
         type: "aws_proxy"
         uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-addLike/invocations
-        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole
+        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole-${self:provider.stage}
         passthroughBehavior: "when_no_match"
         httpMethod: "POST"
       parameters:
@@ -1800,7 +1800,7 @@ paths:
       x-amazon-apigateway-integration:
         type: "aws_proxy"
         uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-deleteLike/invocations
-        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole
+        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole-${self:provider.stage}
         passthroughBehavior: "when_no_match"
         httpMethod: "POST"
       parameters:
