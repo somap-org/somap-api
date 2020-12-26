@@ -19,8 +19,9 @@ interface CognitoData {
 }
 
 export async function main(event, context, callback) {
-
+    console.log('START MAIN');
     if (event.request?.userAttributes?.email && event.request?.userAttributes['custom:userType']) {
+        console.log('EMAIL AND USER TYPE FOUND', event.request.userAttributes.email, event.request?.userAttributes['custom:userType']);
         let repo = new UserRepository();
         let user;
 
@@ -56,14 +57,19 @@ export async function main(event, context, callback) {
             return {}
         }
 
+        console.log('BUILDED USER', user);
+
         try {
-            await repo.signUpUser(user);
+            let userAdded = await repo.signUpUser(user);
+            console.log('USER ADDED', userAdded);
             return callback(null, event);
         } catch (e) {
+            console.log('ERROR ADDING USER', e);
             return null;
         }
 
     } else {
+        console.log('ERROR EMAIL OR USER TYPE NOT FOUND');
         return null;
     }
 }
