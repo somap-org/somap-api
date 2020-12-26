@@ -18,7 +18,7 @@ interface CognitoData {
     }
 }
 
-export async function main(event) {
+export async function main(event, context, callback) {
 
     if (event.request?.userAttributes?.email && event.request?.userAttributes['custom:userType']) {
         let repo = new UserRepository();
@@ -58,7 +58,7 @@ export async function main(event) {
 
         try {
             await repo.signUpUser(user);
-            return event;
+            return callback(null, event);
         } catch (e) {
             return null;
         }
