@@ -18,7 +18,7 @@ interface CognitoData {
     }
 }
 
-export async function main(event) {
+export async function main(event, context, callback) {
 
     if (event.request?.userAttributes?.email && event.request?.userAttributes['custom:userType']) {
         let repo = new UserRepository();
@@ -47,15 +47,16 @@ export async function main(event) {
             settings: userSettings
         };
 
-        if(event.request.userAttributes['custom:userType'] == "ClassicUser"){
+        if(event.request.userAttributes['custom:userType'] == "classicUser"){
             user.userType = UserTypes.ClassicUser;
-        } else if (event.request.userAttributes['custom:userType'] == "CamUser") {
+        } else if (event.request.userAttributes['custom:userType'] == "camUser") {
             user.userType = UserTypes.CamUser;
         } else
             return null;
 
         try {
-            return  await repo.signUpUser(user);
+            await repo.signUpUser(user);
+            callback(null, event);
         } catch (e) {
             return null;
         }
@@ -73,5 +74,5 @@ export async function deleteUser(userId: string){
     } catch (e) {
         return null;
     }
-    
+
 }
