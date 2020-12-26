@@ -38,7 +38,7 @@ Resources:
   ApiGatewayRestApi:
     Type: 'AWS::ApiGateway::RestApi'
     Properties:
-      Name: ${self:service}
+      Name: ${self:service.name}-${self:provider.stage}
       Body: ${file(resources/api-gateway/openapi.yml)}
 Outputs:
   ApiGatewayArn:
