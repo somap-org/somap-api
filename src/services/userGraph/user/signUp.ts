@@ -62,7 +62,7 @@ export async function main(event, context, callback) {
         try {
             let userAdded = await repo.signUpUser(user);
             console.log('USER ADDED', userAdded);
-            return callback(null, event);
+            callback(null, event);
         } catch (e) {
             console.log('ERROR ADDING USER', e);
             return null;
