@@ -27,7 +27,7 @@ export async function main(event) {
 
         let userPublicProfile = {
             profileImage: "test",
-            username: event.request.userAttributes.email.substring(0, event.request.userAttributes.email.indexOf("@")),
+            username: event.request.userAttributes.name,
             followers: 0,
             following: 0,
         };
