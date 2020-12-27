@@ -234,9 +234,9 @@ describe('Get places', async () => {
     it('Classic user request for 2 places', async () => {
         event = {
             "query": {
-                "latitude": 41.8111439,
-                "longitude": 12.6030924,
-                "range": 2000
+                "latitude": "41.8111439",
+                "longitude": "12.6030924",
+                "range": "2000"
             },
             "requestContext": {
                 "identity": {
@@ -268,9 +268,9 @@ describe('Get places', async () => {
     it('Classic user request for 1 place', async () => {
         event = {
             "query": {
-                "latitude": 41.8693897,
-                "longitude": 12.6061919,
-                "range": 1500
+                "latitude": "41.8693897",
+                "longitude": "12.6061919",
+                "range": "1500"
             },
             "requestContext": {
                 "identity": {
@@ -300,9 +300,9 @@ describe('Get places', async () => {
     it('User not logged', async () => {
         event = {
             "query": {
-                "latitude": 41.8111439,
-                "longitude": 12.6030924,
-                "range": 1500
+                "latitude": "41.8111439",
+                "longitude": "12.6030924",
+                "range": "1500"
             }
         };
         expectedResponse = {
