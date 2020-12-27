@@ -19,9 +19,9 @@ export async function main(event){
     console.log(event);
 
     // Get search parameters
-    let latitude = parseFloat(event.query?.latitude);
-    let longitude = parseFloat(event.query?.longitude);
-    let range = parseInt(event.query?.range);
+    let latitude = parseFloat(event.queryStringParameters?.latitude);
+    let longitude = parseFloat(event.queryStringParameters?.longitude);
+    let range = parseInt(event.queryStringParameters?.range);
 
     if(!await securityManager.isUserLogged())
         return responseManager.send(401);

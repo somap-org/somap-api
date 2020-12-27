@@ -233,7 +233,7 @@ describe('Get places', async () => {
 
     it('Classic user request for 2 places', async () => {
         event = {
-            "query": {
+            "queryStringParameters": {
                 "latitude": "41.8111439",
                 "longitude": "12.6030924",
                 "range": "2000"
@@ -267,7 +267,7 @@ describe('Get places', async () => {
 
     it('Classic user request for 1 place', async () => {
         event = {
-            "query": {
+            "queryStringParameters": {
                 "latitude": "41.8693897",
                 "longitude": "12.6061919",
                 "range": "1500"
@@ -299,7 +299,7 @@ describe('Get places', async () => {
 
     it('User not logged', async () => {
         event = {
-            "query": {
+            "queryStringParameters": {
                 "latitude": "41.8111439",
                 "longitude": "12.6030924",
                 "range": "1500"
