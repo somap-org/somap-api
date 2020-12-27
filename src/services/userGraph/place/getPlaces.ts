@@ -16,6 +16,8 @@ export async function main(event){
     let userRepo = new UserRepository();
     let securityManager = new SecurityManager(userRepo, event);
 
+    console.log(event);
+
     // Get search parameters
     let latitude = parseFloat(event.query?.latitude);
     let longitude = parseFloat(event.query?.longitude);
