@@ -17,9 +17,9 @@ export async function main(event){
     let securityManager = new SecurityManager(userRepo, event);
 
     // Get search parameters
-    let latitude = event.query?.latitude;
-    let longitude = event.query?.longitude;
-    let range = event.query?.range;
+    let latitude = parseFloat(event.query?.latitude);
+    let longitude = parseFloat(event.query?.longitude);
+    let range = parseFloat(event.query?.range);
 
     if(!await securityManager.isUserLogged())
         return responseManager.send(401);
