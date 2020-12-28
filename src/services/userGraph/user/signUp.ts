@@ -1,6 +1,6 @@
 import {UserTypes} from "../../../models/User";
 import {UserRepository} from "../../../repositories/UserRepository";
-import {sign} from "crypto";
+import * as CognitoIdentityServiceProvider from 'aws-sdk/clients/cognitoidentityserviceprovider';
 
 interface CognitoData {
     userName: string;
@@ -62,6 +62,25 @@ export async function main(event) {
         try {
             let userAdded = await repo.signUpUser(user);
             //console.log('USER ADDED', userAdded);
+
+            let cognitoIdentityServiceProvider = new CognitoIdentityServiceProvider({
+                region: process.env.REGION
+            });
+            var params = {
+                UserAttributes: [
+                    {
+                        Name: 'userId',
+                        Value: userAdded._id
+                    },
+                ],
+                UserPoolId: 'eu-central-1_dn6Q2WN7n',
+                Username: event.request.userAttributes.username
+            };
+            cognitoIdentityServiceProvider.adminUpdateUserAttributes(params, function(err, data) {
+                if (err) console.log(err, err.stack); // an error occurred
+                else     console.log(data);           // successful response
+            });
+
             return userAdded;
         } catch (e) {
             console.log('ERROR ADDING USER', e);
