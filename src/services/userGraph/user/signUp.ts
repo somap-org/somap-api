@@ -69,7 +69,7 @@ export async function main(event) {
             var params = {
                 UserAttributes: [
                     {
-                        Name: 'userId',
+                        Name: 'custom:userId',
                         Value: userAdded['_id'].toString()
                     },
                 ],
