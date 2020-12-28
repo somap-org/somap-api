@@ -61,7 +61,7 @@ export async function main(event) {
 
         try {
             let userAdded = await repo.signUpUser(user);
-            //console.log('USER ADDED', userAdded);
+            console.log('USER ADDED', userAdded);
 
             let cognitoIdentityServiceProvider = new CognitoIdentityServiceProvider({
                 region: process.env.REGION
@@ -70,7 +70,7 @@ export async function main(event) {
                 UserAttributes: [
                     {
                         Name: 'userId',
-                        Value: userAdded._id
+                        Value: userAdded['_id']
                     },
                 ],
                 UserPoolId: 'eu-central-1_dn6Q2WN7n',
