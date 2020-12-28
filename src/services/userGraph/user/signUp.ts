@@ -70,7 +70,7 @@ export async function main(event) {
                 UserAttributes: [
                     {
                         Name: 'userId',
-                        Value: userAdded['_id']
+                        Value: userAdded['_id'].toString()
                     },
                 ],
                 UserPoolId: 'eu-central-1_dn6Q2WN7n',
