@@ -60,7 +60,7 @@ function main(event) {
                             Value: userAdded['_id'].toString()
                         },
                     ],
-                    UserPoolId: 'eu-central-1_dn6Q2WN7n',
+                    UserPoolId: 'eu-central-1_EVTeuSqat',
                     Username: event.request.userAttributes.sub
                 };
                 console.log('params', params);

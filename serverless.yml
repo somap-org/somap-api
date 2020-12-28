@@ -17,7 +17,7 @@ provider:
     - Effect: "Allow"
       Action:
         - lambda:*
-        - cognito-idp:AdminUpdateUserAttributes
+        - cognito-idp:*
       Resource: "*"
 functions:
   signUp:
