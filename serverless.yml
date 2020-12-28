@@ -13,6 +13,11 @@ provider:
   environment:
     STAGE: ${self:provider.stage}
     API_VERSION: ${self:provider.version}
+  iamRoleStatemsnts:
+    - Effect: "Allow"
+      Action:
+        - cognito-idp:AdminUpdateUserAttributes
+      Resource: "*"
 functions:
   signUp:
     handler: build/services/userGraph/user/signUp.main
@@ -21,11 +26,6 @@ functions:
         pool: UserPoolId
         trigger: PostConfirmation
         existing: true
-    iamRoleStatemsnts:
-      - Effect: "Allow"
-        Action:
-          - cognito-idp:AdminUpdateUserAttributes
-        Resource: "*"
   getUserPublicProfile:
     handler: build/services/userGraph/user/getUserPublicProfile.main
   editUsername:
