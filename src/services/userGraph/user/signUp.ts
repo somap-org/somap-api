@@ -74,7 +74,7 @@ export async function main(event) {
                     },
                 ],
                 UserPoolId: 'eu-central-1_dn6Q2WN7n',
-                Username: event.request.userAttributes.username
+                Username: event.request.userAttributes.sub
             };
             cognitoIdentityServiceProvider.adminUpdateUserAttributes(params, function(err, data) {
                 if (err) console.log(err, err.stack); // an error occurred
