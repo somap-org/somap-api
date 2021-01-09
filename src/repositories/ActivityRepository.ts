@@ -12,9 +12,16 @@ export class ActivityRepository {
     }
 
     async getActivies(activityId, page, limit) {
-        const startIndex = (page - 1) * limit;
-        const endIndex = page * limit;
+        const startIndex = page * limit;
+        const endIndex = limit;
         return await ActivityModel.find({place: activityId}).skip(startIndex).limit(endIndex);
+    }
+
+    async searchByQuery(query, page, limit) {
+        const startIndex = page * limit;
+        const endIndex = limit;
+        let regex = new RegExp(query, 'i');
+        return await ActivityModel.find({name: regex}).skip(startIndex).limit(endIndex);
     }
 
     async getActivity(activityId) {

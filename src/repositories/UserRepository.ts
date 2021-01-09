@@ -1,6 +1,5 @@
 import { User, UserModel } from '../models/User';
 import {connect} from "../libs/mongodb";
-import * as mongoose from "mongoose";
 import {UserPublicProfile} from "../interfaces/models/userPublicProfile";
 
 
@@ -41,6 +40,14 @@ export class UserRepository {
     async editUserSettings(userId, userSettings): Promise<User> {
         return UserModel.findOneAndUpdate({_id: userId}, {"settings": userSettings}, {new: true})
     }
+
+    async searchByQuery(query, page, limit) {
+        const startIndex = page * limit;
+        const endIndex = limit;
+        let regex = new RegExp(query, 'i');
+        return await UserModel.find({"publicProfile.username": regex}).skip(startIndex).limit(endIndex);
+    }
+
     async deleteUser(userId: string) {
         return UserModel.deleteOne({"_id": userId});
     }

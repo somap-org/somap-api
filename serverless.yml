@@ -12,6 +12,7 @@ provider:
   accountId: 593794886287
   environment:
     STAGE: ${self:provider.stage}
+    REGION: ${self:provider.region}
     API_VERSION: ${self:provider.version}
   iamRoleStatements:
     - Effect: "Allow"
@@ -99,6 +100,9 @@ functions:
     handler: build/services/content/like/getLikes.main
   deleteLike:
     handler: build/services/content/like/deleteLike.main
+
+  search:
+    handler: build/services/search/mixedSearch.main
 
 resources:
   # API Gateway

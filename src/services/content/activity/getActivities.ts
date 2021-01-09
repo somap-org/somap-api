@@ -10,7 +10,7 @@ import {ActivityRepository} from "../../../repositories/ActivityRepository";
 import {Activities} from "../../../interfaces/models/activities";
 
 /*
-    Questa funzione deve restituire l'elenco completo di tutti gli utenti, ovvero un array contenente la rappresentazione json di tutti gli utenti
+    Questa funzione deve restituire l'elenco completo di tutte le attivita' di un place
  */
 export async function main(event){
     let responseManager = new ResponseManager();

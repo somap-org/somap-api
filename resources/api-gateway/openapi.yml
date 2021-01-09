@@ -1809,6 +1809,55 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
+
+  /search:
+    get:
+      tags:
+        - search
+      summary: Search activities, places and users by query
+      description: Return activities, palces and users that contains search query in 3 different arrays
+      x-amazon-apigateway-request-validator: "params-only"
+      x-amazon-apigateway-auth:
+        type: "AWS_IAM"
+      x-amazon-apigateway-integration:
+        type: "aws_proxy"
+        uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-search/invocations
+        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole-${self:provider.stage}
+        passthroughBehavior: "when_no_match"
+        httpMethod: "POST"
+      parameters:
+        - name: query
+          in: query
+          description: Search query
+          required: true
+          schema:
+            type: string
+        - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/limit'
+      responses:
+        '200':
+          description: Search result
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - activities
+                  - places
+                  - users
+                properties:
+                  activities:
+                    $ref: "#/components/schemas/Activities"
+                  places:
+                    $ref: "#/components/schemas/Places"
+                  users:
+                    $ref: "#/components/schemas/UsersPublicProfile"
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
 # Added by API Auto Mocking Plugin
 servers:
   - description: SwaggerHub API Auto Mocking

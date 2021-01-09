@@ -64,7 +64,7 @@ export async function main(event) {
             console.log('USER ADDED', userAdded);
 
             let cognitoIdentityServiceProvider = new CognitoIdentityServiceProvider({
-                region: process.env.REGION
+                region: process.env.REGION || 'eu-central-1'
             });
             var params = {
                 UserAttributes: [
@@ -76,8 +76,8 @@ export async function main(event) {
                 UserPoolId: 'eu-central-1_EVTeuSqat',
                 Username: event.request.userAttributes.sub
             };
-            console.log('params', params);
-            await cognitoIdentityServiceProvider.adminUpdateUserAttributes(params).promise();
+            //console.log('params', params);
+            //await cognitoIdentityServiceProvider.adminUpdateUserAttributes(params).promise();
             return userAdded;
         } catch (e) {
             console.log('ERROR ADDING USER', e);
