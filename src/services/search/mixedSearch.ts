@@ -25,8 +25,8 @@ export async function main(event) {
 
   const query = event.queryStringParameters.query;
 
-  const page = parseInt(event.pathParameters.page) || 1;
-  const limit = parseInt(event.pathParameters.limit) || 10;
+  const page = parseInt(event.queryStringParameters?.page) || 1;
+  const limit = parseInt(event.queryStringParameters?.limit) || 10;
 
   if (!await securityManager.isUserLogged())
     return responseManager.send(401);
@@ -35,21 +35,22 @@ export async function main(event) {
     let responseActivities: Activities = [];
     let responsePlaces:Places = [];
     let responseUsers:UsersPublicProfile = [];
-
+    console.log('test');
     await Promise.all([
-      async () => { //Cerco Activities
+      new Promise(async (resolve, reject) => { //Cerco Activities
         let activities = await activityRepository.searchByQuery(query, page, limit);
         activities.map((activity) => {
           responseActivities.push({
-            activityId: activity['_id'],
+            activityId: activity['_id'].toString(),
             name: activity.name,
             description: activity.description,
             date: activity.date,
             thumbnail: activity.thumbnail
           })
         });
-      },
-      async () => { //Cerco Places
+        resolve();
+      }),
+      new Promise(async (resolve, reject) => { //Cerco Places
         let places = await placeRepository.searchByQuery(query, page, limit);
         for (const place of places) {
           let coordinates:PlaceCoordinates = {
@@ -57,19 +58,20 @@ export async function main(event) {
             longitude: place.location.coordinates[0]
           };
           responsePlaces.push({
-            placeId: place['_id'],
+            placeId: place['_id'].toString(),
             name: place.name,
             description: place.description,
             address: place.address,
             coordinates: coordinates,
           });
         }
-      },
-      async () => { //Cerco Users
+        resolve();
+      }),
+      new Promise(async (resolve, reject) => { //Cerco Users
         let users = await userRepository.searchByQuery(query, page, limit);
         for (const user of users) {
           responseUsers.push({
-            userId: user['_id'],
+            userId: user['_id'].toString(),
             userType: user.userType,
             username: user.publicProfile.username,
             profileImage: user.publicProfile.profileImage,
@@ -77,7 +79,8 @@ export async function main(event) {
             following: user.publicProfile.following
           });
         }
-      }
+        resolve();
+      })
     ]);
 
     let response = {
@@ -86,7 +89,7 @@ export async function main(event) {
       users: responseUsers,
     };
 
-    return response;
+    return responseManager.send(200, response);
 
   } catch (err) {
     console.log(err);

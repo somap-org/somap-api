@@ -13,12 +13,12 @@ export class FollowRepository {
 
     async getFollowers(id, page, limit): Promise<any> {
         const startIndex = (page - 1) * limit;
-        const endIndex = page * limit;
+        const endIndex = limit;
         return await FollowerModel.find({_t: id}).select("-_id _f").populate('_f').skip(startIndex).limit(endIndex);
     }
     async getFollowing(id, page, limit): Promise<any> {
         const startIndex = (page - 1) * limit;
-        const endIndex = page * limit;
+        const endIndex = limit;
         return await FollowingModel.find({_t: id}).select("-_id _f").populate('_f').skip(startIndex).limit(endIndex);
     }
     async follow(userId, targetId): Promise<boolean> {

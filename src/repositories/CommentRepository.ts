@@ -59,7 +59,7 @@ export class CommentRepository implements CommentInterface, LikeInterface {
 
     async getComments(parentId, page, limit) {
         const startIndex = (page - 1) * limit;
-        const endIndex = page * limit;
+        const endIndex = limit;
         const comments = await CommentModel.find({parent: parentId}).skip(startIndex).limit(endIndex);
         return comments;
     }

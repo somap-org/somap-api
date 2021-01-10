@@ -21,7 +21,7 @@ export class PostRepository implements Comment, LikeInterface {
 
     async getPosts(profileId, page, limit) {
         const startIndex = (page - 1) * limit;
-        const endIndex = page * limit;
+        const endIndex = limit;
         return await PostModel.find({profile: profileId}).skip(startIndex).limit(endIndex);
     }
 

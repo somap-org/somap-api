@@ -42,7 +42,7 @@ export class UserRepository {
     }
 
     async searchByQuery(query, page, limit) {
-        const startIndex = page * limit;
+        const startIndex = (page - 1) * limit;
         const endIndex = limit;
         let regex = new RegExp(query, 'i');
         return await UserModel.find({"publicProfile.username": regex}).skip(startIndex).limit(endIndex);
