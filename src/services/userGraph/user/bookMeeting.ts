@@ -1,7 +1,7 @@
 import ResponseManager from "../../../libs/ResponseManager";
+import moment = require("moment");
 var AWS = require('aws-sdk');
 AWS.config.update({region: process.env.REGION || 'eu-central-1'});
-
 /*
     Questa funzione deve restituire l'elenco completo di tutti gli utenti, ovvero un array contenente la rappresentazione json di tutti gli utenti
  */
@@ -12,7 +12,7 @@ export async function main(event){
   const body = JSON.parse(event.body);
 
   try{
-    let message = "E' stato compilato il form di contatto da "+body.name+" dalla società "+body.companyName+" con indirizzo email "+body.email+" e numero di telefono "+body.phone+" per richiedere un meeting il giorno "+body.date+". Note: "+body.note;
+    let message = "E' stato compilato il form di contatto da "+body.name+" dalla società "+body.companyName+" con indirizzo email "+body.email+" e numero di telefono "+body.phone+" per richiedere un meeting il giorno "+moment(body.date).format("DD/MM/YYYY")+". Note: "+body.note;
     var params = {
       Destination: { /* required */
         ToAddresses: [
@@ -40,7 +40,7 @@ export async function main(event){
         body.email
       ],
     };
-    var sendPromise = await AWS.SES({apiVersion: '2010-12-01'}).sendEmail(params).promise();
+    var sendPromise = await new AWS.SES({apiVersion: '2010-12-01'}).sendEmail(params).promise();
     console.log(sendPromise);
     return responseManager.send(200);
   } catch (err) {
