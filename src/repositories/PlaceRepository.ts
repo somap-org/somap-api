@@ -1,5 +1,8 @@
 import {connect} from "../libs/mongodb";
 import {Place, PlaceModel} from "../models/Place";
+import {UserModel, UserTypes} from "../models/User";
+import {UserPublicProfile} from "../interfaces/models/userPublicProfile";
+import UserTypeEnum = UserPublicProfile.UserTypeEnum;
 
 
 export class PlaceRepository {
@@ -9,6 +12,11 @@ export class PlaceRepository {
 
     async getPlace(placeId: string): Promise<Place> {
         return PlaceModel.findOne({_id: placeId});
+    }
+
+    async getCamUserPlace(loggedUser): Promise<Place> {
+        //let loggedUser = await UserModel.findOne({_id: userId, userType: UserTypes.CamUser});
+        return PlaceModel.findOne({camUser: loggedUser});
     }
 
     async addPlace(place){

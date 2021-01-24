@@ -40,6 +40,8 @@ functions:
 
   addPlace:
     handler: build/services/userGraph/place/addPlace.main
+  getCamUserPlace:
+    handler: build/services/userGraph/place/getCamUserPlace.main
   getPlace:
     handler: build/services/userGraph/place/getPlace.main
   getPlaces:
