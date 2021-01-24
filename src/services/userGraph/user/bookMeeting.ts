@@ -16,7 +16,7 @@ export async function main(event){
     var params = {
       Destination: { /* required */
         ToAddresses: [
-          'lpirrone2000@gmail.com',
+          'somap.business@gmail.com',
         ]
       },
       Message: {
@@ -35,7 +35,7 @@ export async function main(event){
           Data: body.name+' vuole prenotare un meeting!'
         }
       },
-      Source: 'lpirrone2000@gmail.com',
+      Source: 'somap.business@gmail.com',
       ReplyToAddresses: [
         body.email
       ],
@@ -47,4 +47,5 @@ export async function main(event){
     console.log(err);
     return responseManager.send(501);
   }
+
 }

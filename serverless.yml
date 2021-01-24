@@ -19,6 +19,8 @@ provider:
       Action:
         - lambda:*
         - cognito-idp:*
+        - ses:SendEmail
+        - ses:SendRawEmail
       Resource: "*"
 functions:
   signUpCamUser:
