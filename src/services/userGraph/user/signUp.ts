@@ -77,7 +77,7 @@ export async function main(event) {
                 Username: event.request.userAttributes.sub
             };
             //console.log('params', params);
-            //await cognitoIdentityServiceProvider.adminUpdateUserAttributes(params).promise();
+            await cognitoIdentityServiceProvider.adminUpdateUserAttributes(params).promise();
             return userAdded;
         } catch (e) {
             console.log('ERROR ADDING USER', e);

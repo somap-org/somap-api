@@ -551,6 +551,45 @@ x-amazon-apigateway-request-validators:
     validateRequestBody: true
     validateRequestParameters: false
 paths:
+  /signUpCamUser:
+    post:
+      tags:
+        - userGraph
+      summary: Signup CamUser API
+      x-amazon-apigateway-request-validator: "all"
+      x-amazon-apigateway-integration:
+        type: "aws_proxy"
+        uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-signUpCamUser/invocations
+        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole-${self:provider.stage}
+        passthroughBehavior: "when_no_match"
+        httpMethod: "POST"
+      requestBody:
+        description: CamUserInfo
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+                - username
+                - password
+              properties:
+                email:
+                  type: string
+                username:
+                  type: string
+                password:
+                  type: string
+      responses:
+        '200':
+          description: CamUser signed up
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
   /users/{userId}/profile:
     get:
       tags:

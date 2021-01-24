@@ -21,6 +21,8 @@ provider:
         - cognito-idp:*
       Resource: "*"
 functions:
+  signUpCamUser:
+    handler: build/services/userGraph/user/signUpCamUser.main
   signUp:
     handler: build/services/userGraph/user/signUp.main
   getUserPublicProfile:
