@@ -22,7 +22,7 @@ export async function main(event){
       UserAttributes: [
         {
           Name: 'custom:userType',
-          Value: 'camUser'
+          Value: body.userType
         },
         {
           Name: 'name',

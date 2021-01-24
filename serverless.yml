@@ -23,8 +23,8 @@ provider:
         - ses:SendRawEmail
       Resource: "*"
 functions:
-  signUpCamUser:
-    handler: build/services/userGraph/user/signUpCamUser.main
+  signUpUserAPI:
+    handler: build/services/userGraph/user/signUpUserAPI.main
   bookMeeting:
     handler: build/services/userGraph/user/bookMeeting.main
   signUp:
