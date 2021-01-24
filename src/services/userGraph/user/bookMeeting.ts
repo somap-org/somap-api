@@ -35,7 +35,7 @@ export async function main(event){
           Data: body.name+' vuole prenotare un meeting!'
         }
       },
-      Source: 'somap.business@gmail.com',
+      Source: 'business@somap.app',
       ReplyToAddresses: [
         body.email
       ],
