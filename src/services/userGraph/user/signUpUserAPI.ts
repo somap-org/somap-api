@@ -1,5 +1,6 @@
 import ResponseManager from "../../../libs/ResponseManager";
 import * as CognitoIdentityServiceProvider from 'aws-sdk/clients/cognitoidentityserviceprovider';
+import moment = require("moment");
 
 /*
     Questa funzione deve restituire l'elenco completo di tutti gli utenti, ovvero un array contenente la rappresentazione json di tutti gli utenti
@@ -27,6 +28,14 @@ export async function main(event){
         {
           Name: 'name',
           Value: body.username
+        },
+        {
+          Name: 'custom:termsConditions',
+          Value: moment().format()
+        },
+        {
+          Name: 'custom:privacyCookiePolicy',
+          Value: moment().format()
         },
       ],
     };
