@@ -21,10 +21,6 @@ export async function main(event){
       },
       Message: {
         Body: {
-          Html: {
-            Charset: "UTF-8",
-            Data: "HTML_FORMAT_BODY"
-          },
           Text: {
             Charset: "UTF-8",
             Data: message
