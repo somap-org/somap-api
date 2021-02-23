@@ -47,6 +47,11 @@ export async function main(event){
     return responseManager.send(200);
   } catch (err) {
     console.log(err);
+    if (err.code==='UsernameExistsException')
+      return responseManager.send(400, {
+        code: "UsernameExistsException",
+        message: "Email already exists"
+      });
     return responseManager.send(501);
   }
 }
