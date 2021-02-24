@@ -46,6 +46,10 @@ export class User extends Typegoose {
     publicProfile: UserPublicProfile;
     @prop({ required: true, _id: false })
     settings: UserSettings;
+    @prop({ required: false })
+    referralCode: string;
+    @prop({ required: false })
+    referralCodeUsed: string;
 }
 
 export const UserModel = new User().getModelForClass(User, {

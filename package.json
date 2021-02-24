@@ -38,6 +38,7 @@
     "moment": "^2.27.0",
     "mongodb": "^2.2.33",
     "mongoose": "^5.9.15",
+    "referral-code-generator": "^1.0.8",
     "typescript-express": "0.0.2"
   }
 }

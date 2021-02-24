@@ -1,6 +1,7 @@
 import {UserTypes} from "../../../models/User";
 import {UserRepository} from "../../../repositories/UserRepository";
 import * as CognitoIdentityServiceProvider from 'aws-sdk/clients/cognitoidentityserviceprovider';
+import referralCodeGenerator from 'referral-code-generator';
 
 interface CognitoData {
     userName: string;
@@ -45,10 +46,13 @@ export async function main(event) {
             instagram: null,
             facebook: null,
             publicProfile: userPublicProfile,
-            settings: userSettings
+            settings: userSettings,
+            referralCode: null,
+            referralCodeUsed: event.request.userAttributes?.referralCode
         };
 
         if(event.request.userAttributes['custom:userType'] == "classicUser"){
+            user.referralCode = referralCodeGenerator.custom('uppercase', 6, 6, event.request.userAttributes.name);
             user.userType = UserTypes.ClassicUser;
         } else if (event.request.userAttributes['custom:userType'] == "camUser") {
             user.userType = UserTypes.CamUser;

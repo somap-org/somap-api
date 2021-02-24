@@ -1,5 +1,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.template = void 0;
+const moment = require("moment");
 function template(name, company, email, phone, date, note) {
     return `
   <!DOCTYPE html>
@@ -145,7 +146,7 @@ We will reply to your request as soon as possible.</p>
                             <p style="margin: 0;">Company: ${company}</p>
                             <p style="margin: 0;">Email: ${email}</p>
                             <p style="margin: 0;">Phone: ${phone}</p>
-                            <p style="margin: 0;">Meeting Date: ${date}</p>
+                            <p style="margin: 0;">Meeting Date: ${moment(date).format('dd/mm/YYYY')}</p>
                             <p style="margin: 0;">Note: ${note}</p>
                         </td>
                     </tr>
@@ -217,4 +218,4 @@ We will reply to your request as soon as possible.</p>
   `;
 }
 exports.template = template;
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiYm9va01lZXRpbmdUZW1wbGF0ZS5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIi4uLy4uL3NyYy92aWV3cy9ib29rTWVldGluZ1RlbXBsYXRlLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7O0FBQUEsU0FBZ0IsUUFBUSxDQUFDLElBQUksRUFBRSxPQUFPLEVBQUUsS0FBSyxFQUFFLEtBQUssRUFBRSxJQUFJLEVBQUUsSUFBSTtJQUM5RCxPQUFPOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Z0dBMkh1RixJQUFJOzs7Ozs7Ozs7Ozs7Ozs7OzswREFpQjFDLElBQUk7NkRBQ0QsT0FBTzsyREFDVCxLQUFLOzJEQUNMLEtBQUs7a0VBQ0UsSUFBSTswREFDWixJQUFJOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7OztHQW9FM0QsQ0FBQTtBQUNILENBQUM7QUF2TkQsNEJBdU5DIn0=
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiYm9va01lZXRpbmdUZW1wbGF0ZS5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIi4uLy4uL3NyYy92aWV3cy9ib29rTWVldGluZ1RlbXBsYXRlLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7O0FBQUEsaUNBQWtDO0FBRWxDLFNBQWdCLFFBQVEsQ0FBQyxJQUFJLEVBQUUsT0FBTyxFQUFFLEtBQUssRUFBRSxLQUFLLEVBQUUsSUFBSSxFQUFFLElBQUk7SUFDOUQsT0FBTzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7O2dHQTJIdUYsSUFBSTs7Ozs7Ozs7Ozs7Ozs7Ozs7MERBaUIxQyxJQUFJOzZEQUNELE9BQU87MkRBQ1QsS0FBSzsyREFDTCxLQUFLO2tFQUNFLE1BQU0sQ0FBQyxJQUFJLENBQUMsQ0FBQyxNQUFNLENBQUMsWUFBWSxDQUFDOzBEQUN6QyxJQUFJOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7OztHQW9FM0QsQ0FBQTtBQUNILENBQUM7QUF2TkQsNEJBdU5DIn0=
