@@ -1,15 +1,24 @@
 import ResponseManager from "../../../libs/ResponseManager";
 import * as CognitoIdentityServiceProvider from 'aws-sdk/clients/cognitoidentityserviceprovider';
 import moment = require("moment");
+import {UserRepository} from "../../../repositories/UserRepository";
 
 /*
     Questa funzione deve restituire l'elenco completo di tutti gli utenti, ovvero un array contenente la rappresentazione json di tutti gli utenti
  */
 export async function main(event){
   let responseManager = new ResponseManager();
+  let userRepository = new UserRepository();
 
   //Take variable from event
   const body = JSON.parse(event.body);
+
+  if (body.referralCode !== null && body.referralCode !== '' && await userRepository.getUserByReferralCode(body.referralCode) === null)
+    return responseManager.send(400, {
+      code: "InvalidReferralCode",
+      message: "Invalid Referral code"
+    });
+
 
   try{
 
@@ -36,6 +45,10 @@ export async function main(event){
         {
           Name: 'custom:privacyCookiePolicy',
           Value: moment().format()
+        },
+        {
+          Name: 'custom:referralCode',
+          Value: body.referralCode
         },
       ],
     };

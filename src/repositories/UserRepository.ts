@@ -25,6 +25,11 @@ export class UserRepository {
         return response;
     }
 
+    async getUserByReferralCode(referralCode: string): Promise<User> {
+        const user = await UserModel.findOne({referralCode: referralCode});
+        return user;
+    }
+
     async getUserByCognitoId(cognitoId: string): Promise<User> {
         return UserModel.findOne({cognitoId: cognitoId});
     }

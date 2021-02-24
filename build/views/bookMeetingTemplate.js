@@ -146,7 +146,7 @@ We will reply to your request as soon as possible.</p>
                             <p style="margin: 0;">Company: ${company}</p>
                             <p style="margin: 0;">Email: ${email}</p>
                             <p style="margin: 0;">Phone: ${phone}</p>
-                            <p style="margin: 0;">Meeting Date: ${moment(date).format('dd/mm/YYYY')}</p>
+                            <p style="margin: 0;">Meeting Date: ${moment(date).format('DD/MM/YYYY')}</p>
                             <p style="margin: 0;">Note: ${note}</p>
                         </td>
                     </tr>
