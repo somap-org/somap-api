@@ -50,30 +50,23 @@ export async function main(event){
     await new AWS.SES({apiVersion: '2010-12-01'}).sendEmail(params).promise();
 
     //Send email to user
-    var params = {
+    let paramsUserEmail = {
       Destination: { /* required */
         ToAddresses: [
           body.email,
         ]
       },
-      Message: {
-        Body: {
-          Html: {
-            Charset: "UTF-8",
-            Data: template(body.name, body.companyName, body.email, body.phone, body.date, body.note)
-          }
-        },
-        Subject: {
-          Charset: 'UTF-8',
-          Data: ''
-        }
-      },
       Source: 'business@somap.app',
+      Template: 'BookMeeting-20210225115427',
+      TemplateData: {
+        ...body,
+        date: moment(body.date).format('DD/MM/YYYY')
+      },
       ReplyToAddresses: [
         'business@somap.app'
       ],
     };
-    await new AWS.SES({apiVersion: '2010-12-01'}).sendEmail(params).promise();
+    await new AWS.SES({apiVersion: '2010-12-01'}).sendTemplatedEmail(paramsUserEmail).promise();
 
     return responseManager.send(200);
   } catch (err) {
