@@ -52,9 +52,9 @@ export async function main(event) {
         };
 
         if(event.request.userAttributes['custom:userType'] == "classicUser"){
-            user.referralCode = referralCodeGenerator.custom('uppercase', 6, 6, event.request.userAttributes.name);
             user.userType = UserTypes.ClassicUser;
         } else if (event.request.userAttributes['custom:userType'] == "camUser") {
+            user.referralCode = referralCodeGenerator.custom('uppercase', 6, 6, event.request.userAttributes.name);
             user.userType = UserTypes.CamUser;
         } else {
             //console.log('ERRORE: custom:userType non definito o errato');
