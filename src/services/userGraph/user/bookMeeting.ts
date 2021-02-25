@@ -47,7 +47,7 @@ export async function main(event){
         body.email
       ],
     };
-    await new AWS.SES({apiVersion: '2010-12-01'}).sendEmail(params).promise();
+    //await new AWS.SES({apiVersion: '2010-12-01'}).sendEmail(params).promise();
 
     //Send email to user
     let paramsUserEmail = {
