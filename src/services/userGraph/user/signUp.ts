@@ -48,7 +48,7 @@ export async function main(event) {
             publicProfile: userPublicProfile,
             settings: userSettings,
             referralCode: referralCodeGenerator.custom('uppercase', 6, 6, event.request.userAttributes.name),
-            referralCodeUsed: event.request.userAttributes?.referralCode
+            referralCodeUsed: event.request.userAttributes['custom:referralCode']
         };
 
         if(event.request.userAttributes['custom:userType'] == "classicUser"){
