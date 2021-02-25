@@ -47,17 +47,15 @@ export async function main(event){
         body.email
       ],
     };
-    //await new AWS.SES({apiVersion: '2010-12-01'}).sendEmail(params).promise();
+    await new AWS.SES({apiVersion: '2010-12-01'}).sendEmail(params).promise();
 
     //Send email to user
     let paramsUserEmail = {
       Destination: { /* required */
         ToAddresses: [
-          body.email,
-          'somap.business@gmail.com'
+          body.email
         ]
       },
-      ConfigurationSetName: "ConfigSet",
       Source: 'business@somap.app',
       Template: 'BookMeeting-20210225115427',
       TemplateData: JSON.stringify({
@@ -76,3 +74,6 @@ export async function main(event){
   }
 
 }
+/*
+aws ses --profile somap-ses --region eu-central-1 test-render-template --template-name BookMeeting-20210225115427 --template-data "{ \"date\": \"2021-02-23T23:00:00.000Z\",  \"name\": \"Luca Pirrone\",  \"companyName\": \"Luca Pirrone\",  \"email\": \"lpirrone2000@gmail.com\",  \"phone\": \"3481633500\",  \"note\": \"Test\"}"
+ */
