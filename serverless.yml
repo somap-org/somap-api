@@ -20,6 +20,7 @@ provider:
         - lambda:*
         - cognito-idp:*
         - ses:SendEmail
+        - ses:SendTemplatedEmail
         - ses:SendRawEmail
       Resource: "*"
 functions:
