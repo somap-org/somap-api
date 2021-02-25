@@ -57,7 +57,7 @@ export async function main(event){
         ]
       },
       Source: 'business@somap.app',
-      Template: 'BookMeeting-20210225115427',
+      Template: 'BookMeeting',
       TemplateData: JSON.stringify({
         ...body,
         date: moment(body.date).format('DD/MM/YYYY')

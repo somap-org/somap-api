@@ -2,6 +2,8 @@ import {UserTypes} from "../../../models/User";
 import {UserRepository} from "../../../repositories/UserRepository";
 import * as CognitoIdentityServiceProvider from 'aws-sdk/clients/cognitoidentityserviceprovider';
 const referralCodeGenerator = require('referral-code-generator');
+var AWS = require('aws-sdk');
+AWS.config.update({region: process.env.REGION || 'eu-central-1'});
 
 interface CognitoData {
     userName: string;
@@ -81,6 +83,25 @@ export async function main(event) {
             };
             //console.log('params', params);
             await cognitoIdentityServiceProvider.adminUpdateUserAttributes(params).promise();
+            //Send email to user
+            let paramsUserEmail = {
+                Destination: { /* required */
+                    ToAddresses: [
+                        user.email
+                    ]
+                },
+                Source: 'business@somap.app',
+                Template: 'CompleteSomapAccount',
+                TemplateData: JSON.stringify({
+                    username: user.publicProfile.username,
+                    referralCode: user.referralCode
+                }),
+                ReplyToAddresses: [
+                    'business@somap.app'
+                ],
+            };
+            await new AWS.SES({apiVersion: '2010-12-01'}).sendTemplatedEmail(paramsUserEmail).promise();
+
             return userAdded;
         } catch (e) {
             console.log('ERROR ADDING USER', e);
