@@ -66,9 +66,14 @@ export async function main(event){
         'business@somap.app'
       ],
     };
-    await new AWS.SES({apiVersion: '2010-12-01'}).sendTemplatedEmail(paramsUserEmail).promise();
+    await new AWS.SES({apiVersion: '2010-12-01'}).sendTemplatedEmail(paramsUserEmail).promise().then((res) => {
+      console.log('ok', res);
+      return responseManager.send(200);
+    }).catch((err) => {
+      console.log('err', err);
+      return responseManager.send(501);
+    });
 
-    return responseManager.send(200);
   } catch (err) {
     console.log(err);
     return responseManager.send(501);
