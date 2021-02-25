@@ -54,8 +54,10 @@ export async function main(event){
       Destination: { /* required */
         ToAddresses: [
           body.email,
+          'somap.business@gmail.com'
         ]
       },
+      ConfigurationSetName: "ConfigSet",
       Source: 'business@somap.app',
       Template: 'BookMeeting-20210225115427',
       TemplateData: JSON.stringify({
@@ -66,14 +68,8 @@ export async function main(event){
         'business@somap.app'
       ],
     };
-    await new AWS.SES({apiVersion: '2010-12-01'}).sendTemplatedEmail(paramsUserEmail).promise().then((res) => {
-      console.log('ok', res);
-      return responseManager.send(200);
-    }).catch((err) => {
-      console.log('err', err);
-      return responseManager.send(501);
-    });
-
+    await new AWS.SES({apiVersion: '2010-12-01'}).sendTemplatedEmail(paramsUserEmail).promise();
+    return responseManager.send(200);
   } catch (err) {
     console.log(err);
     return responseManager.send(501);
