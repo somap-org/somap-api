@@ -47,14 +47,13 @@ export async function main(event) {
             facebook: null,
             publicProfile: userPublicProfile,
             settings: userSettings,
-            referralCode: null,
+            referralCode: referralCodeGenerator.custom('uppercase', 6, 6, event.request.userAttributes.name),
             referralCodeUsed: event.request.userAttributes?.referralCode
         };
 
         if(event.request.userAttributes['custom:userType'] == "classicUser"){
             user.userType = UserTypes.ClassicUser;
         } else if (event.request.userAttributes['custom:userType'] == "camUser") {
-            user.referralCode = referralCodeGenerator.custom('uppercase', 6, 6, event.request.userAttributes.name);
             user.userType = UserTypes.CamUser;
         } else {
             //console.log('ERRORE: custom:userType non definito o errato');
