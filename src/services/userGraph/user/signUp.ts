@@ -1,7 +1,7 @@
 import {UserTypes} from "../../../models/User";
 import {UserRepository} from "../../../repositories/UserRepository";
 import * as CognitoIdentityServiceProvider from 'aws-sdk/clients/cognitoidentityserviceprovider';
-import referralCodeGenerator from 'referral-code-generator';
+const referralCodeGenerator = require('referral-code-generator');
 
 interface CognitoData {
     userName: string;
