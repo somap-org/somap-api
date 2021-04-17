@@ -47,7 +47,7 @@ export class UserRepository {
     }
 
     async updateLiveInfo(userId, liveInfo: {channel: string, streamKey: string}): Promise<User> {
-        return UserModel.findByIdAndUpdate({_id: userId, liveInfo}, {new: true});
+        return UserModel.findOneAndUpdate({_id: userId}, liveInfo, {new: true});
     }
 
     async searchByQuery(query, page, limit) {
