@@ -83,6 +83,8 @@ export async function main(event) {
             await cognitoIdentityServiceProvider.adminUpdateUserAttributes(params).promise();
 
             //Creo un canale nel caso in cui l'utente e' di tipo cam
+
+            console.log('testtt');
             if (user.userType === UserTypes.CamUser) {
                 // Crea un canale IVS
                 const ivs = new AWS.IVS({
@@ -95,10 +97,15 @@ export async function main(event) {
                     type: 'BASIC'
                 };
                 const result = await ivs.createChannel(params).promise();
-                await repo.updateLiveInfo(userAdded._id, {
+                console.log({
                     channel: result.channel,
                     streamKey: result.streamKey
                 });
+                let live = await repo.updateLiveInfo(userAdded._id, {
+                    channel: result.channel,
+                    streamKey: result.streamKey
+                });
+                console.log(live);
             }
 
             //Invio email all'utente
