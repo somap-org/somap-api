@@ -35,6 +35,7 @@ export async function main(event){
 
         const response:Live = {
             createdAt: live.createdAt,
+            liveUrl: live.liveUrl,
             liveId: live['_id']
         };
 

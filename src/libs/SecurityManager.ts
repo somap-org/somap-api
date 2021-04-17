@@ -1,5 +1,5 @@
 import {UserRepository} from "../repositories/UserRepository";
-import {UserTypes} from "../models/User";
+import {User, UserTypes} from "../models/User";
 import {PlaceRepository} from "../repositories/PlaceRepository";
 import {PostRepository} from "../repositories/PostRepository";
 import {CommentRepository} from "../repositories/CommentRepository";
@@ -170,6 +170,15 @@ export class SecurityManager {
             return false;
         }
         return false;
+    }
+
+    async getUserLogged(): Promise<User> {
+        if (
+          typeof this.event.requestContext?.identity?.cognitoAuthenticationProvider == "undefined"
+        )
+            return null;
+
+        return await this.repo.getUserByCognitoId(this.event.requestContext?.identity?.cognitoAuthenticationProvider.toString().slice(this.event.requestContext?.identity?.cognitoAuthenticationProvider.toString().lastIndexOf(':')+1));
     }
 
 }

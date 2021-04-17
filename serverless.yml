@@ -22,6 +22,7 @@ provider:
         - ses:SendEmail
         - ses:SendTemplatedEmail
         - ses:SendRawEmail
+        - ivs:*
       Resource: "*"
 functions:
   signUpUserAPI:

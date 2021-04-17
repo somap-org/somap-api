@@ -22,6 +22,7 @@ export async function main(event){
         let live = await repo.getLive(liveId);
         let response:Live = {
             createdAt: live.createdAt,
+            liveUrl: live.liveUrl,
             liveId: live['_id']
         };
         return responseManager.send(200, response);

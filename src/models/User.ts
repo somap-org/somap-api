@@ -50,6 +50,10 @@ export class User extends Typegoose {
     referralCode: string;
     @prop({ required: false })
     referralCodeUsed: string;
+    @prop({required: false})
+    channel: string;
+    @prop({required: false})
+    streamKey: string;
 }
 
 export const UserModel = new User().getModelForClass(User, {

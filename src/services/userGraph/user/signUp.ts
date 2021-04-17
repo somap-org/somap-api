@@ -62,12 +62,11 @@ export async function main(event) {
             return null;
         }
 
-        //console.log('BUILDED USER', user);
-
         try {
             let userAdded = await repo.signUpUser(user);
             console.log('USER ADDED', userAdded);
 
+            // Aggiorno campo dell'id utente mongodb in cognito
             let cognitoIdentityServiceProvider = new CognitoIdentityServiceProvider({
                 region: process.env.REGION || 'eu-central-1'
             });
@@ -81,9 +80,28 @@ export async function main(event) {
                 UserPoolId: 'eu-central-1_EVTeuSqat',
                 Username: event.request.userAttributes.sub
             };
-            //console.log('params', params);
             await cognitoIdentityServiceProvider.adminUpdateUserAttributes(params).promise();
-            //Send email to user
+
+            //Creo un canale nel caso in cui l'utente e' di tipo cam
+            if (userAdded.userType === "camUser") {
+                // Crea un canale IVS
+                const ivs = new AWS.IVS({
+                    apiVersion: '2020-07-14',
+                    region: 'us-west-2'
+                });
+                const params = {
+                    latencyMode: 'NORMAL',
+                    name: userAdded['_id'].toString(),
+                    type: 'BASIC'
+                };
+                const result = await ivs.createChannel(params).promise();
+                await repo.updateLiveInfo(userAdded._id, {
+                    channel: result.channel,
+                    streamKey: result.streamKey
+                });
+            }
+
+            //Invio email all'utente
             let paramsUserEmail = {
                 Destination: { /* required */
                     ToAddresses: [

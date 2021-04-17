@@ -3,9 +3,6 @@ import * as CognitoIdentityServiceProvider from 'aws-sdk/clients/cognitoidentity
 import moment = require("moment");
 import {UserRepository} from "../../../repositories/UserRepository";
 
-/*
-    Questa funzione deve restituire l'elenco completo di tutti gli utenti, ovvero un array contenente la rappresentazione json di tutti gli utenti
- */
 export async function main(event){
   let responseManager = new ResponseManager();
   let userRepository = new UserRepository();
