@@ -54,6 +54,8 @@ export class User extends Typegoose {
     channel: string;
     @prop({required: false})
     streamKey: string;
+    @prop({required: false})
+    streamUrl: string;
 }
 
 export const UserModel = new User().getModelForClass(User, {

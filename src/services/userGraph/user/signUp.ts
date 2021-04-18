@@ -99,11 +99,11 @@ export async function main(event) {
                 const result = await ivs.createChannel(params).promise();
                 console.log({
                     channel: result.channel.arn,
-                    streamKey: result.streamKey
+                    streamKey: result.streamKey.value
                 });
                 let live = await repo.updateLiveInfo(userAdded._id, {
                     channel: result.channel.arn,
-                    streamKey: result.streamKey,
+                    streamKey: result.streamKey.value,
                     streamUrl: result.channel.playbackUrl
                 });
                 console.log(live);
