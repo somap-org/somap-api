@@ -7,8 +7,12 @@ export class Live extends Typegoose {
   place: Ref<Place>;
   @prop({required: false})
   liveUrl: string;
+  @prop({required: false})
+  liveId: string;
   @prop({ required: true })
   createdAt: string;
+  @prop({ required: true })
+  endedAt: string;
 }
 
 

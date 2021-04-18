@@ -6,37 +6,42 @@ import {SecurityManager} from "../../libs/SecurityManager";
 import {UserRepository} from "../../repositories/UserRepository";
 import {LiveRepository} from "../../repositories/LiveRepository";
 import {Live} from "../../interfaces/models/live";
+import moment = require("moment");
+const AWS = require('aws-sdk');
 
-/*
-    Questa funzione deve restituire l'elenco completo di tutti gli utenti, ovvero un array contenente la rappresentazione json di tutti gli utenti
- */
 export async function main(event){
     let responseManager = new ResponseManager();
     let repo = new LiveRepository();
     let userRepo = new UserRepository();
-    let securityManager = new SecurityManager(userRepo, event);
-    const placeId = event.pathParameters.placeId;
-    const liveId = event.pathParameters.liveId;
-
-    //Prendi parametri dalla richiesta
-    const body:Live = JSON.parse(event.body);
-
-
-    if(!await securityManager.isUserLogged() || !await securityManager.isUserCam() || !await securityManager.isUserCamPlaceOwner())
-        return responseManager.send(401);
-
-    //Costruisce documento da aggiungere nel db
-    let addLive = {
-        createdAt: body.createdAt
-    };
+    let placeRepo = new PlaceRepository();
 
     try {
-        let live = await repo.editLive(liveId, addLive);
+        // Seleziona utente dal channelArn della live iniziata
+        const user = await userRepo.getUserByChannelArn(event.resources[0]);
+        const place = await placeRepo.getCamUserPlace(user);
+
+        let live = null;
+        if (event.detail.event_name === "Stream Start") {
+            //Costruisce documento da aggiungere nel db
+            let addLive = {
+                createdAt: moment(),
+                liveUrl: user.liveUrl,
+                _id: event.detail.stream_id,
+                place: place['_id']
+            };
+            live = await repo.addLive(addLive);
+        } else if (event.detail.event_name === "Stream End") {
+            //Costruisce documento da aggiungere nel db
+            let editLive = {
+                endedAt: moment()
+            };
+            live = await repo.editLive(event.detail.stream_id, editLive);
+        }
 
         const response:Live = {
             createdAt: live.createdAt,
-            liveUrl: live.liveUrl,
             endedAt: live.endedAt,
+            liveUrl: user.liveUrl,
             liveId: live['_id']
         };
 

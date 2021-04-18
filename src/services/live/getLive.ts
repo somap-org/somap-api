@@ -23,6 +23,7 @@ export async function main(event){
         let response:Live = {
             createdAt: live.createdAt,
             liveUrl: live.liveUrl,
+            endedAt: live.endedAt,
             liveId: live['_id']
         };
         return responseManager.send(200, response);

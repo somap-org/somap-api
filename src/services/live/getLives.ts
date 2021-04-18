@@ -27,6 +27,7 @@ export async function main(event){
             response.push({
                 createdAt: live.createdAt,
                 liveUrl: live.liveUrl,
+                endedAt: live.endedAt,
                 liveId: live['_id']
             })
         });

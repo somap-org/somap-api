@@ -34,6 +34,10 @@ export class UserRepository {
         return UserModel.findOne({cognitoId: cognitoId});
     }
 
+    async getUserByChannelArn(channelArn: string): Promise<User> {
+        return UserModel.findOne({channel: channelArn});
+    }
+
     async signUpUser(user: User) {
         return await UserModel.create(user);
     }
