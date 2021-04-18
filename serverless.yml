@@ -8,8 +8,8 @@ provider:
   name: aws
   runtime: nodejs10.x
   stage: ${opt:stage, 'dev'}
-  region: eu-central-1
-  accountId: 593794886287
+  region: us-east-1
+  accountId: 482385118572
   environment:
     STAGE: ${self:provider.stage}
     REGION: ${self:provider.region}
@@ -59,7 +59,6 @@ functions:
     handler: build/services/live/eventChangeLive.main
     events:
       - eventBridge:
-          region: us-west-2
           pattern:
             source:
               - aws.ivs

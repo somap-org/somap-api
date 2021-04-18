@@ -69,7 +69,7 @@ export async function main(event) {
 
       // Aggiorno campo dell'id utente mongodb in cognito
       let cognitoIdentityServiceProvider = new CognitoIdentityServiceProvider({
-        region: process.env.REGION || 'eu-central-1'
+        region: process.env.REGION || 'us-east-1'
       });
       var params = {
         UserAttributes: [
@@ -78,7 +78,7 @@ export async function main(event) {
             Value: userAdded['_id'].toString()
           },
         ],
-        UserPoolId: 'eu-central-1_EVTeuSqat',
+        UserPoolId: process.env.COGNITO_USER_POOL_ID,
         Username: event.request.userAttributes.sub
       };
       await cognitoIdentityServiceProvider.adminUpdateUserAttributes(params).promise();
@@ -89,7 +89,7 @@ export async function main(event) {
         // Crea un canale IVS
         const ivs = new AWS.IVS({
           apiVersion: '2020-07-14',
-          region: 'us-west-2'
+          region: process.env.REGION || 'us-east-1'
         });
         const params = {
           latencyMode: 'LOW',
