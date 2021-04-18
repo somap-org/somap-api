@@ -55,17 +55,11 @@ functions:
     handler: build/services/live/getLive.main
   addLive:
     handler: build/services/live/addLive.main
-    events:
-      - eventBridge:
-          pattern:
-            source:
-              - aws.ivs
-            detail-type:
-              - AWS API Call via IVS
   eventChangeLive:
     handler: build/services/live/eventChangeLive.main
     events:
       - eventBridge:
+          region: us-west-2
           pattern:
             source:
               - aws.ivs
