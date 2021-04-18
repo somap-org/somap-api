@@ -26,6 +26,7 @@ export async function main(event){
         lives.map((live) => {
             response.push({
                 createdAt: live.createdAt,
+                liveUrl: live.liveUrl,
                 liveId: live['_id']
             })
         });

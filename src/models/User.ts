@@ -55,7 +55,9 @@ export class User extends Typegoose {
     @prop({required: false})
     streamKey: string;
     @prop({required: false})
-    streamUrl: string;
+    streamServerUrl: string;
+    @prop({required: false})
+    liveUrl: string;
 }
 
 export const UserModel = new User().getModelForClass(User, {

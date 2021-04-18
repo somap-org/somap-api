@@ -22,16 +22,22 @@ export async function main(event){
     if(!await securityManager.isUserLogged() || !await securityManager.isUserCam() || !await securityManager.isUserCamPlaceOwner())
         return responseManager.send(401);
 
+    //Seleziona l'utente cam loggato
+    const user = await securityManager.getUserLogged();
+
+
     try {
         //Costruisce documento da aggiungere nel db
         let addLive = {
             createdAt: requestLive.createdAt,
+            liveUrl: user.liveUrl,
             place: placeId
         };
         let live = await repo.addLive(addLive);
 
         const response:Live = {
             createdAt: live.createdAt,
+            liveUrl: user.liveUrl,
             liveId: live['_id']
         };
 

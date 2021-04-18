@@ -10,8 +10,8 @@
  * Do not edit the class manually.
  */
 
-export interface Live { 
-    createdAt: string;
-    liveUrl: string;
-    liveId?: string;
+export interface LiveConfiguration {
+    streamServerUrl: string,
+    streamKey: string,
+    liveUrl: string
 }
