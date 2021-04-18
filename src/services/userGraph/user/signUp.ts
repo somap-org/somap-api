@@ -85,7 +85,6 @@ export async function main(event) {
 
       //Creo un canale nel caso in cui l'utente e' di tipo cam
 
-      console.log('testtt');
       if (user.userType === UserTypes.CamUser) {
         // Crea un canale IVS
         const ivs = new AWS.IVS({
@@ -93,15 +92,12 @@ export async function main(event) {
           region: 'us-west-2'
         });
         const params = {
-          latencyMode: 'NORMAL',
+          latencyMode: 'LOW',
           name: userAdded['_id'].toString(),
-          type: 'BASIC'
+          type: 'STANDARD'
         };
         const result = await ivs.createChannel(params).promise();
-        console.log({
-          channel: result.channel.arn,
-          streamKey: result.streamKey.value
-        });
+        console.log(result);
         let live = await repo.updateLiveInfo(userAdded._id, {
           channel: result.channel.arn,
           streamServerUrl: result.channel.ingestEndpoint,
