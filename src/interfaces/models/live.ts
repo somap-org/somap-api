@@ -12,6 +12,5 @@
 
 export interface Live { 
     createdAt: string;
-    liveUrl: string;
     liveId?: string;
 }

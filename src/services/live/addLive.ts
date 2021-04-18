@@ -22,33 +22,16 @@ export async function main(event){
     if(!await securityManager.isUserLogged() || !await securityManager.isUserCam() || !await securityManager.isUserCamPlaceOwner())
         return responseManager.send(401);
 
-    //Seleziona l'utente cam loggato
-    const user = await securityManager.getUserLogged();
-
-
     try {
-        // Seleziono le informazioni della stream
-        const ivs = new AWS.IVS({
-            apiVersion: '2020-07-14',
-            region: 'us-west-2'
-        });
-        const params = {
-            channelArn: user.channel
-        };
-        const result = await ivs.getStream(params).promise();
-
-
         //Costruisce documento da aggiungere nel db
         let addLive = {
             createdAt: requestLive.createdAt,
-            liveUrl: result.stream,
             place: placeId
         };
         let live = await repo.addLive(addLive);
 
         const response:Live = {
             createdAt: live.createdAt,
-            liveUrl: live.liveUrl,
             liveId: live['_id']
         };
 
