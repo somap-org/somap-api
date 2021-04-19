@@ -9,7 +9,7 @@ provider:
   runtime: nodejs10.x
   stage: ${opt:stage, 'dev'}
   region: us-east-1
-  accountId: 482385118572
+  accountId: ${file(./environment/${self:provider.stage}.environment.json):ACCOUNT_ID}
   environment:
     STAGE: ${self:provider.stage}
     REGION: ${self:provider.region}
