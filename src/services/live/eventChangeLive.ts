@@ -25,7 +25,7 @@ export async function main(event){
             let addLive = {
                 createdAt: moment(),
                 liveUrl: user.liveUrl,
-                _id: event.detail.stream_id,
+                liveId: event.detail.stream_id,
                 place: place['_id']
             };
             const live = await repo.addLive(addLive);
@@ -35,7 +35,7 @@ export async function main(event){
             let editLive = {
                 endedAt: moment()
             };
-            const live = await repo.editLive(event.detail.stream_id, editLive);
+            const live = await repo.editLiveByLiveId(event.detail.stream_id, editLive);
             console.log("Live ended successful", live);
         }
 
