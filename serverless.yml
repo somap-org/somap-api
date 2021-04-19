@@ -64,7 +64,7 @@ functions:
             source:
               - aws.ivs
             detail-type:
-              - AWS API Call via IVS
+              - IVS Stream State Change
   editLive:
     handler: build/services/live/editLive.main
   deleteLive:

@@ -20,7 +20,6 @@ export async function main(event){
         const user = await userRepo.getUserByChannelArn(event.resources[0]);
         const place = await placeRepo.getCamUserPlace(user);
 
-        let live = null;
         if (event.detail.event_name === "Stream Start") {
             //Costruisce documento da aggiungere nel db
             let addLive = {
@@ -29,24 +28,20 @@ export async function main(event){
                 _id: event.detail.stream_id,
                 place: place['_id']
             };
-            live = await repo.addLive(addLive);
+            const live = await repo.addLive(addLive);
+            console.log("Live added successful", live);
         } else if (event.detail.event_name === "Stream End") {
             //Costruisce documento da aggiungere nel db
             let editLive = {
                 endedAt: moment()
             };
-            live = await repo.editLive(event.detail.stream_id, editLive);
+            const live = await repo.editLive(event.detail.stream_id, editLive);
+            console.log("Live ended successful", live);
         }
 
-        const response:Live = {
-            createdAt: live.createdAt,
-            endedAt: live.endedAt,
-            liveUrl: user.liveUrl,
-            liveId: live['_id']
-        };
-
-        return responseManager.send(200, response);
+        return true;
     } catch (err) {
+        console.log("ERRORE", err);
         return responseManager.send(501, {err});
     }
 }
