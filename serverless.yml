@@ -14,6 +14,7 @@ provider:
     STAGE: ${self:provider.stage}
     REGION: ${self:provider.region}
     API_VERSION: ${self:provider.version}
+    COGNITO_USER_POOL_ID: ${file(./environment/${self:provider.stage}.environment.json):COGNITO_USER_POOL_ID}
   iamRoleStatements:
     - Effect: "Allow"
       Action:
