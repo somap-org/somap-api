@@ -11,7 +11,7 @@ export class Live extends Typegoose {
   liveId: string;
   @prop({ required: true })
   createdAt: string;
-  @prop({ required: true })
+  @prop({ required: false })
   endedAt: string;
 }
 
