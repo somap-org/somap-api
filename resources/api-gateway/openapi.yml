@@ -83,6 +83,22 @@ components:
           type: string
           enum: ["public", "private"]
           example: "public"
+    UserLiveConfiguration:
+      type: object
+      required:
+        - streamServerUrl
+        - streamKey
+        - liveUrl
+      properties:
+        streamServerUrl:
+          type: string
+          example: "rtmps://e7f58a99478e.global-contribute.live-video.net:443/app/"
+        streamKey:
+          type: string
+          example: "sk_us-east-1_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+        liveUrl:
+          type: string
+          example: "https://e7f58a99478e.us-east-1.playback.live-video.net/api/video/v1/us-east-1.0123456789.channel.xxxxxxxxxxxx.m3u8"
     Place:
       type: object
       required:
@@ -880,6 +896,36 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/UserSettings"
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /users/{userId}/live-config:
+    get:
+      tags:
+        - live
+      summary: Get user's live configuration
+      description: Get user's live configuration if logged in
+      x-amazon-apigateway-request-validator: "params-only"
+      x-amazon-apigateway-auth:
+        type: "AWS_IAM"
+      x-amazon-apigateway-integration:
+        type: "aws_proxy"
+        uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-getUserCamLiveInfo/invocations
+        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole-${self:provider.stage}
+        passthroughBehavior: "when_no_match"
+        httpMethod: "POST"
+      parameters:
+        - $ref: '#/components/parameters/userId'
+      responses:
+        '200':
+          description: User settings
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserLiveConfiguration"
         default:
           description: Unexpected error
           content:
