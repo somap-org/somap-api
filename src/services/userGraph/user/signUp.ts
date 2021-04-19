@@ -1,6 +1,7 @@
 import {UserTypes} from "../../../models/User";
 import {UserRepository} from "../../../repositories/UserRepository";
 import * as CognitoIdentityServiceProvider from 'aws-sdk/clients/cognitoidentityserviceprovider';
+import {PlaceRepository} from "../../../repositories/PlaceRepository";
 
 const referralCodeGenerator = require('referral-code-generator');
 var AWS = require('aws-sdk');
@@ -27,6 +28,7 @@ export async function main(event) {
   if (event.request?.userAttributes?.email && event.request?.userAttributes['custom:userType']) {
     console.log('EMAIL AND USER TYPE FOUND', event.request.userAttributes.email, event.request?.userAttributes['custom:userType']);
     let repo = new UserRepository();
+    let placeRepo = new PlaceRepository();
     let user;
 
     let userPublicProfile = {
@@ -83,8 +85,7 @@ export async function main(event) {
       };
       await cognitoIdentityServiceProvider.adminUpdateUserAttributes(params).promise();
 
-      //Creo un canale nel caso in cui l'utente e' di tipo cam
-
+      //Creo un canale ivs e aggiungo locale nel caso in cui l'utente e' di tipo cam
       if (user.userType === UserTypes.CamUser) {
         // Crea un canale IVS
         const ivs = new AWS.IVS({
@@ -105,6 +106,16 @@ export async function main(event) {
           liveUrl: result.channel.playbackUrl
         });
         console.log(live);
+
+        let addPlace = {
+          name: null,
+          description: null,
+          address: null,
+          location: null,
+          camUser: userAdded._id
+        };
+        let placeAdded = await placeRepo.addPlace(addPlace);
+        console.log("PLACE ADDED", placeAdded);
       }
 
       //Invio email all'utente
