@@ -23,9 +23,9 @@ interface CognitoData {
 }
 
 export async function main(event) {
-  //console.log('START MAIN');
+  console.log('START MAIN');
   if (event.request?.userAttributes?.email && event.request?.userAttributes['custom:userType']) {
-    //console.log('EMAIL AND USER TYPE FOUND', event.request.userAttributes.email, event.request?.userAttributes['custom:userType']);
+    console.log('EMAIL AND USER TYPE FOUND', event.request.userAttributes.email, event.request?.userAttributes['custom:userType']);
     let repo = new UserRepository();
     let user;
 
