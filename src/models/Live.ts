@@ -5,8 +5,14 @@ import * as mongoose from "mongoose";
 export class Live extends Typegoose {
   @prop({ required: true, ref: 'Place' })
   place: Ref<Place>;
+  @prop({required: false})
+  liveUrl: string;
+  @prop({required: false})
+  liveId: string;
   @prop({ required: true })
   createdAt: string;
+  @prop({ required: false })
+  endedAt: string;
 }
 
 

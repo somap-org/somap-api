@@ -7,17 +7,31 @@ plugins:
 provider:
   name: aws
   runtime: nodejs10.x
-  stage: dev
-  region: eu-central-1
-  accountId: 593794886287
+  stage: ${opt:stage, 'dev'}
+  region: us-east-1
+  accountId: ${file(./environment/${self:provider.stage}.environment.json):ACCOUNT_ID}
+  environment:
+    STAGE: ${self:provider.stage}
+    REGION: ${self:provider.region}
+    API_VERSION: ${self:provider.version}
+    COGNITO_USER_POOL_ID: ${file(./environment/${self:provider.stage}.environment.json):COGNITO_USER_POOL_ID}
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - lambda:*
+        - cognito-idp:*
+        - ses:SendEmail
+        - ses:SendTemplatedEmail
+        - ses:SendRawEmail
+        - ivs:*
+      Resource: "*"
 functions:
+  signUpUserAPI:
+    handler: build/services/userGraph/user/signUpUserAPI.main
+  bookMeeting:
+    handler: build/services/userGraph/user/bookMeeting.main
   signUp:
     handler: build/services/userGraph/user/signUp.main
-    events:
-      - cognitoUserPool:
-        pool: UserPoolId
-        trigger: PostConfirmation
-        existing: true
   getUserPublicProfile:
     handler: build/services/userGraph/user/getUserPublicProfile.main
   editUsername:
@@ -26,9 +40,13 @@ functions:
     handler: build/services/userGraph/user/getUserSettings.main
   editUserSettings:
     handler: build/services/userGraph/user/editUserSettings.main
+  getUserCamLiveInfo:
+    handler: build/services/userGraph/user/getUserCamLiveInfo.main
 
   addPlace:
     handler: build/services/userGraph/place/addPlace.main
+  getCamUserPlace:
+    handler: build/services/userGraph/place/getCamUserPlace.main
   getPlace:
     handler: build/services/userGraph/place/getPlace.main
   getPlaces:
@@ -40,13 +58,22 @@ functions:
     handler: build/services/live/getLive.main
   addLive:
     handler: build/services/live/addLive.main
+  eventChangeLive:
+    handler: build/services/live/eventChangeLive.main
+    events:
+      - eventBridge:
+          pattern:
+            source:
+              - aws.ivs
+            detail-type:
+              - IVS Stream State Change
   editLive:
     handler: build/services/live/editLive.main
   deleteLive:
     handler: build/services/live/deleteLive.main
   getLives:
     handler: build/services/live/getLives.main
-    
+
   getActivities:
     handler: build/services/content/activity/getActivities.main
   getActivity:
@@ -57,16 +84,16 @@ functions:
     handler: build/services/content/activity/editActivity.main
   deleteActivity:
     handler: build/services/content/activity/deleteActivity.main
-    
+
   getFollowersList:
     handler: build/services/userGraph/user/getFollowersList.main
   getFollowingList:
-    handler: build/services/userGraph/user/getFollowingList.main 
+    handler: build/services/userGraph/user/getFollowingList.main
   follow:
-    handler: build/services/userGraph/user/follow.main 
+    handler: build/services/userGraph/user/follow.main
   unfollow:
-    handler: build/services/userGraph/user/unfollow.main 
-    
+    handler: build/services/userGraph/user/unfollow.main
+
   getPosts:
     handler: build/services/content/post/getPosts.main
   getPost:
@@ -77,7 +104,7 @@ functions:
     handler: build/services/content/post/editPost.main
   deletePost:
     handler: build/services/content/post/deletePost.main
-    
+
   getComments:
     handler: build/services/content/comment/getComments.main
   getComment:
@@ -95,7 +122,10 @@ functions:
     handler: build/services/content/like/getLikes.main
   deleteLike:
     handler: build/services/content/like/deleteLike.main
-  
+
+  search:
+    handler: build/services/search/mixedSearch.main
+
 resources:
   # API Gateway
   - ${file(resources/api-gateway/api-gateway.yml)}

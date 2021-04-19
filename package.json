@@ -1,10 +1,13 @@
 {
   "name": "somap-api",
   "version": "1.1.0",
-  "description": "A Node.js starter for the Serverless Framework with async/await and unit test support",
+  "description": "Somap Backend API",
   "scripts": {
     "build:dev": "tsc && sls deploy",
-    "test": "mocha -r ts-node/register tests/**/*.test.ts"
+    "test": "mocha -r ts-node/register tests/**/*.test.ts",
+    "test:content": "mocha -r ts-node/register tests/content/**/*.test.ts",
+    "test:live": "mocha -r ts-node/register tests/live/**/*.test.ts",
+    "test:userGraph": "mocha -r ts-node/register tests/userGraph/**/*.test.ts"
   },
   "author": "Luca Pirrone",
   "license": "MIT",
@@ -31,9 +34,11 @@
     "@types/express": "^4.17.6",
     "@types/mongoose": "^5.7.22",
     "@types/node": "^14.0.11",
+    "aws-sdk": "^2.818.0",
     "moment": "^2.27.0",
     "mongodb": "^2.2.33",
     "mongoose": "^5.9.15",
+    "referral-code-generator": "^1.0.8",
     "typescript-express": "0.0.2"
   }
 }

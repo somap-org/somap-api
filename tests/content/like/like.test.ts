@@ -74,11 +74,13 @@ describe('like', async function () {
                     "email_verified": true,
                     "name": "Mario Rossi",
                     "sub": "asdasd-1232132-asdasd",
-                    "custom:userType": "ClassicUser"
+                    "custom:userType": "classicUser"
                 }
             }
         };
         mariorossi = await signUp(event);
+        mariorossi = mariorossi.toJSON();
+        mariorossi.publicProfile.userType = mariorossi.userType;
         expect(mariorossi).to.not.be.null;
     });
     after('Delete mariorossi user', async () => {
@@ -95,11 +97,13 @@ describe('like', async function () {
                     "email_verified": true,
                     "name": "Fabio Bianchi",
                     "sub": "abcdevfefe-1232132-cofeve",
-                    "custom:userType": "CamUser"
+                    "custom:userType": "camUser"
                 }
             }
         };
         fabiobianchi = await signUp(event);
+        fabiobianchi = fabiobianchi.toJSON();
+        fabiobianchi.publicProfile.userType = fabiobianchi.userType;
         expect(fabiobianchi).to.not.be.null;
     });
     after('Delete fabiobianchi user', async () => {
@@ -127,10 +131,11 @@ describe('like', async function () {
             },
             "requestContext": {
                 "identity": {
-                    "cognitoIdentityId": mariorossi.cognitoId
+                    "cognitoAuthenticationProvider": ':' + mariorossi.cognitoId
                 }
             }
         };
+        event.body = JSON.stringify(event.body);
         response = await addPost(event);
         response.body = JSON.parse(response.body);
         let expectedBody: Post = {
@@ -174,10 +179,11 @@ describe('like', async function () {
             },
             "requestContext": {
                 "identity": {
-                    "cognitoIdentityId": mariorossi.cognitoId
+                    "cognitoAuthenticationProvider": ':' + mariorossi.cognitoId
                 }
             }
         };
+        event.body = JSON.stringify(event.body);
         response = await addComment(event);
         response.body = JSON.parse(response.body);
         let expectedBody:Comment = {
@@ -219,10 +225,11 @@ describe('like', async function () {
             },
             "requestContext": {
                 "identity": {
-                    "cognitoIdentityId": fabiobianchi.cognitoId
+                    "cognitoAuthenticationProvider": ':' + fabiobianchi.cognitoId
                 }
             }
         };
+        event.body = JSON.stringify(event.body);
         response = await addComment(event);
         response.body = JSON.parse(response.body);
         let expectedBody:Comment = {
@@ -262,7 +269,7 @@ describe('like', async function () {
             "body": {},
             "requestContext": {
                 "identity": {
-                    "cognitoIdentityId": mariorossi.cognitoId
+                    "cognitoAuthenticationProvider": ':' + mariorossi.cognitoId
                 }
             }
         };
@@ -289,7 +296,7 @@ describe('like', async function () {
             "body": {},
             "requestContext": {
                 "identity": {
-                    "cognitoIdentityId": mariorossi.cognitoId
+                    "cognitoAuthenticationProvider": ':' + mariorossi.cognitoId
                 }
             }
         };
@@ -315,7 +322,7 @@ describe('like', async function () {
             "body": {},
             "requestContext": {
                 "identity": {
-                    "cognitoIdentityId": mariorossi.cognitoId
+                    "cognitoAuthenticationProvider": ':' + mariorossi.cognitoId
                 }
             }
         };
@@ -339,7 +346,7 @@ describe('like', async function () {
             },
             "requestContext": {
                 "identity": {
-                    "cognitoIdentityId": mariorossi.cognitoId
+                    "cognitoAuthenticationProvider": ':' + mariorossi.cognitoId
                 }
             }
         };
@@ -366,7 +373,7 @@ describe('like', async function () {
             "body": {},
             "requestContext": {
                 "identity": {
-                    "cognitoIdentityId": fabiobianchi.cognitoId
+                    "cognitoAuthenticationProvider": ':' + fabiobianchi.cognitoId
                 }
             }
         };
@@ -391,7 +398,7 @@ describe('like', async function () {
             },
             "requestContext": {
                 "identity": {
-                    "cognitoIdentityId": mariorossi.cognitoId
+                    "cognitoAuthenticationProvider": ':' + mariorossi.cognitoId
                 }
             }
         };
@@ -415,7 +422,7 @@ describe('like', async function () {
             },
             "requestContext": {
                 "identity": {
-                    "cognitoIdentityId": mariorossi.cognitoId
+                    "cognitoAuthenticationProvider": ':' + mariorossi.cognitoId
                 }
             }
         };
@@ -442,6 +449,7 @@ describe('like', async function () {
         expect(response).to.deep.equal(expectedResponse);
     });
     it('Mariorossi dislike post1', async () => {
+        console.log(post1);
         event = {
             "pathParameters": {
                 "postId": post1.postId,
@@ -450,7 +458,7 @@ describe('like', async function () {
             "body": {},
             "requestContext": {
                 "identity": {
-                    "cognitoIdentityId": mariorossi.cognitoId
+                    "cognitoAuthenticationProvider": ':' + mariorossi.cognitoId
                 }
             }
         };
@@ -477,7 +485,7 @@ describe('like', async function () {
             "body": {},
             "requestContext": {
                 "identity": {
-                    "cognitoIdentityId": fabiobianchi.cognitoId
+                    "cognitoAuthenticationProvider": ':' + fabiobianchi.cognitoId
                 }
             }
         };
@@ -501,7 +509,7 @@ describe('like', async function () {
             },
             "requestContext": {
                 "identity": {
-                    "cognitoIdentityId": mariorossi.cognitoId
+                    "cognitoAuthenticationProvider": ':' + mariorossi.cognitoId
                 }
             }
         };
@@ -525,7 +533,7 @@ describe('like', async function () {
             },
             "requestContext": {
                 "identity": {
-                    "cognitoIdentityId": mariorossi.cognitoId
+                    "cognitoAuthenticationProvider": ':' + mariorossi.cognitoId
                 }
             }
         };
@@ -556,7 +564,7 @@ describe('like', async function () {
             "body": {},
             "requestContext": {
                 "identity": {
-                    "cognitoIdentityId": fabiobianchi.cognitoId
+                    "cognitoAuthenticationProvider": ':' + fabiobianchi.cognitoId
                 }
             }
         };
@@ -581,7 +589,7 @@ describe('like', async function () {
             },
             "requestContext": {
                 "identity": {
-                    "cognitoIdentityId": mariorossi.cognitoId
+                    "cognitoAuthenticationProvider": ':' + mariorossi.cognitoId
                 }
             }
         };
@@ -605,7 +613,7 @@ describe('like', async function () {
             },
             "requestContext": {
                 "identity": {
-                    "cognitoIdentityId": mariorossi.cognitoId
+                    "cognitoAuthenticationProvider": ':' + mariorossi.cognitoId
                 }
             }
         };
@@ -632,7 +640,7 @@ describe('like', async function () {
             "body": {},
             "requestContext": {
                 "identity": {
-                    "cognitoIdentityId": mariorossi.cognitoId
+                    "cognitoAuthenticationProvider": ':' + mariorossi.cognitoId
                 }
             }
         };
@@ -659,7 +667,7 @@ describe('like', async function () {
             "body": {},
             "requestContext": {
                 "identity": {
-                    "cognitoIdentityId": mariorossi.cognitoId
+                    "cognitoAuthenticationProvider": ':' + mariorossi.cognitoId
                 }
             }
         };
@@ -686,7 +694,7 @@ describe('like', async function () {
             "body": {},
             "requestContext": {
                 "identity": {
-                    "cognitoIdentityId": mariorossi.cognitoId
+                    "cognitoAuthenticationProvider": ':' + mariorossi.cognitoId
                 }
             }
         };
@@ -710,7 +718,7 @@ describe('like', async function () {
             },
             "requestContext": {
                 "identity": {
-                    "cognitoIdentityId": mariorossi.cognitoId
+                    "cognitoAuthenticationProvider": ':' + mariorossi.cognitoId
                 }
             }
         };
@@ -737,7 +745,7 @@ describe('like', async function () {
             "body": {},
             "requestContext": {
                 "identity": {
-                    "cognitoIdentityId": fabiobianchi.cognitoId
+                    "cognitoAuthenticationProvider": ':' + fabiobianchi.cognitoId
                 }
             }
         };
@@ -762,7 +770,7 @@ describe('like', async function () {
             },
             "requestContext": {
                 "identity": {
-                    "cognitoIdentityId": mariorossi.cognitoId
+                    "cognitoAuthenticationProvider": ':' + mariorossi.cognitoId
                 }
             }
         };
@@ -786,7 +794,7 @@ describe('like', async function () {
             },
             "requestContext": {
                 "identity": {
-                    "cognitoIdentityId": mariorossi.cognitoId
+                    "cognitoAuthenticationProvider": ':' + mariorossi.cognitoId
                 }
             }
         };
@@ -821,7 +829,7 @@ describe('like', async function () {
             "body": {},
             "requestContext": {
                 "identity": {
-                    "cognitoIdentityId": mariorossi.cognitoId
+                    "cognitoAuthenticationProvider": ':' + mariorossi.cognitoId
                 }
             }
         };
@@ -848,7 +856,7 @@ describe('like', async function () {
             "body": {},
             "requestContext": {
                 "identity": {
-                    "cognitoIdentityId": fabiobianchi.cognitoId
+                    "cognitoAuthenticationProvider": ':' + fabiobianchi.cognitoId
                 }
             }
         };
@@ -872,7 +880,7 @@ describe('like', async function () {
             },
             "requestContext": {
                 "identity": {
-                    "cognitoIdentityId": mariorossi.cognitoId
+                    "cognitoAuthenticationProvider": ':' + mariorossi.cognitoId
                 }
             }
         };
@@ -896,7 +904,7 @@ describe('like', async function () {
             },
             "requestContext": {
                 "identity": {
-                    "cognitoIdentityId": mariorossi.cognitoId
+                    "cognitoAuthenticationProvider": ':' + mariorossi.cognitoId
                 }
             }
         };
@@ -927,7 +935,7 @@ describe('like', async function () {
             "body": {},
             "requestContext": {
                 "identity": {
-                    "cognitoIdentityId": fabiobianchi.cognitoId
+                    "cognitoAuthenticationProvider": ':' + fabiobianchi.cognitoId
                 }
             }
         };
@@ -952,7 +960,7 @@ describe('like', async function () {
             },
             "requestContext": {
                 "identity": {
-                    "cognitoIdentityId": mariorossi.cognitoId
+                    "cognitoAuthenticationProvider": ':' + mariorossi.cognitoId
                 }
             }
         };
@@ -976,7 +984,7 @@ describe('like', async function () {
             },
             "requestContext": {
                 "identity": {
-                    "cognitoIdentityId": mariorossi.cognitoId
+                    "cognitoAuthenticationProvider": ':' + mariorossi.cognitoId
                 }
             }
         };
@@ -1003,7 +1011,7 @@ describe('like', async function () {
             "body": {},
             "requestContext": {
                 "identity": {
-                    "cognitoIdentityId": mariorossi.cognitoId
+                    "cognitoAuthenticationProvider": ':' + mariorossi.cognitoId
                 }
             }
         };
@@ -1030,7 +1038,7 @@ describe('like', async function () {
             "body": {},
             "requestContext": {
                 "identity": {
-                    "cognitoIdentityId": mariorossi.cognitoId
+                    "cognitoAuthenticationProvider": ':' + mariorossi.cognitoId
                 }
             }
         };
@@ -1057,7 +1065,7 @@ describe('like', async function () {
             "body": {},
             "requestContext": {
                 "identity": {
-                    "cognitoIdentityId": mariorossi.cognitoId
+                    "cognitoAuthenticationProvider": ':' + mariorossi.cognitoId
                 }
             }
         };
@@ -1081,7 +1089,7 @@ describe('like', async function () {
             },
             "requestContext": {
                 "identity": {
-                    "cognitoIdentityId": mariorossi.cognitoId
+                    "cognitoAuthenticationProvider": ':' + mariorossi.cognitoId
                 }
             }
         };
@@ -1108,7 +1116,7 @@ describe('like', async function () {
             "body": {},
             "requestContext": {
                 "identity": {
-                    "cognitoIdentityId": fabiobianchi.cognitoId
+                    "cognitoAuthenticationProvider": ':' + fabiobianchi.cognitoId
                 }
             }
         };
@@ -1133,7 +1141,7 @@ describe('like', async function () {
             },
             "requestContext": {
                 "identity": {
-                    "cognitoIdentityId": mariorossi.cognitoId
+                    "cognitoAuthenticationProvider": ':' + mariorossi.cognitoId
                 }
             }
         };
@@ -1157,7 +1165,7 @@ describe('like', async function () {
             },
             "requestContext": {
                 "identity": {
-                    "cognitoIdentityId": mariorossi.cognitoId
+                    "cognitoAuthenticationProvider": ':' + mariorossi.cognitoId
                 }
             }
         };
@@ -1192,7 +1200,7 @@ describe('like', async function () {
             "body": {},
             "requestContext": {
                 "identity": {
-                    "cognitoIdentityId": mariorossi.cognitoId
+                    "cognitoAuthenticationProvider": ':' + mariorossi.cognitoId
                 }
             }
         };
@@ -1219,7 +1227,7 @@ describe('like', async function () {
             "body": {},
             "requestContext": {
                 "identity": {
-                    "cognitoIdentityId": fabiobianchi.cognitoId
+                    "cognitoAuthenticationProvider": ':' + fabiobianchi.cognitoId
                 }
             }
         };
@@ -1243,7 +1251,7 @@ describe('like', async function () {
             },
             "requestContext": {
                 "identity": {
-                    "cognitoIdentityId": mariorossi.cognitoId
+                    "cognitoAuthenticationProvider": ':' + mariorossi.cognitoId
                 }
             }
         };
@@ -1267,7 +1275,7 @@ describe('like', async function () {
             },
             "requestContext": {
                 "identity": {
-                    "cognitoIdentityId": mariorossi.cognitoId
+                    "cognitoAuthenticationProvider": ':' + mariorossi.cognitoId
                 }
             }
         };
@@ -1298,7 +1306,7 @@ describe('like', async function () {
             "body": {},
             "requestContext": {
                 "identity": {
-                    "cognitoIdentityId": fabiobianchi.cognitoId
+                    "cognitoAuthenticationProvider": ':' + fabiobianchi.cognitoId
                 }
             }
         };
@@ -1323,7 +1331,7 @@ describe('like', async function () {
             },
             "requestContext": {
                 "identity": {
-                    "cognitoIdentityId": mariorossi.cognitoId
+                    "cognitoAuthenticationProvider": ':' + mariorossi.cognitoId
                 }
             }
         };
@@ -1347,7 +1355,7 @@ describe('like', async function () {
             },
             "requestContext": {
                 "identity": {
-                    "cognitoIdentityId": mariorossi.cognitoId
+                    "cognitoAuthenticationProvider": ':' + mariorossi.cognitoId
                 }
             }
         };
@@ -1374,7 +1382,7 @@ describe('like', async function () {
             "body": {},
             "requestContext": {
                 "identity": {
-                    "cognitoIdentityId": mariorossi.cognitoId
+                    "cognitoAuthenticationProvider": ':' + mariorossi.cognitoId
                 }
             }
         };
@@ -1399,7 +1407,7 @@ describe('like', async function () {
             },
             "requestContext": {
                 "identity": {
-                    "cognitoIdentityId": fabiobianchi.cognitoId
+                    "cognitoAuthenticationProvider": ':' + fabiobianchi.cognitoId
                 }
             }
         };
@@ -1423,7 +1431,7 @@ describe('like', async function () {
             },
             "requestContext": {
                 "identity": {
-                    "cognitoIdentityId": mariorossi.cognitoId
+                    "cognitoAuthenticationProvider": ':' + mariorossi.cognitoId
                 }
             }
         };
@@ -1450,7 +1458,7 @@ describe('like', async function () {
             "body": {},
             "requestContext": {
                 "identity": {
-                    "cognitoIdentityId": mariorossi.cognitoId
+                    "cognitoAuthenticationProvider": ':' + mariorossi.cognitoId
                 }
             }
         };
@@ -1475,7 +1483,7 @@ describe('like', async function () {
             },
             "requestContext": {
                 "identity": {
-                    "cognitoIdentityId": mariorossi.cognitoId
+                    "cognitoAuthenticationProvider": ':' + mariorossi.cognitoId
                 }
             }
         };
@@ -1499,7 +1507,7 @@ describe('like', async function () {
             },
             "requestContext": {
                 "identity": {
-                    "cognitoIdentityId": mariorossi.cognitoId
+                    "cognitoAuthenticationProvider": ':' + mariorossi.cognitoId
                 }
             }
         };
@@ -1526,7 +1534,7 @@ describe('like', async function () {
             "body": {},
             "requestContext": {
                 "identity": {
-                    "cognitoIdentityId": mariorossi.cognitoId
+                    "cognitoAuthenticationProvider": ':' + mariorossi.cognitoId
                 }
             }
         };
@@ -1551,7 +1559,7 @@ describe('like', async function () {
             },
             "requestContext": {
                 "identity": {
-                    "cognitoIdentityId": mariorossi.cognitoId
+                    "cognitoAuthenticationProvider": ':' + mariorossi.cognitoId
                 }
             }
         };
@@ -1575,7 +1583,7 @@ describe('like', async function () {
             },
             "requestContext": {
                 "identity": {
-                    "cognitoIdentityId": mariorossi.cognitoId
+                    "cognitoAuthenticationProvider": ':' + mariorossi.cognitoId
                 }
             }
         };

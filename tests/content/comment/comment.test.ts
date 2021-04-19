@@ -95,7 +95,7 @@ describe('comment', async function () {
                     "email_verified": true,
                     "name": "Mario Rossi",
                     "sub": "asdasd-1232132-asdasd",
-                    "custom:userType": "ClassicUser"
+                    "custom:userType": "classicUser"
                 }
             }
         };
@@ -116,7 +116,7 @@ describe('comment', async function () {
                     "email_verified": true,
                     "name": "Fabio Bianchi",
                     "sub": "abcdevfefe-1232132-cofeve",
-                    "custom:userType": "CamUser"
+                    "custom:userType": "camUser"
                 }
             }
         };
@@ -150,10 +150,11 @@ describe('comment', async function () {
             },
             "requestContext": {
                 "identity": {
-                    "cognitoIdentityId": mariorossi.cognitoId
+                    "cognitoAuthenticationProvider": ':' + mariorossi.cognitoId
                 }
             }
         };
+        event.body = JSON.stringify(event.body);
         response = await addPost(event);
         response.body = JSON.parse(response.body);
         let expectedBody:Post = {
@@ -198,10 +199,11 @@ describe('comment', async function () {
             },
             "requestContext": {
                 "identity": {
-                    "cognitoIdentityId": fabiobianchi.cognitoId
+                    "cognitoAuthenticationProvider": ':' + fabiobianchi.cognitoId
                 }
             }
         };
+        event.body = JSON.stringify(event.body);
         response = await addPost(event);
         post1.sharedCount++;
         response.body = JSON.parse(response.body);
@@ -248,10 +250,11 @@ describe('comment', async function () {
             },
             "requestContext": {
                 "identity": {
-                    "cognitoIdentityId": mariorossi.cognitoId
+                    "cognitoAuthenticationProvider": ':' + mariorossi.cognitoId
                 }
             }
         };
+        event.body = JSON.stringify(event.body);
         response = await addComment(event);
         response.body = JSON.parse(response.body);
         let expectedBody:Comment = {
@@ -294,10 +297,11 @@ describe('comment', async function () {
             },
             "requestContext": {
                 "identity": {
-                    "cognitoIdentityId": fabiobianchi.cognitoId
+                    "cognitoAuthenticationProvider": ':' + fabiobianchi.cognitoId
                 }
             }
         };
+        event.body = JSON.stringify(event.body);
         response = await addComment(event);
         response.body = JSON.parse(response.body);
         let expectedBody:Comment = {
@@ -340,10 +344,11 @@ describe('comment', async function () {
             },
             "requestContext": {
                 "identity": {
-                    "cognitoIdentityId": mariorossi.cognitoId
+                    "cognitoAuthenticationProvider": ':' + mariorossi.cognitoId
                 }
             }
         };
+        event.body = JSON.stringify(event.body);
         response = await addComment(event);
         response.body = JSON.parse(response.body);
         let expectedBody:Comment = {
@@ -386,10 +391,11 @@ describe('comment', async function () {
             },
             "requestContext": {
                 "identity": {
-                    "cognitoIdentityId": fabiobianchi.cognitoId
+                    "cognitoAuthenticationProvider": ':' + fabiobianchi.cognitoId
                 }
             }
         };
+        event.body = JSON.stringify(event.body);
         response = await addComment(event);
         response.body = JSON.parse(response.body);
         let expectedBody:Comment = {
@@ -432,10 +438,11 @@ describe('comment', async function () {
             },
             "requestContext": {
                 "identity": {
-                    "cognitoIdentityId": fabiobianchi.cognitoId
+                    "cognitoAuthenticationProvider": ':' + fabiobianchi.cognitoId
                 }
             }
         };
+        event.body = JSON.stringify(event.body);
         response = await addComment(event);
         response.body = JSON.parse(response.body);
         let expectedBody:Comment = {
@@ -478,10 +485,11 @@ describe('comment', async function () {
             },
             "requestContext": {
                 "identity": {
-                    "cognitoIdentityId": mariorossi.cognitoId
+                    "cognitoAuthenticationProvider": ':' + mariorossi.cognitoId
                 }
             }
         };
+        event.body = JSON.stringify(event.body);
         response = await addComment(event);
         response.body = JSON.parse(response.body);
         let expectedBody:Comment = {
@@ -524,10 +532,11 @@ describe('comment', async function () {
             },
             "requestContext": {
                 "identity": {
-                    "cognitoIdentityId": fabiobianchi.cognitoId
+                    "cognitoAuthenticationProvider": ':' + fabiobianchi.cognitoId
                 }
             }
         };
+        event.body = JSON.stringify(event.body);
         response = await addComment(event);
         response.body = JSON.parse(response.body);
         let expectedBody:Comment = {
@@ -571,6 +580,7 @@ describe('comment', async function () {
                 ...postBody
             }
         };
+        event.body = JSON.stringify(event.body);
         response = await addComment(event);
         response.body = JSON.parse(response.body);
         expectedResponse = {
@@ -592,7 +602,7 @@ describe('comment', async function () {
             },
             "requestContext": {
                 "identity": {
-                    "cognitoIdentityId": mariorossi.cognitoId
+                    "cognitoAuthenticationProvider": ':' + mariorossi.cognitoId
                 }
             }
         };
@@ -618,7 +628,7 @@ describe('comment', async function () {
             },
             "requestContext": {
                 "identity": {
-                    "cognitoIdentityId": mariorossi.cognitoId
+                    "cognitoAuthenticationProvider": ':' + mariorossi.cognitoId
                 }
             }
         };
@@ -643,7 +653,7 @@ describe('comment', async function () {
             },
             "requestContext": {
                 "identity": {
-                    "cognitoIdentityId": mariorossi.cognitoId
+                    "cognitoAuthenticationProvider": ':' + mariorossi.cognitoId
                 }
             }
         };
@@ -667,7 +677,7 @@ describe('comment', async function () {
             },
             "requestContext": {
                 "identity": {
-                    "cognitoIdentityId": mariorossi.cognitoId
+                    "cognitoAuthenticationProvider": ':' + mariorossi.cognitoId
                 }
             }
         };
@@ -695,7 +705,7 @@ describe('comment', async function () {
             },
             "requestContext": {
                 "identity": {
-                    "cognitoIdentityId": mariorossi.cognitoId
+                    "cognitoAuthenticationProvider": ':' + mariorossi.cognitoId
                 }
             }
         };
@@ -749,10 +759,11 @@ describe('comment', async function () {
             },
             "requestContext": {
                 "identity": {
-                    "cognitoIdentityId": fabiobianchi.cognitoId
+                    "cognitoAuthenticationProvider": ':' + fabiobianchi.cognitoId
                 }
             }
         };
+        event.body = JSON.stringify(event.body);
         response = await editComment(event);
         response.body = JSON.parse(response.body);
         let expectedBody:Post = {
@@ -787,10 +798,11 @@ describe('comment', async function () {
             },
             "requestContext": {
                 "identity": {
-                    "cognitoIdentityId": mariorossi.cognitoId
+                    "cognitoAuthenticationProvider": ':' + mariorossi.cognitoId
                 }
             }
         };
+        event.body = JSON.stringify(event.body);
         response = await editComment(event);
         response.body = JSON.parse(response.body);
         let expectedBody:Post = {
@@ -824,6 +836,7 @@ describe('comment', async function () {
                 ...postBody
             }
         };
+        event.body = JSON.stringify(event.body);
         response = await editComment(event);
         response.body = JSON.parse(response.body);
         expectedResponse = {
@@ -845,7 +858,7 @@ describe('comment', async function () {
             },
             "requestContext": {
                 "identity": {
-                    "cognitoIdentityId": fabiobianchi.cognitoId
+                    "cognitoAuthenticationProvider": ':' + fabiobianchi.cognitoId
                 }
             }
         };
@@ -870,7 +883,7 @@ describe('comment', async function () {
             },
             "requestContext": {
                 "identity": {
-                    "cognitoIdentityId": mariorossi.cognitoId
+                    "cognitoAuthenticationProvider": ':' + mariorossi.cognitoId
                 }
             }
         };
@@ -894,7 +907,7 @@ describe('comment', async function () {
             },
             "requestContext": {
                 "identity": {
-                    "cognitoIdentityId": mariorossi.cognitoId
+                    "cognitoAuthenticationProvider": ':' + mariorossi.cognitoId
                 }
             }
         };
@@ -919,7 +932,7 @@ describe('comment', async function () {
             },
             "requestContext": {
                 "identity": {
-                    "cognitoIdentityId": mariorossi.cognitoId
+                    "cognitoAuthenticationProvider": ':' + mariorossi.cognitoId
                 }
             }
         };
@@ -946,7 +959,7 @@ describe('comment', async function () {
             },
             "requestContext": {
                 "identity": {
-                    "cognitoIdentityId": mariorossi.cognitoId
+                    "cognitoAuthenticationProvider": ':' + mariorossi.cognitoId
                 }
             }
         };
@@ -970,7 +983,7 @@ describe('comment', async function () {
             },
             "requestContext": {
                 "identity": {
-                    "cognitoIdentityId": fabiobianchi.cognitoId
+                    "cognitoAuthenticationProvider": ':' + fabiobianchi.cognitoId
                 }
             }
         };
@@ -997,7 +1010,7 @@ describe('comment', async function () {
             },
             "requestContext": {
                 "identity": {
-                    "cognitoIdentityId": fabiobianchi.cognitoId
+                    "cognitoAuthenticationProvider": ':' + fabiobianchi.cognitoId
                 }
             }
         };
@@ -1026,7 +1039,7 @@ describe('comment', async function () {
             },
             "requestContext": {
                 "identity": {
-                    "cognitoIdentityId": mariorossi.cognitoId
+                    "cognitoAuthenticationProvider": ':' + mariorossi.cognitoId
                 }
             }
         };
@@ -1050,7 +1063,7 @@ describe('comment', async function () {
             },
             "requestContext": {
                 "identity": {
-                    "cognitoIdentityId": mariorossi.cognitoId
+                    "cognitoAuthenticationProvider": ':' + mariorossi.cognitoId
                 }
             }
         };
@@ -1075,7 +1088,7 @@ describe('comment', async function () {
             },
             "requestContext": {
                 "identity": {
-                    "cognitoIdentityId": fabiobianchi.cognitoId
+                    "cognitoAuthenticationProvider": ':' + fabiobianchi.cognitoId
                 }
             }
         };

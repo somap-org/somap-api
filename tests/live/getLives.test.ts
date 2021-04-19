@@ -22,7 +22,7 @@ describe('Get lives', async () => {
                     "email_verified": true,
                     "name": "Mario Rossi",
                     "sub": "asdasd-1232132-asdasd",
-                    "custom:userType": "CamUser"
+                    "custom:userType": "camUser"
                 }
             }
         };
@@ -38,7 +38,7 @@ describe('Get lives', async () => {
                     "email_verified": true,
                     "name": "Fabio Bianchi",
                     "sub": "abcdevfefe-1232132-cofeve",
-                    "custom:userType": "ClassicUser"
+                    "custom:userType": "classicUser"
                 }
             }
         };
@@ -65,10 +65,11 @@ describe('Get lives', async () => {
             },
             "requestContext": {
                 "identity": {
-                    "cognitoIdentityId": loggedUser.cognitoId
+                    "cognitoAuthenticationProvider": ':' + loggedUser.cognitoId
                 }
             }
         };
+        event.body = JSON.stringify(event.body);
         response = await addPlace(event);
         response.body = JSON.parse(response.body);
 
@@ -110,10 +111,11 @@ describe('Get lives', async () => {
                 },
                 "requestContext": {
                     "identity": {
-                        "cognitoIdentityId": loggedUser.cognitoId
+                        "cognitoAuthenticationProvider": ':' + loggedUser.cognitoId
                     }
                 }
             };
+            event.body = JSON.stringify(event.body);
             response = await addLive(event);
             response.body = JSON.parse(response.body);
             expectedResponse = {
@@ -160,7 +162,7 @@ describe('Get lives', async () => {
             },
             "requestContext": {
                 "identity": {
-                    "cognitoIdentityId": loggedUser.cognitoId
+                    "cognitoAuthenticationProvider": ':' + loggedUser.cognitoId
                 }
             }
         };
@@ -184,7 +186,7 @@ describe('Get lives', async () => {
             },
             "requestContext": {
                 "identity": {
-                    "cognitoIdentityId": otherUser.cognitoId
+                    "cognitoAuthenticationProvider": ':' + otherUser.cognitoId
                 }
             }
         };

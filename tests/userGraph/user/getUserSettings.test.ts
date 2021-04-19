@@ -16,11 +16,12 @@ describe('Get user settings', async () => {
                     "email_verified": true,
                     "name": "Mario Rossi",
                     "sub": "asdasd-1232132-asdasd",
-                    "custom:userType": "ClassicUser"
+                    "custom:userType": "classicUser"
                 }
             }
         };
         loggedUser = await signUp(event);
+        loggedUser = loggedUser.toJSON();
         expect(loggedUser).to.not.be.null;
     });
     before('Signing up test other users', async () => {
@@ -32,11 +33,12 @@ describe('Get user settings', async () => {
                     "email_verified": true,
                     "name": "Fabio Bianchi",
                     "sub": "abcdevfefe-1232132-cofeve",
-                    "custom:userType": "ClassicUser"
+                    "custom:userType": "classicUser"
                 }
             }
         };
         otherUser = await signUp(event);
+        otherUser = otherUser.toJSON();
         expect(otherUser).to.not.be.null;
     });
 
@@ -49,7 +51,7 @@ describe('Get user settings', async () => {
         expect(delResponse).to.be.true;
 
     });
-    
+
     it('User requested is same logged', async () => {
         event = {
             "pathParameters": {
@@ -57,7 +59,7 @@ describe('Get user settings', async () => {
             },
             "requestContext": {
                 "identity": {
-                    "cognitoIdentityId": loggedUser.cognitoId
+                    "cognitoAuthenticationProvider": ':' + loggedUser.cognitoId
                 }
             }
         };
@@ -73,6 +75,7 @@ describe('Get user settings', async () => {
                 userId: loggedUser['_id'].toString()
             },
         };
+        console.log(loggedUser.settings);
         let response = await getUserSettings(event);
         response.body = JSON.parse(response.body);
         expect(response).to.deep.equal(expectedResponse);
@@ -86,7 +89,7 @@ describe('Get user settings', async () => {
             },
             "requestContext": {
                 "identity": {
-                    "cognitoIdentityId": loggedUser.cognitoId
+                    "cognitoAuthenticationProvider": ':' + loggedUser.cognitoId
                 }
             }
         };

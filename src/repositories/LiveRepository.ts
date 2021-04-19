@@ -14,6 +14,9 @@ export class LiveRepository {
     async editLive(liveId, live){
         return await LiveModel.findOneAndUpdate({_id: liveId}, live, {new: true});
     }
+    async editLiveByLiveId(liveId, live){
+        return await LiveModel.findOneAndUpdate({liveId: liveId}, live, {new: true});
+    }
 
     async getLives(placeId) {
         return await LiveModel.find({place: placeId});

@@ -21,7 +21,7 @@ export async function main(event){
     const activityId = event.pathParameters.activityId;
 
     //Prendi parametri dalla richiesta
-    const requestActivity:Activity = event.body;
+    const requestActivity:Activity = JSON.parse(event.body);
 
 
     if(!await securityManager.isUserLogged() || !await securityManager.isUserCam() || !await securityManager.isUserCamPlaceOwner())

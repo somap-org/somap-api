@@ -19,10 +19,9 @@ export async function main(event){
     let securityManager = new SecurityManager(userRepo, event);
 
     const profileId = event.pathParameters.userId;
-    const authorId = await userRepo.getUserByCognitoId(event.requestContext?.identity?.cognitoIdentityId);
-
+    const authorId = await userRepo.getUserByCognitoId(event.requestContext?.identity?.cognitoAuthenticationProvider.toString().slice(event.requestContext?.identity?.cognitoAuthenticationProvider.toString().lastIndexOf(':')+1));
     //Prendi parametri dalla richiesta
-    const body:NewPost = event.body;
+    const body:NewPost = JSON.parse(event.body);
 
     if(!await securityManager.isUserLogged())
         return responseManager.send(401);

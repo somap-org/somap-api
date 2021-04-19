@@ -20,7 +20,7 @@ export async function main(event){
     const placeId = event.pathParameters.placeId;
 
     //Prendi parametri dalla richiesta
-    const requestActivity:Activity = event.body;
+    const requestActivity:Activity = JSON.parse(event.body);
 
 
     if(!await securityManager.isUserLogged() || !await securityManager.isUserCam() || !await securityManager.isUserCamPlaceOwner())

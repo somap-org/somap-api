@@ -46,6 +46,18 @@ export class User extends Typegoose {
     publicProfile: UserPublicProfile;
     @prop({ required: true, _id: false })
     settings: UserSettings;
+    @prop({ required: false })
+    referralCode: string;
+    @prop({ required: false })
+    referralCodeUsed: string;
+    @prop({required: false})
+    channel: string;
+    @prop({required: false})
+    streamKey: string;
+    @prop({required: false})
+    streamServerUrl: string;
+    @prop({required: false})
+    liveUrl: string;
 }
 
 export const UserModel = new User().getModelForClass(User, {

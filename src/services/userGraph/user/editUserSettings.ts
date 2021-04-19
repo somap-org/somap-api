@@ -17,7 +17,7 @@ export async function main(event){
     const userId = event.pathParameters.userId;
 
     //Prendi parametri dalla richiesta
-    const body:UserSettings = event.body;
+    const body:UserSettings = JSON.parse(event.body);
 
     if(!await securityManager.isUserLogged() || !await securityManager.isUserIdLogged())
         return responseManager.send(401);

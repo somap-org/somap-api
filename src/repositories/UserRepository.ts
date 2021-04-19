@@ -1,6 +1,5 @@
 import { User, UserModel } from '../models/User';
 import {connect} from "../libs/mongodb";
-import * as mongoose from "mongoose";
 import {UserPublicProfile} from "../interfaces/models/userPublicProfile";
 
 
@@ -26,12 +25,21 @@ export class UserRepository {
         return response;
     }
 
+    async getUserByReferralCode(referralCode: string): Promise<User> {
+        const user = await UserModel.findOne({referralCode: referralCode});
+        return user;
+    }
+
     async getUserByCognitoId(cognitoId: string): Promise<User> {
         return UserModel.findOne({cognitoId: cognitoId});
     }
 
+    async getUserByChannelArn(channelArn: string): Promise<User> {
+        return UserModel.findOne({channel: channelArn});
+    }
+
     async signUpUser(user: User) {
-        return UserModel.create(user);
+        return await UserModel.create(user);
     }
 
     async editUsername(userId: string, username: string): Promise<User> {
@@ -41,6 +49,18 @@ export class UserRepository {
     async editUserSettings(userId, userSettings): Promise<User> {
         return UserModel.findOneAndUpdate({_id: userId}, {"settings": userSettings}, {new: true})
     }
+
+    async updateLiveInfo(userId, liveInfo: {channel: string, streamKey: string, streamServerUrl:string, liveUrl: string}): Promise<User> {
+        return UserModel.findOneAndUpdate({_id: userId}, liveInfo, {new: true});
+    }
+
+    async searchByQuery(query, page, limit) {
+        const startIndex = (page - 1) * limit;
+        const endIndex = limit;
+        let regex = new RegExp(query, 'i');
+        return await UserModel.find({"publicProfile.username": regex}).skip(startIndex).limit(endIndex);
+    }
+
     async deleteUser(userId: string) {
         return UserModel.deleteOne({"_id": userId});
     }

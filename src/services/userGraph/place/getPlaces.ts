@@ -16,10 +16,12 @@ export async function main(event){
     let userRepo = new UserRepository();
     let securityManager = new SecurityManager(userRepo, event);
 
+    console.log(event);
+
     // Get search parameters
-    let latitude = event.query?.latitude;
-    let longitude = event.query?.longitude;
-    let range = event.query?.range;
+    let latitude = parseFloat(event.queryStringParameters?.latitude);
+    let longitude = parseFloat(event.queryStringParameters?.longitude);
+    let range = parseInt(event.queryStringParameters?.range);
 
     if(!await securityManager.isUserLogged())
         return responseManager.send(401);
@@ -30,8 +32,8 @@ export async function main(event){
 
         for (const place of places) {
             let coordinates:PlaceCoordinates = {
-                latitude: place.location.coordinates.latitude,
-                longitude: place.location.coordinates.longitude
+                latitude: place.location.coordinates[1],
+                longitude: place.location.coordinates[0]
             };
             response.push({
                 placeId: place['_id'],

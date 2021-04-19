@@ -11,9 +11,12 @@ export async function main(event){
     let repo = new UserRepository();
     let securityManager = new SecurityManager(repo, event);
 
+    console.log(event);
+
     //Take variable from event
     const userId = event.pathParameters.userId;
-    const username = event.body.username;
+    const body = JSON.parse(event.body);
+    const username = body.username;
 
     //Check if logged userId is same as path
     if(!await securityManager.isUserIdLogged())

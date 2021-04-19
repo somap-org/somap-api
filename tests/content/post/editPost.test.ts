@@ -22,7 +22,7 @@ describe('Edit activity', async () => {
                     "email_verified": true,
                     "name": "Mario Rossi",
                     "sub": "asdasd-1232132-asdasd",
-                    "custom:userType": "CamUser"
+                    "custom:userType": "camUser"
                 }
             }
         };
@@ -38,7 +38,7 @@ describe('Edit activity', async () => {
                     "email_verified": true,
                     "name": "Fabio Bianchi",
                     "sub": "abcdevfefe-1232132-cofeve",
-                    "custom:userType": "CamUser"
+                    "custom:userType": "camUser"
                 }
             }
         };
@@ -60,10 +60,11 @@ describe('Edit activity', async () => {
             },
             "requestContext": {
                 "identity": {
-                    "cognitoIdentityId": loggedUser.cognitoId
+                    "cognitoAuthenticationProvider": ':' + loggedUser.cognitoId
                 }
             }
         };
+        event.body = JSON.stringify(event.body);
         response = await addPost(event);
         response.body = JSON.parse(response.body);
         let expectedBody:Post = {
@@ -108,10 +109,11 @@ describe('Edit activity', async () => {
             },
             "requestContext": {
                 "identity": {
-                    "cognitoIdentityId": otherUser.cognitoId
+                    "cognitoAuthenticationProvider": ':' + otherUser.cognitoId
                 }
             }
         };
+        event.body = JSON.stringify(event.body);
         response = await addPost(event);
         response.body = JSON.parse(response.body);
         postLogged.sharedCount++;
@@ -156,10 +158,11 @@ describe('Edit activity', async () => {
             },
             "requestContext": {
                 "identity": {
-                    "cognitoIdentityId": loggedUser.cognitoId
+                    "cognitoAuthenticationProvider": ':' + loggedUser.cognitoId
                 }
             }
         };
+        event.body = JSON.stringify(event.body);
         response = await addPost(event);
         response.body = JSON.parse(response.body);
         let expectedBody:Post = {
@@ -229,10 +232,11 @@ describe('Edit activity', async () => {
             },
             "requestContext": {
                 "identity": {
-                    "cognitoIdentityId": loggedUser.cognitoId
+                    "cognitoAuthenticationProvider": ':' + loggedUser.cognitoId
                 }
             }
         };
+        event.body = JSON.stringify(event.body);
         response = await editPost(event);
         response.body = JSON.parse(response.body);
         let expectedBody:Post = {
@@ -269,10 +273,11 @@ describe('Edit activity', async () => {
             },
             "requestContext": {
                 "identity": {
-                    "cognitoIdentityId": otherUser.cognitoId
+                    "cognitoAuthenticationProvider": ':' + otherUser.cognitoId
                 }
             }
         };
+        event.body = JSON.stringify(event.body);
         response = await editPost(event);
         response.body = JSON.parse(response.body);
         let expectedBody:Post = {
@@ -308,10 +313,11 @@ describe('Edit activity', async () => {
             },
             "requestContext": {
                 "identity": {
-                    "cognitoIdentityId": loggedUser.cognitoId
+                    "cognitoAuthenticationProvider": ':' + loggedUser.cognitoId
                 }
             }
         };
+        event.body = JSON.stringify(event.body);
         response = await editPost(event);
         response.body = JSON.parse(response.body);
         let expectedBody:Post = {
@@ -347,10 +353,11 @@ describe('Edit activity', async () => {
             },
             "requestContext": {
                 "identity": {
-                    "cognitoIdentityId": otherUser.cognitoId
+                    "cognitoAuthenticationProvider": ':' + otherUser.cognitoId
                 }
             }
         };
+        event.body = JSON.stringify(event.body);
         response = await editPost(event);
         response.body = JSON.parse(response.body);
         expectedResponse = {

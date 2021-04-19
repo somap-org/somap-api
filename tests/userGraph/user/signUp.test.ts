@@ -21,7 +21,7 @@ describe('signUp Classic User', async () => {
                     "email_verified": true,
                     "name": "Luca Pirrone",
                     "sub": "abcdevfefe-1232132-cofeve",
-                    "custom:userType": "CamUser"
+                    "custom:userType": "camUser"
                 }
             }
         };

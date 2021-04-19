@@ -8,6 +8,7 @@ Resources:
   AccountRole:
     Type: AWS::IAM::Role
     Properties:
+      RoleName: apiInvokeRole-${self:provider.stage}
       AssumeRolePolicyDocument:
         Version: '2012-10-17'
         Statement:
@@ -18,8 +19,39 @@ Resources:
                 - apigateway.amazonaws.com
             Action:
               - sts:AssumeRole
+      Policies:
+        - PolicyName: invokeLambda
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: 'Allow'
+                Action:
+                  - 'lambda:InvokeFunction'
+                Resource:
+                  Fn::Join:
+                    - ''
+                    - - 'arn:aws:lambda:'
+                      - Ref: AWS::Region
+                      - ':'
+                      - Ref: AWS::AccountId
+                      - ':function:*'
   ApiGatewayRestApi:
     Type: 'AWS::ApiGateway::RestApi'
     Properties:
-      Name: ${self:service}
+      Name: ${self:service.name}-${self:provider.stage}
       Body: ${file(resources/api-gateway/openapi.yml)}
+  OnCognitoSignupPermission:
+    Type: 'AWS::Lambda::Permission'
+    Properties:
+      Action: "lambda:InvokeFunction"
+      FunctionName:
+        Fn::GetAtt: [ "SignUpLambdaFunction", "Arn"]
+      Principal: "cognito-idp.amazonaws.com"
+      SourceArn:
+        Fn::Join: [ "", [ "arn:aws:cognito-idp", ":", Ref: "AWS::Region", ":", Ref: "AWS::AccountId", ":", "userpool/*" ] ]
+Outputs:
+  ApiGatewayArn:
+    Value:
+      Ref: ApiGatewayRestApi
+    Export:
+      Name: ${self:provider.stage}-ApiGatewayArn

@@ -6,19 +6,19 @@ import * as mongoose from "mongoose";
 
 export class Place extends Typegoose {
     //@prop() _id: Schema.Types.ObjectId;
-    @prop({ required: true })
+    @prop({ required: false })
     name: string;
-    @prop({ required: true })
+    @prop({ required: false })
     description: string;
-    @prop({ required: true })
+    @prop({ required: false })
     address: string;
-    @prop({ required: true })
+    @prop({ required: false })
     location: {
         type: string,
-        coordinates: {
-            latitude: number,
-            longitude: number
-        }
+        coordinates: [
+          number,   //longitude
+          number    //latitude
+        ]
     };
     @prop({ ref: 'User', required: false })
     peapleHere: Ref<User>[];

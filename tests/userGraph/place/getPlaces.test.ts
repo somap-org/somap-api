@@ -21,7 +21,7 @@ describe('Get places', async () => {
                     "email_verified": true,
                     "name": "Francesco Franceschini",
                     "sub": "asfafsas-12553-asdasd",
-                    "custom:userType": "ClassicUser"
+                    "custom:userType": "classicUser"
                 }
             }
         };
@@ -37,7 +37,7 @@ describe('Get places', async () => {
                     "email_verified": true,
                     "name": "Mario Rossi",
                     "sub": "asdasd-1232132-asdasd",
-                    "custom:userType": "CamUser"
+                    "custom:userType": "camUser"
                 }
             }
         };
@@ -62,10 +62,11 @@ describe('Get places', async () => {
             },
             "requestContext": {
                 "identity": {
-                    "cognitoIdentityId": user.cognitoId
+                    "cognitoAuthenticationProvider": ':' + user.cognitoId
                 }
             }
         };
+        event.body = JSON.stringify(event.body);
         response = await addPlace(event);
         response.body = JSON.parse(response.body);
 
@@ -99,7 +100,7 @@ describe('Get places', async () => {
                     "email_verified": true,
                     "name": "Fabio Bianchi",
                     "sub": "abcdevfefe-1232132-cofeve",
-                    "custom:userType": "CamUser"
+                    "custom:userType": "camUser"
                 }
             }
         };
@@ -124,10 +125,11 @@ describe('Get places', async () => {
             },
             "requestContext": {
                 "identity": {
-                    "cognitoIdentityId": user.cognitoId
+                    "cognitoAuthenticationProvider": ':' + user.cognitoId
                 }
             }
         };
+        event.body = JSON.stringify(event.body);
         response = await addPlace(event);
         response.body = JSON.parse(response.body);
 
@@ -161,7 +163,7 @@ describe('Get places', async () => {
                     "email_verified": true,
                     "name": "Fabio Bianchi",
                     "sub": "abcdevfefe-1232132-cofeve",
-                    "custom:userType": "CamUser"
+                    "custom:userType": "camUser"
                 }
             }
         };
@@ -186,10 +188,11 @@ describe('Get places', async () => {
             },
             "requestContext": {
                 "identity": {
-                    "cognitoIdentityId": user.cognitoId
+                    "cognitoAuthenticationProvider": ':' + user.cognitoId
                 }
             }
         };
+        event.body = JSON.stringify(event.body);
         response = await addPlace(event);
         response.body = JSON.parse(response.body);
 
@@ -230,14 +233,14 @@ describe('Get places', async () => {
 
     it('Classic user request for 2 places', async () => {
         event = {
-            "query": {
-                "latitude": 41.8111439,
-                "longitude": 12.6030924,
-                "range": 2000
+            "queryStringParameters": {
+                "latitude": "41.8111439",
+                "longitude": "12.6030924",
+                "range": "2000"
             },
             "requestContext": {
                 "identity": {
-                    "cognitoIdentityId": classicUser.cognitoId
+                    "cognitoAuthenticationProvider": ':' + classicUser.cognitoId
                 }
             }
         };
@@ -264,14 +267,14 @@ describe('Get places', async () => {
 
     it('Classic user request for 1 place', async () => {
         event = {
-            "query": {
-                "latitude": 41.8693897,
-                "longitude": 12.6061919,
-                "range": 1500
+            "queryStringParameters": {
+                "latitude": "41.8693897",
+                "longitude": "12.6061919",
+                "range": "1500"
             },
             "requestContext": {
                 "identity": {
-                    "cognitoIdentityId": classicUser.cognitoId
+                    "cognitoAuthenticationProvider": ':' + classicUser.cognitoId
                 }
             }
         };
@@ -296,10 +299,10 @@ describe('Get places', async () => {
 
     it('User not logged', async () => {
         event = {
-            "query": {
-                "latitude": 41.8111439,
-                "longitude": 12.6030924,
-                "range": 1500
+            "queryStringParameters": {
+                "latitude": "41.8111439",
+                "longitude": "12.6030924",
+                "range": "1500"
             }
         };
         expectedResponse = {

@@ -23,7 +23,7 @@ export async function main(event){
     const postId = event.pathParameters.postId;
 
     //Prendi parametri dalla richiesta
-    const body:NewPost = event.body;
+    const body:NewPost = JSON.parse(event.body);
 
     if(!await securityManager.isUserLogged() || !await securityManager.isUserPostOwner())
         return responseManager.send(401);

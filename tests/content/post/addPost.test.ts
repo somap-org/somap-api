@@ -25,7 +25,7 @@ describe('Add post', async () => {
                     "email_verified": true,
                     "name": "Mario Rossi",
                     "sub": "asdasd-1232132-asdasd",
-                    "custom:userType": "ClassicUser"
+                    "custom:userType": "classicUser"
                 }
             }
         };
@@ -41,7 +41,7 @@ describe('Add post', async () => {
                     "email_verified": true,
                     "name": "Fabio Bianchi",
                     "sub": "abcdevfefe-1232132-cofeve",
-                    "custom:userType": "CamUser"
+                    "custom:userType": "camUser"
                 }
             }
         };
@@ -88,10 +88,11 @@ describe('Add post', async () => {
             },
             "requestContext": {
                 "identity": {
-                    "cognitoIdentityId": mariorossi.cognitoId
+                    "cognitoAuthenticationProvider": ':' + mariorossi.cognitoId
                 }
             }
         };
+        event.body = JSON.stringify(event.body);
         response = await addPost(event);
         response.body = JSON.parse(response.body);
         let expectedBody:Post = {
@@ -137,10 +138,11 @@ describe('Add post', async () => {
             },
             "requestContext": {
                 "identity": {
-                    "cognitoIdentityId": fabiobianchi.cognitoId
+                    "cognitoAuthenticationProvider": ':' + fabiobianchi.cognitoId
                 }
             }
         };
+        event.body = JSON.stringify(event.body);
         response = await addPost(event);
         response.body = JSON.parse(response.body);
         postLogged.sharedCount++;
@@ -187,10 +189,11 @@ describe('Add post', async () => {
             },
             "requestContext": {
                 "identity": {
-                    "cognitoIdentityId": mariorossi.cognitoId
+                    "cognitoAuthenticationProvider": ':' + mariorossi.cognitoId
                 }
             }
         };
+        event.body = JSON.stringify(event.body);
         response = await addPost(event);
         response.body = JSON.parse(response.body);
         postLogged.sharedCount++;
@@ -235,6 +238,7 @@ describe('Add post', async () => {
                 ...postBody
             }
         };
+        event.body = JSON.stringify(event.body);
         response = await addPost(event);
         response.body = JSON.parse(response.body);
         expectedResponse = {

@@ -32,10 +32,10 @@ export async function main(event){
         return responseManager.send(400);
     }
 
-    const authorId = await userRepo.getUserByCognitoId(event.requestContext?.identity?.cognitoIdentityId);
+    const authorId = await userRepo.getUserByCognitoId(event.requestContext?.identity?.cognitoAuthenticationProvider.toString().slice(event.requestContext?.identity?.cognitoAuthenticationProvider.toString().lastIndexOf(':')+1));
 
     //Prendi parametri dalla richiesta
-    const body:NewComment = event.body;
+    const body:NewComment = JSON.parse(event.body);
 
     if(!await securityManager.isUserLogged())
         return responseManager.send(401);

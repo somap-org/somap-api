@@ -27,7 +27,7 @@ describe('Get post/posts', async () => {
                     "email_verified": true,
                     "name": "Mario Rossi",
                     "sub": "asdasd-1232132-asdasd",
-                    "custom:userType": "CamUser"
+                    "custom:userType": "camUser"
                 }
             }
         };
@@ -43,7 +43,7 @@ describe('Get post/posts', async () => {
                     "email_verified": true,
                     "name": "Fabio Bianchi",
                     "sub": "abcdevfefe-1232132-cofeve",
-                    "custom:userType": "CamUser"
+                    "custom:userType": "camUser"
                 }
             }
         };
@@ -65,10 +65,11 @@ describe('Get post/posts', async () => {
             },
             "requestContext": {
                 "identity": {
-                    "cognitoIdentityId": mariorossi.cognitoId
+                    "cognitoAuthenticationProvider": ':' + mariorossi.cognitoId
                 }
             }
         };
+        event.body = JSON.stringify(event.body);
         response = await addPost(event);
         response.body = JSON.parse(response.body);
         let expectedBody:Post = {
@@ -113,10 +114,11 @@ describe('Get post/posts', async () => {
             },
             "requestContext": {
                 "identity": {
-                    "cognitoIdentityId": fabiobianchi.cognitoId
+                    "cognitoAuthenticationProvider": ':' + fabiobianchi.cognitoId
                 }
             }
         };
+        event.body = JSON.stringify(event.body);
         response = await addPost(event);
         response.body = JSON.parse(response.body);
         postMariorossi.sharedCount++;
@@ -162,10 +164,11 @@ describe('Get post/posts', async () => {
             },
             "requestContext": {
                 "identity": {
-                    "cognitoIdentityId": mariorossi.cognitoId
+                    "cognitoAuthenticationProvider": ':' + mariorossi.cognitoId
                 }
             }
         };
+        event.body = JSON.stringify(event.body);
         response = await addPost(event);
         response.body = JSON.parse(response.body);
         let expectedBody:Post = {
@@ -229,7 +232,7 @@ describe('Get post/posts', async () => {
             },
             "requestContext": {
                 "identity": {
-                    "cognitoIdentityId": mariorossi.cognitoId
+                    "cognitoAuthenticationProvider": ':' + mariorossi.cognitoId
                 }
             }
         };
@@ -255,7 +258,7 @@ describe('Get post/posts', async () => {
             },
             "requestContext": {
                 "identity": {
-                    "cognitoIdentityId": mariorossi.cognitoId
+                    "cognitoAuthenticationProvider": ':' + mariorossi.cognitoId
                 }
             }
         };
@@ -281,7 +284,7 @@ describe('Get post/posts', async () => {
             },
             "requestContext": {
                 "identity": {
-                    "cognitoIdentityId": fabiobianchi.cognitoId
+                    "cognitoAuthenticationProvider": ':' + fabiobianchi.cognitoId
                 }
             }
         };
@@ -308,7 +311,7 @@ describe('Get post/posts', async () => {
             },
             "requestContext": {
                 "identity": {
-                    "cognitoIdentityId": mariorossi.cognitoId
+                    "cognitoAuthenticationProvider": ':' + mariorossi.cognitoId
                 }
             }
         };
@@ -335,6 +338,7 @@ describe('Get post/posts', async () => {
                 ...postFabiobianchi
             }
         };
+        event.body = JSON.stringify(event.body);
         response = await getPost(event);
         response.body = JSON.parse(response.body);
         expectedResponse = {

@@ -56,7 +56,7 @@ export class LikeRepository {
 
     async getLikes(parentId, parentType, page, limit): Promise<any> {
         const startIndex = (page - 1) * limit;
-        const endIndex = page * limit;
+        const endIndex = limit;
         return await LikeModel.find({parent: parentId, parentType: parentType}).select("-_id author").populate("author").skip(startIndex).limit(endIndex);
     }
 

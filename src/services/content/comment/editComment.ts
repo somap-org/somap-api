@@ -17,7 +17,7 @@ export async function main(event){
     const commentId = event.pathParameters.commentId;
 
     //Prendi parametri dalla richiesta
-    const body:NewComment = event.body;
+    const body:NewComment = JSON.parse(event.body);
 
     if(!await securityManager.isUserLogged() || !await securityManager.isUserCommentOwner())
         return responseManager.send(401);

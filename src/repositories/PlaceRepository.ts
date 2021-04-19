@@ -1,5 +1,8 @@
 import {connect} from "../libs/mongodb";
 import {Place, PlaceModel} from "../models/Place";
+import {UserModel, UserTypes} from "../models/User";
+import {UserPublicProfile} from "../interfaces/models/userPublicProfile";
+import UserTypeEnum = UserPublicProfile.UserTypeEnum;
 
 
 export class PlaceRepository {
@@ -9,6 +12,11 @@ export class PlaceRepository {
 
     async getPlace(placeId: string): Promise<Place> {
         return PlaceModel.findOne({_id: placeId});
+    }
+
+    async getCamUserPlace(loggedUser): Promise<Place> {
+        //let loggedUser = await UserModel.findOne({_id: userId, userType: UserTypes.CamUser});
+        return PlaceModel.findOne({camUser: loggedUser});
     }
 
     async addPlace(place){
@@ -27,11 +35,18 @@ export class PlaceRepository {
         let places = await PlaceModel.find({
             location: {
                 $near: {
-                    $geometry: { type: "Point",  coordinates: [latitude, longitude] },
+                    $geometry: { type: "Point",  coordinates: [longitude, latitude] },
                     $maxDistance: range
                 }
             }
         });
         return places;
+    }
+
+    async searchByQuery(query, page, limit) {
+        const startIndex = (page - 1) * limit;
+        const endIndex = limit;
+        let regex = new RegExp(query, 'i');
+        return await PlaceModel.find({name: regex}).skip(startIndex).limit(endIndex);
     }
 }
