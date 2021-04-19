@@ -33,7 +33,7 @@ export async function main(event){
         } else if (event.detail.event_name === "Stream End") {
             //Costruisce documento da aggiungere nel db
             let editLive = {
-                endedAt: moment()
+                endedAt: moment().format()
             };
             const live = await repo.editLiveByLiveId(event.detail.stream_id, editLive);
             console.log("Live ended successful", live);
