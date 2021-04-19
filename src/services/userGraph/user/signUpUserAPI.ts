@@ -23,7 +23,7 @@ export async function main(event){
       region: process.env.REGION || 'eu-central-1'
     });
     var params = {
-      ClientId: '67kp8e31k2cg4828hp93rurtp3', /* required */
+      ClientId: process.env.COGNITO_CLIENT_ID, /* required */
       Password: body.password, /* required */
       Username: body.email, /* required */
       UserAttributes: [
