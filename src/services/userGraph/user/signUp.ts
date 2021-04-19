@@ -24,27 +24,25 @@ interface CognitoData {
 }
 
 export async function main(event) {
-  console.log('START MAIN');
+  // Check attributes
   if (event.request?.userAttributes?.email && event.request?.userAttributes['custom:userType']) {
-    console.log('EMAIL AND USER TYPE FOUND', event.request.userAttributes.email, event.request?.userAttributes['custom:userType']);
     let repo = new UserRepository();
     let placeRepo = new PlaceRepository();
     let user;
 
+    // Build user document
     let userPublicProfile = {
       profileImage: "test",
       username: event.request.userAttributes.name,
       followers: 0,
       following: 0,
     };
-
     let userSettings = {
       enableNotification: true,
       appearInPeopleHere: true,
       receiveComment: true,
       profilePrivacy: "public"
     };
-
     user = {
       cognitoId: event.request.userAttributes.sub.toString(),
       email: event.request.userAttributes.email,
@@ -55,37 +53,21 @@ export async function main(event) {
       referralCode: referralCodeGenerator.custom('uppercase', 6, 6, event.request.userAttributes.name),
       referralCodeUsed: event.request.userAttributes['custom:referralCode']
     };
-
     if (event.request.userAttributes['custom:userType'] == "classicUser") {
       user.userType = UserTypes.ClassicUser;
     } else if (event.request.userAttributes['custom:userType'] == "camUser") {
       user.userType = UserTypes.CamUser;
     } else {
-      //console.log('ERRORE: custom:userType non definito o errato');
       return null;
     }
 
     try {
+      // Add user document in mongodb
       let userAdded = await repo.signUpUser(user);
-      console.log('USER ADDED', userAdded);
+      console.log('User added', userAdded);
 
-      // Aggiorno campo dell'id utente mongodb in cognito
-      let cognitoIdentityServiceProvider = new CognitoIdentityServiceProvider({
-        region: process.env.REGION || 'us-east-1'
-      });
-      var params = {
-        UserAttributes: [
-          {
-            Name: 'custom:userId',
-            Value: userAdded['_id'].toString()
-          },
-        ],
-        UserPoolId: process.env.COGNITO_USER_POOL_ID,
-        Username: event.request.userAttributes.sub
-      };
-      await cognitoIdentityServiceProvider.adminUpdateUserAttributes(params).promise();
-
-      //Creo un canale ivs e aggiungo locale nel caso in cui l'utente e' di tipo cam
+      // Create IVS channel and add place in mongodb if user cam
+      let placeAdded = null;
       if (user.userType === UserTypes.CamUser) {
         // Crea un canale IVS
         const ivs = new AWS.IVS({
@@ -97,16 +79,16 @@ export async function main(event) {
           name: userAdded['_id'].toString(),
           type: 'STANDARD'
         };
-        const result = await ivs.createChannel(params).promise();
-        console.log(result);
+        const ivsResult = await ivs.createChannel(params).promise();
         let live = await repo.updateLiveInfo(userAdded._id, {
-          channel: result.channel.arn,
-          streamServerUrl: result.channel.ingestEndpoint,
-          streamKey: result.streamKey.value,
-          liveUrl: result.channel.playbackUrl
+          channel: ivsResult.channel.arn,
+          streamServerUrl: ivsResult.channel.ingestEndpoint,
+          streamKey: ivsResult.streamKey.value,
+          liveUrl: ivsResult.channel.playbackUrl
         });
-        console.log(live);
+        console.log("User after live info changed", live);
 
+        // Add place document for cam user
         let addPlace = {
           name: null,
           description: null,
@@ -114,11 +96,34 @@ export async function main(event) {
           location: null,
           camUser: userAdded._id
         };
-        let placeAdded = await placeRepo.addPlace(addPlace);
-        console.log("PLACE ADDED", placeAdded);
+        placeAdded = await placeRepo.addPlace(addPlace);
+        console.log("Place added", placeAdded);
       }
 
-      //Invio email all'utente
+      // Update userId and placeId in cognito attributes
+      let cognitoIdentityServiceProvider = new CognitoIdentityServiceProvider({
+        region: process.env.REGION || 'us-east-1'
+      });
+      var params = {
+        UserAttributes: [
+          {
+            Name: 'custom:userId',
+            Value: userAdded['_id'].toString()
+          }
+        ],
+        UserPoolId: process.env.COGNITO_USER_POOL_ID,
+        Username: event.request.userAttributes.sub
+      };
+      if (placeAdded) {
+        params.UserAttributes.push({
+          Name: 'custom:placeId',
+          Value: placeAdded['_id'].toString()
+        });
+      }
+      await cognitoIdentityServiceProvider.adminUpdateUserAttributes(params).promise();
+
+
+      // Send email to user
       let paramsUserEmail = {
         Destination: { /* required */
           ToAddresses: [
@@ -157,5 +162,4 @@ export async function deleteUser(userId: string) {
   } catch (e) {
     return null;
   }
-
 }

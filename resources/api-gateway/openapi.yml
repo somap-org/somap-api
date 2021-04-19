@@ -915,40 +915,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
-    post:
-      tags:
-        - place
-      summary: Add place's info
-      description: place user place's info if logged in
-      x-amazon-apigateway-request-validator: "all"
-      x-amazon-apigateway-auth:
-        type: "AWS_IAM"
-      x-amazon-apigateway-integration:
-        type: "aws_proxy"
-        uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-addPlace/invocations
-        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole-${self:provider.stage}
-        passthroughBehavior: "when_no_match"
-        httpMethod: "POST"
-      requestBody:
-        description: New place info
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/Place"
-      responses:
-        '200':
-          description: User place changed
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Place"
-        default:
-          description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
   /place/{placeId}:
     get:
       tags:
@@ -1046,43 +1012,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
-    post:
-      tags:
-        - place
-        - live
-      summary: Add live info
-      description: Add live info. User must be logged in
-      x-amazon-apigateway-request-validator: "all"
-      x-amazon-apigateway-auth:
-        type: "AWS_IAM"
-      x-amazon-apigateway-integration:
-        type: "aws_proxy"
-        uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-addLive/invocations
-        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole-${self:provider.stage}
-        passthroughBehavior: "when_no_match"
-        httpMethod: "POST"
-      parameters:
-        - $ref: '#/components/parameters/placeId'
-      requestBody:
-        description: New live info
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/Live"
-      responses:
-        '200':
-          description: Live added
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Live"
-        default:
-          description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
   /place/{placeId}/lives/{liveId}:
     get:
       tags:
@@ -1147,34 +1076,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Live"
-        default:
-          description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
-    delete:
-      tags:
-        - live
-        - place
-      summary: Delete live
-      description: Delete live. User cam must be logged in.
-      x-amazon-apigateway-request-validator: "params-only"
-      x-amazon-apigateway-auth:
-        type: "AWS_IAM"
-      x-amazon-apigateway-integration:
-        type: "aws_proxy"
-        uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-deleteLive/invocations
-        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole-${self:provider.stage}
-        passthroughBehavior: "when_no_match"
-        httpMethod: "POST"
-      parameters:
-        - $ref: '#/components/parameters/userId'
-        - $ref: '#/components/parameters/placeId'
-        - $ref: '#/components/parameters/liveId'
-      responses:
-        '200':
-          description: Activity deleted succesfull
         default:
           description: Unexpected error
           content:
