@@ -77,7 +77,7 @@ export async function main(event) {
         const params = {
           latencyMode: 'LOW',
           name: userAdded['_id'].toString(),
-          type: 'STANDARD'
+          type: 'BASE'
         };
         const ivsResult = await ivs.createChannel(params).promise();
         let live = await repo.updateLiveInfo(userAdded._id, {
