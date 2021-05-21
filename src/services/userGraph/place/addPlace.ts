@@ -49,7 +49,13 @@ export async function main(event) {
         latitude: place.location.coordinates[1],
         longitude: place.location.coordinates[0]
       },
-      placeId: place['_id']
+      placeId: place['_id'],
+      userCam: {
+        userId: place.camUser['_id'],
+        userType: place.camUser['userType'],
+        username: place.camUser['username'],
+        profileImage: place.camUser['profileImage']
+      }
     };
 
     return responseManager.send(200, responsePlace);

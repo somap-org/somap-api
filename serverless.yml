@@ -86,44 +86,6 @@ functions:
   deleteActivity:
     handler: build/services/content/activity/deleteActivity.main
 
-  getFollowersList:
-    handler: build/services/userGraph/user/getFollowersList.main
-  getFollowingList:
-    handler: build/services/userGraph/user/getFollowingList.main
-  follow:
-    handler: build/services/userGraph/user/follow.main
-  unfollow:
-    handler: build/services/userGraph/user/unfollow.main
-
-  getPosts:
-    handler: build/services/content/post/getPosts.main
-  getPost:
-    handler: build/services/content/post/getPost.main
-  addPost:
-    handler: build/services/content/post/addPost.main
-  editPost:
-    handler: build/services/content/post/editPost.main
-  deletePost:
-    handler: build/services/content/post/deletePost.main
-
-  getComments:
-    handler: build/services/content/comment/getComments.main
-  getComment:
-    handler: build/services/content/comment/getComment.main
-  addComment:
-    handler: build/services/content/comment/addComment.main
-  editComment:
-    handler: build/services/content/comment/editComment.main
-  deleteComment:
-    handler: build/services/content/comment/deleteComment.main
-
-  addLike:
-    handler: build/services/content/like/addLike.main
-  getLikes:
-    handler: build/services/content/like/getLikes.main
-  deleteLike:
-    handler: build/services/content/like/deleteLike.main
-
   search:
     handler: build/services/search/mixedSearch.main
 

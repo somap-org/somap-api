@@ -1,6 +1,5 @@
 import {prop, Ref, Typegoose} from "@hasezoey/typegoose";
 import {Place} from "./Place";
-import {Media} from "./Media";
 import * as mongoose from "mongoose";
 import {Live} from "./Live";
 

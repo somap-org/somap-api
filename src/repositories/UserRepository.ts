@@ -18,9 +18,7 @@ export class UserRepository {
             userId: user['_id'].toString(),
             userType: user.userType,
             username: user.publicProfile.username,
-            profileImage: user.publicProfile.profileImage,
-            followers: user.publicProfile.followers,
-            following: user.publicProfile.following
+            profileImage: user.publicProfile.profileImage
         };
         return response;
     }

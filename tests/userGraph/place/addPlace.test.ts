@@ -64,7 +64,8 @@ describe('Add place', async () => {
             coordinates: {
                 latitude: 41.8099168,
                 longitude: 12.5969897
-            }
+            },
+            userCam: loggedUser
         };
         event = {
             "pathParameters": {
@@ -92,7 +93,8 @@ describe('Add place', async () => {
             },
             body: {
                 ...place,
-                placeId: response.body.placeId
+                placeId: response.body.placeId,
+                camUser: response.body.camUser
             },
         };
         expect(response).to.deep.equal(expectedResponse);

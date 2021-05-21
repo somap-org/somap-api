@@ -2,9 +2,6 @@
 import ResponseManager from "../../../libs/ResponseManager";
 import {SecurityManager} from "../../../libs/SecurityManager";
 import {UserRepository} from "../../../repositories/UserRepository";
-import {CommentRepository} from "../../../repositories/CommentRepository";
-import {NewComment} from "../../../interfaces/models/newComment";
-import {Comment} from "../../../interfaces/models/comment";
 import {UserSettings} from "../../../interfaces/models/userSettings";
 
 /*

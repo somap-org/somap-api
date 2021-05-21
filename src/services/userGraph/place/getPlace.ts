@@ -5,6 +5,8 @@ import {Place} from "../../../interfaces/models/place";
 import {PlaceCoordinates} from "../../../interfaces/models/placeCoordinates";
 import {SecurityManager} from "../../../libs/SecurityManager";
 import {UserRepository} from "../../../repositories/UserRepository";
+import {ObjectId} from "../../../interfaces/models/objectId";
+import {UserPublicProfile} from "../../../interfaces/models/userPublicProfile";
 
 /*
     Questa funzione deve restituire l'elenco completo di tutti gli utenti, ovvero un array contenente la rappresentazione json di tutti gli utenti
@@ -31,6 +33,12 @@ export async function main(event){
             description: place.description,
             address: place.address,
             coordinates: coordinates,
+            userCam: {
+                userId: place.camUser['_id'],
+                userType: place.camUser['userType'],
+                username: place.camUser['username'],
+                profileImage: place.camUser['profileImage']
+            }
         };
         return responseManager.send(200, response);
     } catch (err) {

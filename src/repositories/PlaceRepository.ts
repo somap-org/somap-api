@@ -11,12 +11,12 @@ export class PlaceRepository {
     }
 
     async getPlace(placeId: string): Promise<Place> {
-        return PlaceModel.findOne({_id: placeId});
+        return PlaceModel.findOne({_id: placeId}).populate("camUser");
     }
 
     async getCamUserPlace(loggedUser): Promise<Place> {
         //let loggedUser = await UserModel.findOne({_id: userId, userType: UserTypes.CamUser});
-        return PlaceModel.findOne({camUser: loggedUser});
+        return PlaceModel.findOne({camUser: loggedUser}).populate("camUser");
     }
 
     async addPlace(place){
@@ -24,11 +24,11 @@ export class PlaceRepository {
     }
 
     async editPlace(placeId, place){
-        return await PlaceModel.findOneAndUpdate({_id: placeId}, place, {new: true});
+        return await PlaceModel.findOneAndUpdate({_id: placeId}, place, {new: true}).populate("camUser");
     }
 
     async deletePlace(placeId: string) {
-        return PlaceModel.deleteOne({_id: placeId});
+        return PlaceModel.deleteOne({_id: placeId}).populate("camUser");
     }
 
     async getPlaces(latitude: number, longitude: number, range: number) {
@@ -39,7 +39,7 @@ export class PlaceRepository {
                     $maxDistance: range
                 }
             }
-        });
+        }).populate("camUser");
         return places;
     }
 
@@ -47,6 +47,6 @@ export class PlaceRepository {
         const startIndex = (page - 1) * limit;
         const endIndex = limit;
         let regex = new RegExp(query, 'i');
-        return await PlaceModel.find({name: regex}).skip(startIndex).limit(endIndex);
+        return await PlaceModel.find({name: regex}).skip(startIndex).limit(endIndex).populate("camUser");
     }
 }
