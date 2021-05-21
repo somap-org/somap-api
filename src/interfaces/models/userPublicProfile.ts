@@ -16,8 +16,6 @@ export interface UserPublicProfile {
     userType: UserPublicProfile.UserTypeEnum;
     username: string;
     profileImage: string;
-    followers: number;
-    following: number;
 }
 export namespace UserPublicProfile {
     export type UserTypeEnum = 'camUser' | 'classicUser';

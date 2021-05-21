@@ -2,9 +2,6 @@
 import ResponseManager from "../../../libs/ResponseManager";
 import {SecurityManager} from "../../../libs/SecurityManager";
 import {UserRepository} from "../../../repositories/UserRepository";
-import {CommentRepository} from "../../../repositories/CommentRepository";
-import {NewComment} from "../../../interfaces/models/newComment";
-import {Comment} from "../../../interfaces/models/comment";
 import {PlaceRepository} from "../../../repositories/PlaceRepository";
 import {Place} from "../../../interfaces/models/place";
 
@@ -49,7 +46,13 @@ export async function main(event){
                 latitude: place.location.coordinates[1],
                 longitude: place.location.coordinates[0]
             },
-            placeId: place['_id']
+            placeId: place['_id'],
+            userCam: {
+                userId: place.camUser['_id'],
+                userType: place.camUser['userType'],
+                username: place.camUser['username'],
+                profileImage: place.camUser['profileImage']
+            }
         };
         return responseManager.send(200, responsePlace);
     } catch (err) {

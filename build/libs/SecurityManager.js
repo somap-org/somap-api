@@ -11,24 +11,30 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.SecurityManager = void 0;
 const User_1 = require("../models/User");
 const PlaceRepository_1 = require("../repositories/PlaceRepository");
-const PostRepository_1 = require("../repositories/PostRepository");
-const CommentRepository_1 = require("../repositories/CommentRepository");
+const jwt = require("jsonwebtoken");
+const jwkToPem = require("jwk-to-pem");
+const jwks = { "keys": [{ "alg": "RS256", "e": "AQAB", "kid": "PyGd6vWQidw+AuTJeAPrRGmvKQ5JNCZyGceO4+wd2sM=", "kty": "RSA", "n": "vLdhFg0jhpePF_Hob9m8P9Llvr04-NkPEChuIzmQWVzw48at-uTj2gYzxanlG0LGMW9WMfvQP2lm6plRzvxUgqxKy2SOiFCUN01_QCkJ7cd6-L39NKhenx22MMxn1o3ePRpyZ2zTQ2_Y3E8kYy-YU8GNv0kNQCV7axcXQoNd6hRdyGQlTW1wTDIX-5kTUckyRmwuHp1XHO1lrV6qtHpVv5HkduN0TSO3WnFKUSo2ha2Fb2fBmg3Efg2lpUfoPMC3bLLB4CtyRdGWHfz-KK_ste71dAS5w4Z6ihApE0ITNvZiwzF46r-GopRiLjpmhcF7c3WzyCR_yu2SbDX7mQz-nw", "use": "sig" }, { "alg": "RS256", "e": "AQAB", "kid": "EuRNa5Y8MWJMo3jmPonklC9Qtz/eIp9b+Z9yoeb72K4=", "kty": "RSA", "n": "swCqN2UP582Q7TzIo-qJh9at4ToBuIpOKFcBCNwf9XSVgW6sCRQ71wKzE-aHqmMcxOKzdeq8AJ2bLCu7wwN4KQOVy-OTKpQKg6-eJte1MjfwLzSzZ0RTvwAhiLI560xCDC5FZYCzWcOCiCOIhl_ers6BNywaoULuquEONmZUNdf9gxJFTXTjwEkeWKY9cToJSmgEfkWWBm5VMCWeDx1fP8gVKdL0tSswTBUgeqy841ccn-5MUYgcRW4b3f_QE0P1PaqGoPX7L6OoL-ai7oPhKNGkxgNLaOwcpZ4cDzltVxL0M0lOS0JkwOalxtRVQBVHUCI8Z__XAt6mzNyf9DJVow", "use": "sig" }] };
 class SecurityManager {
     constructor(userRepository, event) {
         this.repo = userRepository;
         this.event = event;
     }
+    getCognitoId() {
+        return __awaiter(this, void 0, void 0, function* () {
+            return (yield this.validateToken(this.event.headers['Authorization']))['sub'];
+        });
+    }
     isUserIdLogged() {
-        var _a, _b, _c, _d, _e, _f, _g;
+        var _a, _b, _c;
         return __awaiter(this, void 0, void 0, function* () {
             if (typeof ((_b = (_a = this.event.requestContext) === null || _a === void 0 ? void 0 : _a.identity) === null || _b === void 0 ? void 0 : _b.cognitoAuthenticationProvider) == "undefined")
                 return false;
-            let user = yield this.repo.getUserByCognitoId((_d = (_c = this.event.requestContext) === null || _c === void 0 ? void 0 : _c.identity) === null || _d === void 0 ? void 0 : _d.cognitoAuthenticationProvider.toString().slice(((_f = (_e = this.event.requestContext) === null || _e === void 0 ? void 0 : _e.identity) === null || _f === void 0 ? void 0 : _f.cognitoAuthenticationProvider.toString().lastIndexOf(':')) + 1));
+            let user = yield this.repo.getUserByCognitoId(yield this.getCognitoId());
             if (!user) {
                 console.log("User not found");
                 return false;
             }
-            if (user['_id'].toString() == ((_g = this.event.pathParameters) === null || _g === void 0 ? void 0 : _g.userId.toString())) {
+            if (user['_id'].toString() == ((_c = this.event.pathParameters) === null || _c === void 0 ? void 0 : _c.userId.toString())) {
                 console.log("Authorized");
                 return true;
             }
@@ -40,11 +46,11 @@ class SecurityManager {
         });
     }
     isUserLogged() {
-        var _a, _b, _c, _d, _e, _f;
+        var _a, _b;
         return __awaiter(this, void 0, void 0, function* () {
             if (typeof ((_b = (_a = this.event.requestContext) === null || _a === void 0 ? void 0 : _a.identity) === null || _b === void 0 ? void 0 : _b.cognitoAuthenticationProvider) == undefined)
                 return false;
-            let user = yield this.repo.getUserByCognitoId((_d = (_c = this.event.requestContext) === null || _c === void 0 ? void 0 : _c.identity) === null || _d === void 0 ? void 0 : _d.cognitoAuthenticationProvider.toString().slice(((_f = (_e = this.event.requestContext) === null || _e === void 0 ? void 0 : _e.identity) === null || _f === void 0 ? void 0 : _f.cognitoAuthenticationProvider.toString().lastIndexOf(':')) + 1));
+            let user = yield this.repo.getUserByCognitoId(yield this.getCognitoId());
             if (!user) {
                 return false;
             }
@@ -54,11 +60,11 @@ class SecurityManager {
         });
     }
     isUserCam() {
-        var _a, _b, _c, _d, _e, _f;
+        var _a, _b;
         return __awaiter(this, void 0, void 0, function* () {
             if (typeof ((_b = (_a = this.event.requestContext) === null || _a === void 0 ? void 0 : _a.identity) === null || _b === void 0 ? void 0 : _b.cognitoAuthenticationProvider) == undefined)
                 return false;
-            let user = yield this.repo.getUserByCognitoId((_d = (_c = this.event.requestContext) === null || _c === void 0 ? void 0 : _c.identity) === null || _d === void 0 ? void 0 : _d.cognitoAuthenticationProvider.toString().slice(((_f = (_e = this.event.requestContext) === null || _e === void 0 ? void 0 : _e.identity) === null || _f === void 0 ? void 0 : _f.cognitoAuthenticationProvider.toString().lastIndexOf(':')) + 1));
+            let user = yield this.repo.getUserByCognitoId(yield this.getCognitoId());
             if (!user) {
                 return false;
             }
@@ -72,11 +78,11 @@ class SecurityManager {
         });
     }
     isUserClassic() {
-        var _a, _b, _c, _d, _e, _f;
+        var _a, _b;
         return __awaiter(this, void 0, void 0, function* () {
             if (typeof ((_b = (_a = this.event.requestContext) === null || _a === void 0 ? void 0 : _a.identity) === null || _b === void 0 ? void 0 : _b.cognitoAuthenticationProvider) == undefined)
                 return false;
-            let user = yield this.repo.getUserByCognitoId((_d = (_c = this.event.requestContext) === null || _c === void 0 ? void 0 : _c.identity) === null || _d === void 0 ? void 0 : _d.cognitoAuthenticationProvider.toString().slice(((_f = (_e = this.event.requestContext) === null || _e === void 0 ? void 0 : _e.identity) === null || _f === void 0 ? void 0 : _f.cognitoAuthenticationProvider.toString().lastIndexOf(':')) + 1));
+            let user = yield this.repo.getUserByCognitoId(yield this.getCognitoId());
             if (!user) {
                 return false;
             }
@@ -89,14 +95,14 @@ class SecurityManager {
         });
     }
     isUserCamPlaceOwner() {
-        var _a, _b, _c, _d, _e, _f, _g, _h;
+        var _a, _b, _c, _d;
         return __awaiter(this, void 0, void 0, function* () {
             let placeRepo = new PlaceRepository_1.PlaceRepository();
             if (typeof ((_b = (_a = this.event.requestContext) === null || _a === void 0 ? void 0 : _a.identity) === null || _b === void 0 ? void 0 : _b.cognitoAuthenticationProvider) == "undefined" ||
                 typeof ((_c = this.event.pathParameters) === null || _c === void 0 ? void 0 : _c.placeId) == "undefined")
                 return false;
-            let user = yield this.repo.getUserByCognitoId((_e = (_d = this.event.requestContext) === null || _d === void 0 ? void 0 : _d.identity) === null || _e === void 0 ? void 0 : _e.cognitoAuthenticationProvider.toString().slice(((_g = (_f = this.event.requestContext) === null || _f === void 0 ? void 0 : _f.identity) === null || _g === void 0 ? void 0 : _g.cognitoAuthenticationProvider.toString().lastIndexOf(':')) + 1));
-            let place = yield placeRepo.getPlace((_h = this.event.pathParameters) === null || _h === void 0 ? void 0 : _h.placeId.toString());
+            let user = yield this.repo.getUserByCognitoId(yield this.getCognitoId());
+            let place = yield placeRepo.getPlace((_d = this.event.pathParameters) === null || _d === void 0 ? void 0 : _d.placeId.toString());
             if (!user || !place) {
                 return false;
             }
@@ -109,67 +115,47 @@ class SecurityManager {
             return false;
         });
     }
-    isUserPostOwner() {
-        var _a, _b, _c, _d, _e, _f, _g, _h;
-        return __awaiter(this, void 0, void 0, function* () {
-            let postRepo = new PostRepository_1.PostRepository();
-            if (typeof ((_b = (_a = this.event.requestContext) === null || _a === void 0 ? void 0 : _a.identity) === null || _b === void 0 ? void 0 : _b.cognitoAuthenticationProvider) == "undefined" ||
-                typeof ((_c = this.event.pathParameters) === null || _c === void 0 ? void 0 : _c.postId) == "undefined")
-                return false;
-            let user = yield this.repo.getUserByCognitoId((_e = (_d = this.event.requestContext) === null || _d === void 0 ? void 0 : _d.identity) === null || _e === void 0 ? void 0 : _e.cognitoAuthenticationProvider.toString().slice(((_g = (_f = this.event.requestContext) === null || _f === void 0 ? void 0 : _f.identity) === null || _g === void 0 ? void 0 : _g.cognitoAuthenticationProvider.toString().lastIndexOf(':')) + 1));
-            let post = yield postRepo.getPost((_h = this.event.pathParameters) === null || _h === void 0 ? void 0 : _h.postId);
-            if (user['_id'].toString() == post.author.toString()) {
-                return true;
-            }
-            else {
-                return false;
-            }
-            return false;
-        });
-    }
-    isUserCommentOwner() {
-        var _a, _b, _c, _d, _e, _f, _g, _h;
-        return __awaiter(this, void 0, void 0, function* () {
-            let commentRepo = new CommentRepository_1.CommentRepository();
-            if (typeof ((_b = (_a = this.event.requestContext) === null || _a === void 0 ? void 0 : _a.identity) === null || _b === void 0 ? void 0 : _b.cognitoAuthenticationProvider) == "undefined" ||
-                typeof ((_c = this.event.pathParameters) === null || _c === void 0 ? void 0 : _c.commentId) == "undefined")
-                return false;
-            let user = yield this.repo.getUserByCognitoId((_e = (_d = this.event.requestContext) === null || _d === void 0 ? void 0 : _d.identity) === null || _e === void 0 ? void 0 : _e.cognitoAuthenticationProvider.toString().slice(((_g = (_f = this.event.requestContext) === null || _f === void 0 ? void 0 : _f.identity) === null || _g === void 0 ? void 0 : _g.cognitoAuthenticationProvider.toString().lastIndexOf(':')) + 1));
-            let comment = yield commentRepo.getComment((_h = this.event.pathParameters) === null || _h === void 0 ? void 0 : _h.commentId);
-            if (user['_id'].toString() == comment.author.toString()) {
-                return true;
-            }
-            else {
-                return false;
-            }
-            return false;
-        });
-    }
-    isUserLikeOwner() {
-        var _a, _b, _c, _d, _e, _f, _g;
-        return __awaiter(this, void 0, void 0, function* () {
-            let commentRepo = new CommentRepository_1.CommentRepository();
-            if (typeof ((_b = (_a = this.event.requestContext) === null || _a === void 0 ? void 0 : _a.identity) === null || _b === void 0 ? void 0 : _b.cognitoAuthenticationProvider) == "undefined" ||
-                typeof ((_c = this.event.pathParameters) === null || _c === void 0 ? void 0 : _c.userId) == "undefined")
-                return false;
-            let user = yield this.repo.getUserByCognitoId((_e = (_d = this.event.requestContext) === null || _d === void 0 ? void 0 : _d.identity) === null || _e === void 0 ? void 0 : _e.cognitoAuthenticationProvider.toString().slice(((_g = (_f = this.event.requestContext) === null || _f === void 0 ? void 0 : _f.identity) === null || _g === void 0 ? void 0 : _g.cognitoAuthenticationProvider.toString().lastIndexOf(':')) + 1));
-            if (user['_id'].toString() == this.event.pathParameters.userId.toString()) {
-                return true;
-            }
-            else {
-                return false;
-            }
-            return false;
-        });
-    }
     getUserLogged() {
-        var _a, _b, _c, _d, _e, _f;
+        var _a, _b;
         return __awaiter(this, void 0, void 0, function* () {
             if (typeof ((_b = (_a = this.event.requestContext) === null || _a === void 0 ? void 0 : _a.identity) === null || _b === void 0 ? void 0 : _b.cognitoAuthenticationProvider) == "undefined")
                 return null;
-            return yield this.repo.getUserByCognitoId((_d = (_c = this.event.requestContext) === null || _c === void 0 ? void 0 : _c.identity) === null || _d === void 0 ? void 0 : _d.cognitoAuthenticationProvider.toString().slice(((_f = (_e = this.event.requestContext) === null || _e === void 0 ? void 0 : _e.identity) === null || _f === void 0 ? void 0 : _f.cognitoAuthenticationProvider.toString().lastIndexOf(':')) + 1));
+            return yield this.repo.getUserByCognitoId(yield this.getCognitoId());
         });
+    }
+    validateToken(token) {
+        return new Promise((resolve, reject) => {
+            const header = SecurityManager.decodeTokenHeader(token);
+            const jsonWebKey = SecurityManager.getJsonWebKeyWithKID(header.kid);
+            this.verifyJsonWebTokenSignature(token, jsonWebKey, (err, decodedToken) => {
+                if (err) {
+                    console.error(err);
+                }
+                else {
+                    console.log(decodedToken);
+                    resolve(decodedToken);
+                }
+            });
+        });
+    }
+    static decodeTokenHeader(token) {
+        const [headerEncoded] = token.split('.');
+        const buff = new Buffer(headerEncoded, 'base64');
+        const text = buff.toString('ascii');
+        return JSON.parse(text);
+    }
+    static getJsonWebKeyWithKID(kid) {
+        for (let jwk of jwks.keys) {
+            if (jwk.kid === kid) {
+                return jwk;
+            }
+        }
+        return null;
+    }
+    verifyJsonWebTokenSignature(token, jsonWebKey, clbk) {
+        const pem = jwkToPem(jsonWebKey);
+        jwt.verify(token, pem, { algorithms: ['RS256'] }, (err, decodedToken) => clbk(err, decodedToken));
     }
 }
 exports.SecurityManager = SecurityManager;
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiU2VjdXJpdHlNYW5hZ2VyLmpzIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsiLi4vLi4vc3JjL2xpYnMvU2VjdXJpdHlNYW5hZ2VyLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7O0FBQ0EseUNBQStDO0FBQy9DLHFFQUFnRTtBQUNoRSxtRUFBOEQ7QUFDOUQseUVBQW9FO0FBRXBFLE1BQWEsZUFBZTtJQUl4QixZQUFZLGNBQThCLEVBQUUsS0FBVTtRQUNsRCxJQUFJLENBQUMsSUFBSSxHQUFHLGNBQWMsQ0FBQztRQUMzQixJQUFJLENBQUMsS0FBSyxHQUFHLEtBQUssQ0FBQztJQUN2QixDQUFDO0lBRUssY0FBYzs7O1lBQ2hCLElBQUksb0JBQU8sSUFBSSxDQUFDLEtBQUssQ0FBQyxjQUFjLDBDQUFFLFFBQVEsMENBQUUsNkJBQTZCLENBQUEsSUFBSSxXQUFXO2dCQUN4RixPQUFPLEtBQUssQ0FBQztZQUVqQixJQUFJLElBQUksR0FBRyxNQUFNLElBQUksQ0FBQyxJQUFJLENBQUMsa0JBQWtCLGFBQUMsSUFBSSxDQUFDLEtBQUssQ0FBQyxjQUFjLDBDQUFFLFFBQVEsMENBQUUsNkJBQTZCLENBQUMsUUFBUSxHQUFHLEtBQUssQ0FBQyxhQUFBLElBQUksQ0FBQyxLQUFLLENBQUMsY0FBYywwQ0FBRSxRQUFRLDBDQUFFLDZCQUE2QixDQUFDLFFBQVEsR0FBRyxXQUFXLENBQUMsR0FBRyxLQUFFLENBQUMsRUFBRSxDQUFDO1lBQ3JPLElBQUksQ0FBQyxJQUFJLEVBQUU7Z0JBQ1AsT0FBTyxDQUFDLEdBQUcsQ0FBQyxnQkFBZ0IsQ0FBQyxDQUFDO2dCQUM5QixPQUFPLEtBQUssQ0FBQzthQUNoQjtZQUNELElBQUksSUFBSSxDQUFDLEtBQUssQ0FBQyxDQUFDLFFBQVEsRUFBRSxXQUFJLElBQUksQ0FBQyxLQUFLLENBQUMsY0FBYywwQ0FBRSxNQUFNLENBQUMsUUFBUSxHQUFFLEVBQUU7Z0JBQ3hFLE9BQU8sQ0FBQyxHQUFHLENBQUMsWUFB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
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiU2VjdXJpdHlNYW5hZ2VyLmpzIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsiLi4vLi4vc3JjL2xpYnMvU2VjdXJpdHlNYW5hZ2VyLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7O0FBQ0EseUNBQStDO0FBQy9DLHFFQUFnRTtBQUNoRSxvQ0FBb0M7QUFDcEMsdUNBQXVDO0FBQ3ZDLE1BQU0sSUFBSSxHQUFHLEVBQUMsTUFBTSxFQUFDLENBQUMsRUFBQyxLQUFLLEVBQUMsT0FBTyxFQUFDLEdBQUcsRUFBQyxNQUFNLEVBQUMsS0FBSyxFQUFDLDhDQUE4QyxFQUFDLEtBQUssRUFBQyxLQUFLLEVBQUMsR0FBRyxFQUFDLHdWQUF3VixFQUFDLEtBQUssRUFBQyxLQUFLLEVBQUMsRUFBQyxFQUFDLEtBQUssRUFBQyxPQUFPLEVBQUMsR0FBRyxFQUFDLE1BQU0sRUFBQyxLQUFLLEVBQUMsOENBQThDLEVBQUMsS0FBSyxFQUFDLEtBQUssRUFBQyxHQUFHLEVBQUMsd1ZBQXdWLEVBQUMsS0FBSyxFQUFDLEtBQUssRUFBQyxDQUFDLEVBQUMsQ0FBQztBQUdsNkIsTUFBYSxlQUFlO0lBSXhCLFlBQVksY0FBOEIsRUFBRSxLQUFVO1FBQ2xELElBQUksQ0FBQyxJQUFJLEdBQUcsY0FBYyxDQUFDO1FBQzNCLElBQUksQ0FBQyxLQUFLLEdBQUcsS0FBSyxDQUFDO0lBQ3ZCLENBQUM7SUFFSyxZQUFZOztZQUNkLE9BQU8sQ0FBQyxNQUFNLElBQUksQ0FBQyxhQUFhLENBQUMsSUFBSSxDQUFDLEtBQUssQ0FBQyxPQUFPLENBQUMsZUFBZSxDQUFDLENBQUMsQ0FBQyxDQUFDLEtBQUssQ0FBQyxDQUFDO1FBQ2xGLENBQUM7S0FBQTtJQUVLLGNBQWM7OztZQUNoQixJQUFJLG9CQUFPLElBQUksQ0FBQyxLQUFLLENBQUMsY0FBYywwQ0FBRSxRQUFRLDBDQUFFLDZCQUE2QixDQUFBLElBQUksV0FBVztnQkFDeEYsT0FBTyxLQUFLLENBQUM7WUFFakIsSUFBSSxJ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

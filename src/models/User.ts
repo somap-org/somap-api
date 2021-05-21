@@ -16,10 +16,6 @@ export class UserPublicProfile extends Typegoose {
     username: string;
     @prop({ required: true })
     profileImage: string;
-    @prop({ required: true })
-    followers: number = 0;
-    @prop({ required: true })
-    following: number = 0;
 }
 
 export class UserSettings {

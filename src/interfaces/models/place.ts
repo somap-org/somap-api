@@ -11,6 +11,7 @@
  */
 import { ObjectId } from './objectId';
 import { PlaceCoordinates } from './placeCoordinates';
+import {UserPublicProfile} from "./userPublicProfile";
 
 export interface Place { 
     placeId?: ObjectId;
@@ -18,4 +19,5 @@ export interface Place {
     description: string;
     address: string;
     coordinates: PlaceCoordinates;
+    userCam?: UserPublicProfile
 }

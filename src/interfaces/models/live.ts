@@ -13,6 +13,6 @@
 export interface Live { 
     createdAt: string;
     endedAt?: string;
-    liveUrl: string;
+    liveUrl?: string;
     liveId?: string;
 }

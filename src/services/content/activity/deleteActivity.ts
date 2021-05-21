@@ -6,7 +6,6 @@ import {Live} from "../../../interfaces/models/live";
 import {LiveRepository} from "../../../repositories/LiveRepository";
 import {ActivityRepository} from "../../../repositories/ActivityRepository";
 import {Activity} from "../../../interfaces/models/activity";
-import {Media} from "../../../interfaces/models/media";
 
 /*
     Questa funzione deve restituire l'elenco completo di tutti gli utenti, ovvero un array contenente la rappresentazione json di tutti gli utenti

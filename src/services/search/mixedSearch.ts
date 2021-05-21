@@ -3,13 +3,9 @@ import ResponseManager from "../../libs/ResponseManager";
 import {SecurityManager} from "../../libs/SecurityManager";
 import {UserRepository} from "../../repositories/UserRepository";
 import {PlaceRepository} from "../../repositories/PlaceRepository";
-import {Lives} from "../../interfaces/models/lives";
-import {Live} from "../../interfaces/models/live";
-import {LiveRepository} from "../../repositories/LiveRepository";
 import {ActivityRepository} from "../../repositories/ActivityRepository";
 import {Activities} from "../../interfaces/models/activities";
 import {Places} from "../../interfaces/models/places";
-import {Place} from "../../interfaces/models/place";
 import {PlaceCoordinates} from "../../interfaces/models/placeCoordinates";
 import {UsersPublicProfile} from "../../interfaces/models/usersPublicProfile";
 
@@ -63,6 +59,12 @@ export async function main(event) {
             description: place.description,
             address: place.address,
             coordinates: coordinates,
+            userCam: {
+              userId: place.camUser['_id'],
+              userType: place.camUser['userType'],
+              username: place.camUser['username'],
+              profileImage: place.camUser['profileImage']
+            }
           });
         }
         resolve();
@@ -74,9 +76,7 @@ export async function main(event) {
             userId: user['_id'].toString(),
             userType: user.userType,
             username: user.publicProfile.username,
-            profileImage: user.publicProfile.profileImage,
-            followers: user.publicProfile.followers,
-            following: user.publicProfile.following
+            profileImage: user.publicProfile.profileImage
           });
         }
         resolve();
