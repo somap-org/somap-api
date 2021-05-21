@@ -33,9 +33,7 @@ export async function main(event) {
     // Build user document
     let userPublicProfile = {
       profileImage: "test",
-      username: event.request.userAttributes.name,
-      followers: 0,
-      following: 0,
+      username: event.request.userAttributes.name
     };
     let userSettings = {
       enableNotification: true,
@@ -77,7 +75,7 @@ export async function main(event) {
         const params = {
           latencyMode: 'LOW',
           name: userAdded['_id'].toString(),
-          type: 'BASE'
+          type: 'BASIC'
         };
         const ivsResult = await ivs.createChannel(params).promise();
         let live = await repo.updateLiveInfo(userAdded._id, {
