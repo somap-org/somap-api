@@ -659,7 +659,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/Error"
 
-  /places:
+  /place:
     get:
       tags:
         - place
