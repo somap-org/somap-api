@@ -684,7 +684,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
-  /place/{placeId}:
+  /places/{placeId}:
     get:
       tags:
         - place
@@ -750,7 +750,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
-  /place/{placeId}/lives:
+  /places/{placeId}/lives:
     get:
       tags:
         - place
@@ -781,7 +781,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
-  /place/{placeId}/lives/{liveId}:
+  /places/{placeId}/lives/{liveId}:
     get:
       tags:
         - live

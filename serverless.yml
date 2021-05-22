@@ -52,7 +52,7 @@ functions:
     handler: build/services/userGraph/place/getPlace.main
   getPlaces:
     handler: build/services/userGraph/place/getPlaces.main
-  editPlaces:
+  editPlace:
     handler: build/services/userGraph/place/editPlace.main
 
   getLive:
