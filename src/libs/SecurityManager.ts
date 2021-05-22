@@ -20,9 +20,6 @@ export class SecurityManager {
     }
 
     async isUserIdLogged(): Promise<boolean> {
-        if (typeof this.event.requestContext?.identity?.cognitoAuthenticationProvider == "undefined")
-            return false;
-
         let user = await this.repo.getUserByCognitoId(await this.getCognitoId());
         if (!user) {
             console.log("User not found");
@@ -40,9 +37,6 @@ export class SecurityManager {
     }
 
     async isUserLogged(): Promise<boolean> {
-        if (typeof this.event.requestContext?.identity?.cognitoAuthenticationProvider == undefined)
-            return false;
-
         let user = await this.repo.getUserByCognitoId(await this.getCognitoId());
         if (!user) {
             //console.log("User not found");
@@ -54,8 +48,6 @@ export class SecurityManager {
     }
 
     async isUserCam(): Promise<boolean> {
-        if (typeof this.event.requestContext?.identity?.cognitoAuthenticationProvider == undefined)
-            return false;
 
         let user = await this.repo.getUserByCognitoId(await this.getCognitoId());
         if (!user) {
@@ -72,9 +64,6 @@ export class SecurityManager {
     }
 
     async isUserClassic(): Promise<boolean> {
-        if (typeof this.event.requestContext?.identity?.cognitoAuthenticationProvider == undefined)
-            return false;
-
         let user = await this.repo.getUserByCognitoId(await this.getCognitoId());
         if (!user) {
             //console.log("User not found");
@@ -91,7 +80,6 @@ export class SecurityManager {
     async isUserCamPlaceOwner(): Promise<boolean> {
         let placeRepo = new PlaceRepository();
         if (
-            typeof this.event.requestContext?.identity?.cognitoAuthenticationProvider == "undefined" ||
             typeof this.event.pathParameters?.placeId == "undefined"
         )
             return false;
@@ -116,11 +104,6 @@ export class SecurityManager {
     }
 
     async getUserLogged(): Promise<User> {
-        if (
-          typeof this.event.requestContext?.identity?.cognitoAuthenticationProvider == "undefined"
-        )
-            return null;
-
         return await this.repo.getUserByCognitoId(await this.getCognitoId());
     }
 
