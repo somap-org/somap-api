@@ -16,7 +16,9 @@ export class SecurityManager {
     }
 
     async getCognitoId(): Promise<string> {
-        return (await this.validateToken(this.event.headers['Authorization']))['sub'];
+        let decodedToken = await this.validateToken(this.event.headers['Authorization']);
+        console.log('cognitoId sub', decodedToken.sub);
+        return decodedToken.sub;
     }
 
     async isUserIdLogged(): Promise<boolean> {
@@ -48,7 +50,6 @@ export class SecurityManager {
     }
 
     async isUserCam(): Promise<boolean> {
-        
         let user = await this.repo.getUserByCognitoId(await this.getCognitoId());
         if (!user) {
             console.log("User not found");
@@ -115,7 +116,7 @@ export class SecurityManager {
                 if (err) {
                     console.error(err);
                 } else {
-                    console.log(decodedToken);
+                    console.log("decodedToken", decodedToken);
                     resolve(decodedToken);
                 }
             })

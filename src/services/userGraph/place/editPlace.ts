@@ -29,8 +29,8 @@ export async function main(event){
         location: {
             type: 'Point',
             coordinates: [
-                body.coordinates.longitude,
-                body.coordinates.latitude
+                parseFloat(body.coordinates.longitude.toString()),
+                parseFloat(body.coordinates.latitude.toString())
             ]
         }
     };

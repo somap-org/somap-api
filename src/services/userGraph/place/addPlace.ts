@@ -31,8 +31,8 @@ export async function main(event) {
     location: {
       type: 'Point',
       coordinates: [
-        requestPlace.coordinates.longitude,
-        requestPlace.coordinates.latitude
+        parseFloat(requestPlace.coordinates.longitude.toString()),
+        parseFloat(requestPlace.coordinates.latitude.toString())
       ]
     },
     camUser: userLogged['_id']
