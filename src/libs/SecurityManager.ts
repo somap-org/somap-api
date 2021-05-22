@@ -91,13 +91,13 @@ export class SecurityManager {
             console.log("User or place not found");
             return false;
         }
-        if (user['_id'].toString() == place.camUser.toString()) {
+        if (user['_id'].toString() == place.camUser['_id'].toString()) {
             console.log("Authorized");
             console.log("isUserCamPlaceOwner ok");
             return true;
         }
         else {
-            console.log("Not Authorized: "+user['_id']+"-"+place.camUser.toString());
+            console.log("Not Authorized: "+user['_id']+"-"+place.camUser['_id'].toString());
             return false;
         }
         return false;
