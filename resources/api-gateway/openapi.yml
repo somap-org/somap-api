@@ -118,10 +118,10 @@ components:
             - latitude
           properties:
             latitude:
-              type: integer
+              type: string
               example: "42.7170741"
             longitude:
-              type: integer
+              type: string
               example: "12.6198393"
         userCam:
           $ref: "#/components/schemas/UserPublicProfile"
@@ -873,13 +873,13 @@ paths:
           description: User postition latitude
           required: true
           schema:
-            type: number
+            type: string
         - name: longitude
           in: query
           description: User postition longitude
           required: true
           schema:
-            type: number
+            type: string
         - name: range
           in: query
           description: Search range in meters
