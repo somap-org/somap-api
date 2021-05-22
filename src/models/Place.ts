@@ -12,6 +12,8 @@ export class Place extends Typegoose {
     description: string;
     @prop({ required: false })
     address: string;
+    @prop({ required: false, default: null })
+    currentLiveUrl?: string;
     @prop({ required: false })
     location: {
         type: string,

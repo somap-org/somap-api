@@ -29,6 +29,10 @@ export async function main(event){
                 place: place['_id']
             };
             const live = await repo.addLive(addLive);
+
+            //Modifica stato documento place
+            await placeRepo.editPlace(place['_id'], {currentLiveUrl: user.liveUrl});
+
             console.log("Live added successful", live);
         } else if (event.detail.event_name === "Stream End") {
             //Costruisce documento da aggiungere nel db
@@ -36,6 +40,10 @@ export async function main(event){
                 endedAt: moment().format()
             };
             const live = await repo.editLiveByLiveId(event.detail.stream_id, editLive);
+
+            //Modifica stato documento place
+            await placeRepo.editPlace(place['_id'], {currentLiveUrl: null});
+
             console.log("Live ended successful", live);
         }
 

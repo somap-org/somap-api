@@ -16,7 +16,9 @@ export class SecurityManager {
     }
 
     async getCognitoId(): Promise<string> {
-        return (await this.validateToken(this.event.headers['Authorization']))['sub'];
+        let decodedToken = await this.validateToken(this.event.headers['Authorization']);
+        console.log('cognitoId sub', decodedToken.sub);
+        return decodedToken.sub;
     }
 
     async isUserIdLogged(): Promise<boolean> {
@@ -39,24 +41,23 @@ export class SecurityManager {
     async isUserLogged(): Promise<boolean> {
         let user = await this.repo.getUserByCognitoId(await this.getCognitoId());
         if (!user) {
-            //console.log("User not found");
+            console.log("User not found");
             return false;
         } else {
-            //console.log("isUserLogged ok");
+            console.log("isUserLogged ok");
             return true
         }
     }
 
     async isUserCam(): Promise<boolean> {
-
         let user = await this.repo.getUserByCognitoId(await this.getCognitoId());
         if (!user) {
-            //console.log("User not found");
+            console.log("User not found");
             return false;
         } else {
-            //console.log("Authorized");
+            console.log("Authorized");
             if (user.userType == UserTypes.CamUser) {
-                //console.log("isUserCam ok");
+                console.log("isUserCam ok");
                 return true;
             } else
                 return false;
@@ -66,10 +67,10 @@ export class SecurityManager {
     async isUserClassic(): Promise<boolean> {
         let user = await this.repo.getUserByCognitoId(await this.getCognitoId());
         if (!user) {
-            //console.log("User not found");
+            console.log("User not found");
             return false;
         } else {
-            //console.log("Authorized");
+            console.log("Authorized");
             if (user.userType == UserTypes.ClassicUser)
                 return true;
             else
@@ -88,16 +89,16 @@ export class SecurityManager {
         let place = await placeRepo.getPlace(this.event.pathParameters?.placeId.toString());
 
         if (!user || !place) {
-            //console.log("User or place not found");
+            console.log("User or place not found");
             return false;
         }
-        if (user['_id'].toString() == place.camUser.toString()) {
-            //console.log("Authorized");
-            //console.log("isUserCamPlaceOwner ok");
+        if (user['_id'].toString() == place.camUser['_id'].toString()) {
+            console.log("Authorized");
+            console.log("isUserCamPlaceOwner ok");
             return true;
         }
         else {
-            //console.log("Not Authorized: "+user['_id']+"-"+place.camUser.toString());
+            console.log("Not Authorized: "+user['_id']+"-"+place.camUser['_id'].toString());
             return false;
         }
         return false;
@@ -115,7 +116,7 @@ export class SecurityManager {
                 if (err) {
                     console.error(err);
                 } else {
-                    console.log(decodedToken);
+                    console.log("decodedToken", decodedToken);
                     resolve(decodedToken);
                 }
             })

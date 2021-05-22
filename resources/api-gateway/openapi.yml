@@ -108,6 +108,9 @@ components:
         description:
           type: string
           example: "Very big discoteque"
+        currentLiveUrl:
+          type: string
+          example: "https://e7f58a99478e.us-east-1.playback.live-video.net/api/video/v1/us-east-1.0123456789.channel.xxxxxxxxxxxx.m3u8"
         address:
           type: string
           example: "Via Roma 1, Milano MI"
@@ -656,7 +659,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/Error"
 
-  /place:
+  /places:
     get:
       tags:
         - place

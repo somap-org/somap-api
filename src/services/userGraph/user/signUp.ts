@@ -91,7 +91,13 @@ export async function main(event) {
           name: null,
           description: null,
           address: null,
-          location: null,
+          location: {
+            type: 'Point',
+            coordinates: [
+              0,
+              0
+            ]
+          },
           camUser: userAdded._id
         };
         placeAdded = await placeRepo.addPlace(addPlace);
