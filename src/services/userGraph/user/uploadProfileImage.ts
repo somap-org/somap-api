@@ -37,16 +37,6 @@ export async function main(event){
         if (!uploadUrl) {
             return { error: 'Unable to get presigned upload URL from S3' }
         }
-        return {
-            statusCode: 200,
-            headers: {
-                'Content-Type': 'text/plain',
-                'Access-Control-Allow-Methods': '*',
-                'Access-Control-Allow-Origin': '*'
-            },
-            body: uploadUrl
-        };
-
         return responseManager.send(200, {presignedUrl: uploadUrl});
     } catch (err) {
         console.log(err);
