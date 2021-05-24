@@ -10,12 +10,14 @@ provider:
   stage: ${opt:stage, 'dev'}
   region: us-east-1
   accountId: ${file(./environment/${self:provider.stage}.environment.json):ACCOUNT_ID}
+  photosBucketS3: somap-infr-be-somap-photos-bucket-${self:provider.stage}
   environment:
     STAGE: ${self:provider.stage}
     REGION: ${self:provider.region}
     API_VERSION: ${self:provider.version}
     COGNITO_USER_POOL_ID: ${file(./environment/${self:provider.stage}.environment.json):COGNITO_USER_POOL_ID}
     COGNITO_CLIENT_ID: ${file(./environment/${self:provider.stage}.environment.json):COGNITO_CLIENT_ID}
+    PHOTOS_BUCKET_S3: ${self.provider.photosBucketS3}
   iamRoleStatements:
     - Effect: "Allow"
       Action:
@@ -35,6 +37,8 @@ functions:
     handler: build/services/userGraph/user/signUp.main
   getUserPublicProfile:
     handler: build/services/userGraph/user/getUserPublicProfile.main
+  uploadProfileImage:
+    handler: build/services/userGraph/user/uploadProfileImage.main
   editUsername:
     handler: build/services/userGraph/user/editUsername.main
   getUserSettings:

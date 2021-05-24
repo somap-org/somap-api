@@ -5,7 +5,7 @@ import {PlaceRepository} from "../../../repositories/PlaceRepository";
 
 const referralCodeGenerator = require('referral-code-generator');
 var AWS = require('aws-sdk');
-AWS.config.update({region: process.env.REGION || 'eu-central-1'});
+AWS.config.update({region: process.env.REGION || 'us-east-1'});
 
 interface CognitoData {
   userName: string;

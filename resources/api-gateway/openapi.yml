@@ -562,6 +562,55 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
+  /users/{userId}/upload-profile-image:
+    get:
+      tags:
+        - user
+      summary: Get presigned url to upload profile image
+      description: Get presigned url to upload profile image
+      x-amazon-apigateway-request-validator: "all"
+      security:
+        - userPool: []
+      x-amazon-apigateway-integration:
+        type: "aws_proxy"
+        uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-uploadProfileImage/invocations
+        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole-${self:provider.stage}
+        passthroughBehavior: "when_no_match"
+        httpMethod: "POST"
+      parameters:
+        - $ref: '#/components/parameters/userId'
+      requestBody:
+        description: Presigned URL
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - presignedUrl
+              properties:
+                presignedUrl:
+                  type: string
+                  example: "lucapirrone"
+      responses:
+        '200':
+          description: Username changed
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - username
+                properties:
+                  username:
+                    type: string
+                    example: "lucapirrone"
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
   /users/{userId}/settings:
     get:
       tags:
