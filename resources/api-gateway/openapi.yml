@@ -563,7 +563,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/Error"
   /users/{userId}/upload-profile-image:
-    get:
+    post:
       tags:
         - user
       summary: Get presigned url to upload profile image
@@ -579,6 +579,21 @@ paths:
         httpMethod: "POST"
       parameters:
         - $ref: '#/components/parameters/userId'
+      requestBody:
+        description: File propetries
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - fileName
+                - fileType
+              properties:
+                fileName:
+                  type: string
+                fileType:
+                  type: string
       responses:
         '200':
           description: Presigned URL

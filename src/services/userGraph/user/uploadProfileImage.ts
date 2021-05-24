@@ -20,17 +20,14 @@ export async function main(event){
 
     //Take variable from event
     const userId = event.pathParameters.userId;
-
-    console.log(1);
+    const body = JSON.parse(event.body);
 
     //Check if logged userId is same as path
     if(!await securityManager.isUserIdLogged())
         return responseManager.send(401);
 
-    console.log(2);
-
     try{
-        const params = { Bucket: process.env.PHOTOS_BUCKET_S3, Key: userId+"/profile_image.png", Expires: signedUrlExpiresSeconds}
+        const params = { Bucket: process.env.PHOTOS_BUCKET_S3, Key: userId+"/"+body.fileName, Expires: signedUrlExpiresSeconds, ContentType: body.fileType};
         console.log(params);
         const uploadUrl: string = await s3.getSignedUrl('putObject', params);
 
