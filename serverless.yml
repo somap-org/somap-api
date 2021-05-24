@@ -17,7 +17,7 @@ provider:
     API_VERSION: ${self:provider.version}
     COGNITO_USER_POOL_ID: ${file(./environment/${self:provider.stage}.environment.json):COGNITO_USER_POOL_ID}
     COGNITO_CLIENT_ID: ${file(./environment/${self:provider.stage}.environment.json):COGNITO_CLIENT_ID}
-    PHOTOS_BUCKET_S3: ${self.provider.photosBucketS3}
+    PHOTOS_BUCKET_S3: ${self:provider.photosBucketS3}
   iamRoleStatements:
     - Effect: "Allow"
       Action:
