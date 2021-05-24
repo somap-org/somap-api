@@ -579,32 +579,18 @@ paths:
         httpMethod: "POST"
       parameters:
         - $ref: '#/components/parameters/userId'
-      requestBody:
-        description: Presigned URL
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              required:
-                - presignedUrl
-              properties:
-                presignedUrl:
-                  type: string
-                  example: "lucapirrone"
       responses:
         '200':
-          description: Username changed
+          description: Presigned URL
           content:
             application/json:
               schema:
                 type: object
                 required:
-                  - username
+                  - presignedUrl
                 properties:
-                  username:
+                  presignedUrl:
                     type: string
-                    example: "lucapirrone"
         default:
           description: Unexpected error
           content:
