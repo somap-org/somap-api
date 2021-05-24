@@ -44,6 +44,10 @@ export class UserRepository {
         return UserModel.findOneAndUpdate({_id: userId}, {"publicProfile.username": username}, {new: true})
     }
 
+    async editProfileImage(userId: string, filename: string): Promise<User> {
+        return UserModel.findOneAndUpdate({_id: userId}, {"publicProfile.profileImage": filename}, {new: true})
+    }
+
     async editUserSettings(userId, userSettings): Promise<User> {
         return UserModel.findOneAndUpdate({_id: userId}, {"settings": userSettings}, {new: true})
     }

@@ -1,11 +1,10 @@
 import ResponseManager from "../../../libs/ResponseManager";
 import {UserRepository} from "../../../repositories/UserRepository";
 import {SecurityManager} from "../../../libs/SecurityManager";
+
 var AWS = require('aws-sdk');
 AWS.config.update({region: process.env.REGION || 'us-east-1'});
-
 const signedUrlExpiresSeconds = 60*10;
-
 const s3 = new AWS.S3({ apiVersion: "2006-03-01" });
 
 interface EventData {
@@ -27,13 +26,15 @@ export async function main(event){
         return responseManager.send(401);
 
     try{
-        const params = { Bucket: process.env.PHOTOS_BUCKET_S3, Key: userId+"/"+body.fileName, Expires: signedUrlExpiresSeconds, ContentType: body.fileType};
-        console.log(params);
+        const params = { Bucket: process.env.PHOTOS_BUCKET_S3, Key: userId+"/profile-image/"+body.fileName, Expires: signedUrlExpiresSeconds, ContentType: body.fileType};
         const uploadUrl: string = await s3.getSignedUrl('putObject', params);
 
         if (!uploadUrl) {
             return { error: 'Unable to get presigned upload URL from S3' }
         }
+
+        await repo.editProfileImage(userId, userId+"/profile-image/"+body.fileName);
+
         return responseManager.send(200, {presignedUrl: uploadUrl});
     } catch (err) {
         console.log(err);

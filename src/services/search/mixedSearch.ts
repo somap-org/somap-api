@@ -9,6 +9,11 @@ import {Places} from "../../interfaces/models/places";
 import {PlaceCoordinates} from "../../interfaces/models/placeCoordinates";
 import {UsersPublicProfile} from "../../interfaces/models/usersPublicProfile";
 
+var AWS = require('aws-sdk');
+AWS.config.update({region: process.env.REGION || 'us-east-1'});
+const signedUrlExpiresSeconds = 60*10;
+const s3 = new AWS.S3({ apiVersion: "2006-03-01" });
+
 /*
     Questa funzione deve restituire tutte le entita' di tipo Activities, Places e Users che contengono una stringa di ricevuta dal client.
  */
@@ -53,6 +58,9 @@ export async function main(event) {
             latitude: place.location.coordinates[1],
             longitude: place.location.coordinates[0]
           };
+          const params = { Bucket: process.env.PHOTOS_BUCKET_S3, Key: place.camUser['profileImage'], Expires: signedUrlExpiresSeconds};
+          const uploadUrl: string = await s3.getSignedUrl('getObject', params);
+
           responsePlaces.push({
             placeId: place['_id'].toString(),
             name: place.name,
@@ -63,7 +71,7 @@ export async function main(event) {
               userId: place.camUser['_id'],
               userType: place.camUser['userType'],
               username: place.camUser['username'],
-              profileImage: place.camUser['profileImage']
+              profileImage: uploadUrl
             }
           });
         }
