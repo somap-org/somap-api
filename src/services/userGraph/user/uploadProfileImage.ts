@@ -30,7 +30,7 @@ export async function main(event){
     console.log(2);
 
     try{
-        const params = { Bucket: process.env.PHOTOS_BUCKET_S3, Key: userId+"/profile_image", Expires: signedUrlExpiresSeconds }
+        const params = { Bucket: process.env.PHOTOS_BUCKET_S3, Key: userId+"/profile_image.png", Expires: signedUrlExpiresSeconds}
         console.log(params);
         const uploadUrl: string = await s3.getSignedUrl('putObject', params);
 
