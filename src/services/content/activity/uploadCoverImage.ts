@@ -20,8 +20,8 @@ export async function main(event){
     let securityManager = new SecurityManager(userRepo, event);
 
     //Take variable from event
-    const placeId = event.pathParameters.userId;
-    const activityId = event.pathParameters.userId;
+    const placeId = event.pathParameters.placeId;
+    const activityId = event.pathParameters.activityId;
     const body = JSON.parse(event.body);
 
     //Check if logged userId is same as path
