@@ -969,7 +969,6 @@ paths:
         passthroughBehavior: "when_no_match"
         httpMethod: "POST"
       parameters:
-        - $ref: '#/components/parameters/userId'
         - $ref: '#/components/parameters/placeId'
         - name: type
           in: query
