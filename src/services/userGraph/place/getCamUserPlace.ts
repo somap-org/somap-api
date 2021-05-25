@@ -18,8 +18,7 @@ export async function main(event) {
   if (!await securityManager.isUserLogged())
     return responseManager.send(401);
 
-  let userLogged = await userRepo.getUserByCognitoId(event.requestContext?.identity?.cognitoAuthenticationProvider.toString().slice(event.requestContext?.identity?.cognitoAuthenticationProvider.toString().lastIndexOf(':') + 1));
-
+  let userLogged = await userRepo.getUserByCognitoId(await securityManager.getCognitoId());
 
   try {
     let place = await repo.getCamUserPlace(userLogged);
