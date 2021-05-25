@@ -90,6 +90,8 @@ functions:
     handler: build/services/content/activity/editActivity.main
   deleteActivity:
     handler: build/services/content/activity/deleteActivity.main
+  uploadCoverImage:
+    handler: build/services/content/activity/uploadCoverImage.main
 
   search:
     handler: build/services/search/mixedSearch.main

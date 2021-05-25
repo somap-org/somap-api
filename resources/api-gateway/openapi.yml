@@ -213,7 +213,7 @@ components:
       name: placeId
       in: path
       required: true
-      description: User id
+      description: Place id
       schema:
         type: string
     targetId:
@@ -1085,12 +1085,63 @@ paths:
         passthroughBehavior: "when_no_match"
         httpMethod: "POST"
       parameters:
-        - $ref: '#/components/parameters/userId'
         - $ref: '#/components/parameters/placeId'
         - $ref: '#/components/parameters/activityId'
       responses:
         '200':
           description: Activity deleted succesfull
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /places/{placeId}/activity/{activityId}/upload-cover-image:
+    post:
+      tags:
+        - activity
+        - place
+      summary: Get presigned url to upload cover image
+      description: Get presigned url to upload cover image
+      x-amazon-apigateway-request-validator: "all"
+      security:
+        - userPool: []
+      x-amazon-apigateway-integration:
+        type: "aws_proxy"
+        uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-uploadCoverImage/invocations
+        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole-${self:provider.stage}
+        passthroughBehavior: "when_no_match"
+        httpMethod: "POST"
+      parameters:
+        - $ref: '#/components/parameters/placeId'
+        - $ref: '#/components/parameters/activityId'
+      requestBody:
+        description: File propetries
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - fileName
+                - fileType
+              properties:
+                fileName:
+                  type: string
+                fileType:
+                  type: string
+      responses:
+        '200':
+          description: Presigned URL
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - presignedUrl
+                properties:
+                  presignedUrl:
+                    type: string
         default:
           description: Unexpected error
           content:
