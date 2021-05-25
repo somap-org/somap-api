@@ -18,7 +18,7 @@ export async function main(event){
     //Prendi parametri dalla richiesta
     const body:Place = JSON.parse(event.body);
 
-    if(!await securityManager.isUserLogged() || !await securityManager.isUserCamPlaceOwner())
+    if(!await securityManager.isUserLogged() || !await securityManager.isUserCamPlaceOwner(placeId))
         return responseManager.send(401);
 
     //Costruisce documento da aggiungere nel db

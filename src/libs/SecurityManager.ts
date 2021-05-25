@@ -78,7 +78,7 @@ export class SecurityManager {
         }
     }
 
-    async isUserCamPlaceOwner(): Promise<boolean> {
+    async isUserCamPlaceOwner(placeId?: string): Promise<boolean> {
         let placeRepo = new PlaceRepository();
         if (
             typeof this.event.pathParameters?.placeId == "undefined"
@@ -86,7 +86,7 @@ export class SecurityManager {
             return false;
 
         let user = await this.repo.getUserByCognitoId(await this.getCognitoId());
-        let place = await placeRepo.getPlace(this.event.pathParameters?.placeId.toString());
+        let place = await placeRepo.getPlace(placeId ? placeId : this.event.pathParameters?.placeId.toString());
 
         if (!user || !place) {
             console.log("User or place not found");
