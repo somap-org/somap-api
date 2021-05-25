@@ -25,7 +25,7 @@ export async function main(event){
     const body = JSON.parse(event.body);
 
     //Check if logged userId is same as path
-    if(!await securityManager.isUserIdLogged())
+    if(!await securityManager.isUserIdLogged() || !await securityManager.isUserCamPlaceOwner())
         return responseManager.send(401);
 
     try{
