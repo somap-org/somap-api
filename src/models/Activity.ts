@@ -12,8 +12,8 @@ class Activity extends Typegoose {
   date: string;
   @prop({ required: true })
   description: string;
-  @prop({ required: true })
-  thumbnail: string;
+  @prop({ required: false })
+  thumbnail?: string;
 }
 export const ActivityModel = new Activity().getModelForClass(Activity, {
   existingMongoose: mongoose,
