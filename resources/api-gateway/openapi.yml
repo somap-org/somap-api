@@ -138,7 +138,6 @@ components:
         - name
         - date
         - description
-        - thumbnail
       properties:
         activityId:
           $ref: "#/components/schemas/objectId"
@@ -153,7 +152,6 @@ components:
           example: "Very big white party"
         thumbnail:
           type: string
-          example: "https://barbarapicci.files.wordpress.com/2014/12/giochi-di-profilo1.jpg?w=640"
     Activities:
       type: array
       items:
