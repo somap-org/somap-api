@@ -6,6 +6,10 @@ import {Live} from "../../../interfaces/models/live";
 import {LiveRepository} from "../../../repositories/LiveRepository";
 import {ActivityRepository} from "../../../repositories/ActivityRepository";
 import {Activity} from "../../../interfaces/models/activity";
+var AWS = require('aws-sdk');
+AWS.config.update({region: process.env.REGION || 'us-east-1'});
+const signedUrlExpiresSeconds = 60*10;
+const s3 = new AWS.S3({ apiVersion: "2006-03-01" });
 
 /*
     Questa funzione deve restituire l'elenco completo di tutti gli utenti, ovvero un array contenente la rappresentazione json di tutti gli utenti
@@ -22,12 +26,22 @@ export async function main(event){
 
     try {
         let activity = await repo.getActivity(activityId);
+        let presignedUrl = null;
+        if (activity.thumbnail) {
+            const params = {
+                Bucket: process.env.PHOTOS_BUCKET_S3,
+                Key: activity.thumbnail,
+                Expires: signedUrlExpiresSeconds
+            };
+            presignedUrl = await s3.getSignedUrl('getObject', params);
+        }
+
         let response:Activity = {
             activityId: activity['_id'],
             name: activity.name,
             description: activity.description,
             date: activity.date,
-            thumbnail: activity.thumbnail
+            thumbnail: presignedUrl
         };
         return responseManager.send(200, response);
     } catch (err) {

@@ -8,6 +8,10 @@ import {Live} from "../../../interfaces/models/live";
 import {LiveRepository} from "../../../repositories/LiveRepository";
 import {ActivityRepository} from "../../../repositories/ActivityRepository";
 import {Activities} from "../../../interfaces/models/activities";
+var AWS = require('aws-sdk');
+AWS.config.update({region: process.env.REGION || 'us-east-1'});
+const signedUrlExpiresSeconds = 60*10;
+const s3 = new AWS.S3({ apiVersion: "2006-03-01" });
 
 /*
     Questa funzione deve restituire l'elenco completo di tutte le attivita' di un place
@@ -28,13 +32,23 @@ export async function main(event){
     try {
         let activities = await repo.getActivies(placeId, page, limit);
         let response:Activities = [];
-        activities.map((activity) => {
+        activities.map(async (activity) => {
+            let presignedUrl = null;
+            if (activity.thumbnail) {
+                const params = {
+                    Bucket: process.env.PHOTOS_BUCKET_S3,
+                    Key: activity.thumbnail,
+                    Expires: signedUrlExpiresSeconds
+                };
+                presignedUrl = await s3.getSignedUrl('getObject', params);
+            }
+
             response.push({
                 activityId: activity['_id'],
                 name: activity.name,
                 description: activity.description,
                 date: activity.date,
-                thumbnail: activity.thumbnail
+                thumbnail: presignedUrl
             })
         });
         return responseManager.send(200, response);
