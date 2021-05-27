@@ -12,7 +12,6 @@ interface EventData {
     fileName: string
 }
 
-
 export async function main(event){
     let responseManager = new ResponseManager();
     let userRepo = new UserRepository();
@@ -24,12 +23,14 @@ export async function main(event){
     const activityId = event.pathParameters.activityId;
     const body = JSON.parse(event.body);
 
+    const userLogged = await securityManager.getUserLogged();
+
     //Check if logged userId is same as path
     if(!await securityManager.isUserLogged() || !await securityManager.isUserCamPlaceOwner())
         return responseManager.send(401);
 
     try{
-        const params = { Bucket: process.env.PHOTOS_BUCKET_S3, Key: placeId+"/"+activityId+"/cover-image/"+body.fileName, Expires: signedUrlExpiresSeconds, ContentType: body.fileType};
+        const params = { Bucket: process.env.PHOTOS_BUCKET_S3, Key: userLogged['_id']+"/"+placeId+"/"+activityId+"/cover-image/"+body.fileName, Expires: signedUrlExpiresSeconds, ContentType: body.fileType};
         const uploadUrl: string = await s3.getSignedUrl('putObject', params);
 
         if (!uploadUrl) {
@@ -37,7 +38,7 @@ export async function main(event){
         }
 
         await repo.editActivity(activityId, {
-            thumbnail: placeId+"/"+activityId+"/cover-image/"+body.fileName
+            thumbnail: userLogged['_id']+"/"+placeId+"/"+activityId+"/cover-image/"+body.fileName
         });
 
         return responseManager.send(200, {presignedUrl: uploadUrl});
