@@ -1029,6 +1029,37 @@ paths:
               schema:
                 $ref: "#/components/schemas/Error"
   /places/{placeId}/activity/{activityId}:
+    get:
+      tags:
+        - activity
+        - place
+      summary: Get activity info
+      description: Get place's activity info
+      x-amazon-apigateway-request-validator: "params-only"
+      security:
+        - userPool: []
+      x-amazon-apigateway-integration:
+        type: "aws_proxy"
+        uri: arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${self:provider.region}:${self:provider.accountId}:function:${self:service.name}-${self:provider.stage}-getActivity/invocations
+        credentials: arn:aws:iam::${self:provider.accountId}:role/apiInvokeRole-${self:provider.stage}
+        passthroughBehavior: "when_no_match"
+        httpMethod: "POST"
+      parameters:
+        - $ref: '#/components/parameters/placeId'
+        - $ref: '#/components/parameters/activityId'
+      responses:
+        '200':
+          description: Activity info
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Activity"
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
     put:
       tags:
         - activity

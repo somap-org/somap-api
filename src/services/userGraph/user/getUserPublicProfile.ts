@@ -23,8 +23,14 @@ export async function main(event){
     try {
         let userPublicProfile = await repo.getUserPublicProfile(userId);
 
-        const params = { Bucket: process.env.PHOTOS_BUCKET_S3, Key: userPublicProfile.profileImage, Expires: signedUrlExpiresSeconds};
-        userPublicProfile.profileImage = await s3.getSignedUrl('getObject', params);
+        if (userPublicProfile.profileImage) {
+            const params = {
+                Bucket: process.env.PHOTOS_BUCKET_S3,
+                Key: userPublicProfile.profileImage,
+                Expires: signedUrlExpiresSeconds
+            };
+            userPublicProfile.profileImage = await s3.getSignedUrl('getObject', params);
+        }
 
         return responseManager.send(200, userPublicProfile);
     } catch (err) {

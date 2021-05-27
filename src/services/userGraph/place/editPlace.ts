@@ -4,6 +4,10 @@ import {SecurityManager} from "../../../libs/SecurityManager";
 import {UserRepository} from "../../../repositories/UserRepository";
 import {PlaceRepository} from "../../../repositories/PlaceRepository";
 import {Place} from "../../../interfaces/models/place";
+var AWS = require('aws-sdk');
+AWS.config.update({region: process.env.REGION || 'us-east-1'});
+const signedUrlExpiresSeconds = 60*10;
+const s3 = new AWS.S3({ apiVersion: "2006-03-01" });
 
 /*
     Questa funzione deve restituire l'elenco completo di tutti gli utenti, ovvero un array contenente la rappresentazione json di tutti gli utenti
@@ -38,6 +42,15 @@ export async function main(event){
     try {
         let place = await repo.editPlace(placeId, newPlace);
 
+        let presignedUrl = null;
+        if (place.camUser['profileImage']) {
+            const params = {
+                Bucket: process.env.PHOTOS_BUCKET_S3,
+                Key: place.camUser['profileImage'],
+                Expires: signedUrlExpiresSeconds
+            };
+            presignedUrl = await s3.getSignedUrl('getObject', params);
+        }
         const responsePlace:Place = {
             name: place.name,
             description: place.description,
@@ -51,7 +64,7 @@ export async function main(event){
                 userId: place.camUser['_id'],
                 userType: place.camUser['userType'],
                 username: place.camUser['username'],
-                profileImage: place.camUser['profileImage']
+                profileImage: presignedUrl
             }
         };
         return responseManager.send(200, responsePlace);

@@ -33,8 +33,15 @@ export async function main(event){
             longitude: place.location.coordinates[0]
         };
 
-        const params = { Bucket: process.env.PHOTOS_BUCKET_S3, Key: place.camUser['profileImage'], Expires: signedUrlExpiresSeconds};
-        const presignedUrl: string = await s3.getSignedUrl('getObject', params);
+        let presignedUrl = null;
+        if (place.camUser['profileImage']) {
+            const params = {
+                Bucket: process.env.PHOTOS_BUCKET_S3,
+                Key: place.camUser['profileImage'],
+                Expires: signedUrlExpiresSeconds
+            };
+            presignedUrl = await s3.getSignedUrl('getObject', params);
+        }
 
         let response:Place = {
             placeId: place['_id'],
