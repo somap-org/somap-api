@@ -26,6 +26,7 @@ export async function main(event){
 
     try {
         let activity = await repo.getActivity(activityId);
+        console.log('ACTIVITY TROVATA', activity);
         let presignedUrl = null;
         if (activity.thumbnail) {
             const params = {
@@ -33,7 +34,9 @@ export async function main(event){
                 Key: activity.thumbnail,
                 Expires: signedUrlExpiresSeconds
             };
+            console.log('PARAMS', params);
             presignedUrl = await s3.getSignedUrl('getObject', params);
+            console.log('PRESIGNED URL', presignedUrl);
         }
 
         let response:Activity = {
