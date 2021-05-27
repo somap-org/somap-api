@@ -36,7 +36,6 @@ export async function main(event){
         name: requestActivity.name,
         description: requestActivity.description,
         date: requestActivity.date,
-        thumbnail: requestActivity.thumbnail,
         place: placeId
     };
 
