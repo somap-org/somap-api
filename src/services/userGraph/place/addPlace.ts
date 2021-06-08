@@ -66,7 +66,7 @@ export async function main(event) {
       userCam: {
         userId: place.camUser['_id'],
         userType: place.camUser['userType'],
-        username: place.camUser['username'],
+        username: place.camUser['publicProfile']['username'],
         profileImage: presignedUrl
       }
     };
