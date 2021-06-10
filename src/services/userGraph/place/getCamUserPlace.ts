@@ -46,6 +46,7 @@ export async function main(event) {
     let response: Place = {
       placeId: place['_id'],
       name: place.name,
+      currentLiveUrl: place.currentLiveUrl,
       description: place.description,
       address: place.address,
       coordinates: coordinates,

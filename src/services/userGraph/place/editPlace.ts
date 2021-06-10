@@ -54,6 +54,7 @@ export async function main(event){
         const responsePlace:Place = {
             name: place.name,
             description: place.description,
+            currentLiveUrl: place.currentLiveUrl,
             address: place.address,
             coordinates: {
                 latitude: place.location.coordinates[1],

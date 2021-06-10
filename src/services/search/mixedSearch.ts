@@ -64,6 +64,7 @@ export async function main(event) {
           responsePlaces.push({
             placeId: place['_id'].toString(),
             name: place.name,
+            currentLiveUrl: place.currentLiveUrl,
             description: place.description,
             address: place.address,
             coordinates: coordinates,

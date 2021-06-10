@@ -18,6 +18,7 @@ export interface Place {
     name: string;
     description: string;
     address: string;
+    currentLiveUrl: string;
     coordinates: PlaceCoordinates;
     userCam?: UserPublicProfile
 }
