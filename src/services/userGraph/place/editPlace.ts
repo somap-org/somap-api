@@ -43,10 +43,10 @@ export async function main(event){
         let place = await repo.editPlace(placeId, newPlace);
 
         let presignedUrl = null;
-        if (place.camUser['profileImage']) {
+        if (place.camUser['publicProfile']['profileImage']) {
             const params = {
                 Bucket: process.env.PHOTOS_BUCKET_S3,
-                Key: place.camUser['profileImage'],
+                Key: place.camUser['publicProfile']['profileImage'],
                 Expires: signedUrlExpiresSeconds
             };
             presignedUrl = await s3.getSignedUrl('getObject', params);
