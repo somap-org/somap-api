@@ -62,7 +62,9 @@ export async function main(event) {
       }),
       new Promise(async (resolve, reject) => { //Cerco Places
         let places = await placeRepository.searchByQuery(query, page, limit);
+        console.log('PLACES', places);
         for (const place of places) {
+          console.log('PLACE', place);
           let coordinates: PlaceCoordinates = {
             latitude: place.location.coordinates[1],
             longitude: place.location.coordinates[0]
