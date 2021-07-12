@@ -24,8 +24,8 @@ export async function main(event){
     let securityManager = new SecurityManager(userRepo, event);
     const placeId = event.pathParameters.placeId;
 
-    const page = parseInt(event.pathParameters.page) || 1;
-    const limit = parseInt(event.pathParameters.limit) || 10;
+    const page = parseInt(event.queryStringParameters.page) || 1;
+    const limit = parseInt(event.queryStringParameters.limit) || 10;
 
     if(!await securityManager.isUserLogged())
         return responseManager.send(401);
