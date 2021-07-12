@@ -47,6 +47,18 @@ export class PlaceRepository {
         const startIndex = (page - 1) * limit;
         const endIndex = limit;
         let regex = new RegExp(query, 'i');
-        return await PlaceModel.find({name: regex}).skip(startIndex).limit(endIndex).populate("camUser");
+        return await PlaceModel.find({
+            $or: [
+                {
+                    name: regex
+                },
+                {
+                    description: regex
+                },
+                {
+                    address: regex
+                }
+            ]
+        }).skip(startIndex).limit(endIndex).populate("camUser");
     }
 }

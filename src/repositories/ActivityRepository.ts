@@ -21,7 +21,16 @@ export class ActivityRepository {
         const startIndex = (page - 1) * limit;
         const endIndex = limit;
         let regex = new RegExp(query, 'i');
-        return await ActivityModel.find({name: regex}).skip(startIndex).limit(endIndex);
+        return await ActivityModel.find({
+            $or: [
+                {
+                    name: regex
+                },
+                {
+                    description: regex
+                }
+            ]
+        }).skip(startIndex).limit(endIndex);
     }
 
     async getActivity(activityId) {
