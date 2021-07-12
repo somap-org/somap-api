@@ -11,8 +11,8 @@ import {UsersPublicProfile} from "../../interfaces/models/usersPublicProfile";
 
 var AWS = require('aws-sdk');
 AWS.config.update({region: process.env.REGION || 'us-east-1'});
-const signedUrlExpiresSeconds = 60*10;
-const s3 = new AWS.S3({ apiVersion: "2006-03-01" });
+const signedUrlExpiresSeconds = 60 * 10;
+const s3 = new AWS.S3({apiVersion: "2006-03-01"});
 
 /*
     Questa funzione deve restituire tutte le entita' di tipo Activities, Places e Users che contengono una stringa di ricevuta dal client.
@@ -34,32 +34,48 @@ export async function main(event) {
 
   try {
     let responseActivities: Activities = [];
-    let responsePlaces:Places = [];
-    let responseUsers:UsersPublicProfile = [];
+    let responsePlaces: Places = [];
+    let responseUsers: UsersPublicProfile = [];
     console.log('test');
     await Promise.all([
       new Promise(async (resolve, reject) => { //Cerco Activities
         let activities = await activityRepository.searchByQuery(query, page, limit);
-        activities.map((activity) => {
+        for (const activity of activities) {
+          let presignedUrl = null;
+          if (activity.thumbnail) {
+            const params = {
+              Bucket: process.env.PHOTOS_BUCKET_S3,
+              Key: activity.thumbnail,
+              Expires: signedUrlExpiresSeconds
+            };
+            presignedUrl = await s3.getSignedUrl('getObject', params);
+          }
           responseActivities.push({
             activityId: activity['_id'].toString(),
             name: activity.name,
             description: activity.description,
             date: activity.date,
-            thumbnail: activity.thumbnail
-          })
-        });
+            thumbnail: presignedUrl
+          });
+        };
         resolve();
       }),
       new Promise(async (resolve, reject) => { //Cerco Places
         let places = await placeRepository.searchByQuery(query, page, limit);
         for (const place of places) {
-          let coordinates:PlaceCoordinates = {
+          let coordinates: PlaceCoordinates = {
             latitude: place.location.coordinates[1],
             longitude: place.location.coordinates[0]
           };
-          const params = { Bucket: process.env.PHOTOS_BUCKET_S3, Key: place.camUser['profileImage'], Expires: signedUrlExpiresSeconds};
-          const uploadUrl: string = await s3.getSignedUrl('getObject', params);
+          let presignedUrl = null;
+          if (place.camUser['publicProfile']['profileImage']) {
+            const params = {
+              Bucket: process.env.PHOTOS_BUCKET_S3,
+              Key: place.camUser['publicProfile']['profileImage'],
+              Expires: signedUrlExpiresSeconds
+            };
+            presignedUrl = await s3.getSignedUrl('getObject', params);
+          }
 
           responsePlaces.push({
             placeId: place['_id'].toString(),
@@ -72,7 +88,7 @@ export async function main(event) {
               userId: place.camUser['_id'],
               userType: place.camUser['userType'],
               username: place.camUser['username'],
-              profileImage: uploadUrl
+              profileImage: presignedUrl
             }
           });
         }
@@ -81,11 +97,21 @@ export async function main(event) {
       new Promise(async (resolve, reject) => { //Cerco Users
         let users = await userRepository.searchByQuery(query, page, limit);
         for (const user of users) {
+
+          let presignedUrl = null;
+          if (user.publicProfile.profileImage) {
+            const params = {
+              Bucket: process.env.PHOTOS_BUCKET_S3,
+              Key: user.publicProfile.profileImage,
+              Expires: signedUrlExpiresSeconds
+            };
+            presignedUrl = await s3.getSignedUrl('getObject', params);
+          }
           responseUsers.push({
             userId: user['_id'].toString(),
             userType: user.userType,
             username: user.publicProfile.username,
-            profileImage: user.publicProfile.profileImage
+            profileImage: presignedUrl
           });
         }
         resolve();
