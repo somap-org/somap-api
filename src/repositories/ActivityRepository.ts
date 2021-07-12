@@ -14,7 +14,7 @@ export class ActivityRepository {
     async getActivies(placeId, page, limit) {
         const startIndex = (page - 1) * limit;
         const endIndex = limit;
-        return await ActivityModel.find({place: placeId});
+        return await ActivityModel.find({place: placeId}).skip(startIndex).limit(endIndex);
     }
 
     async searchByQuery(query, page, limit) {
