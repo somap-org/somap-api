@@ -11,10 +11,10 @@ export class ActivityRepository {
         return await ActivityModel.create(activity);
     }
 
-    async getActivies(activityId, page, limit) {
+    async getActivies(placeId, page, limit) {
         const startIndex = (page - 1) * limit;
         const endIndex = limit;
-        return await ActivityModel.find({place: activityId}).skip(startIndex).limit(endIndex);
+        return await ActivityModel.find({place: placeId});
     }
 
     async searchByQuery(query, page, limit) {
