@@ -34,7 +34,7 @@ export async function main(event){
         let activities = await repo.getActivies(placeId, page, limit);
         console.log(activities);
         let response:Activities = [];
-        activities.map(async (activity) => {
+        for (const activity of activities) {
             let presignedUrl = null;
             if (activity.thumbnail) {
                 const params = {
@@ -42,7 +42,11 @@ export async function main(event){
                     Key: activity.thumbnail,
                     Expires: signedUrlExpiresSeconds
                 };
-                presignedUrl = await s3.getSignedUrl('getObject', params);
+                try {
+                    presignedUrl = await s3.getSignedUrl('getObject', params);
+                } catch (e) {
+                    console.log('ERRORE PRESIGNED URL', e)
+                }
             }
 
             response.push({
@@ -52,7 +56,7 @@ export async function main(event){
                 date: activity.date,
                 thumbnail: presignedUrl
             })
-        });
+        };
         return responseManager.send(200, response);
     } catch (err) {
         console.log(err);
