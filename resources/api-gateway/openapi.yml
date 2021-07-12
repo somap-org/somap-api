@@ -781,13 +781,6 @@ paths:
         httpMethod: "POST"
       parameters:
         - $ref: '#/components/parameters/placeId'
-      requestBody:
-        description: New place info
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/Place"
       responses:
         '200':
           description: User place changed
