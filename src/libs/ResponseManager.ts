@@ -8,11 +8,11 @@ export default class ResponseManager {
         'Access-Control-Allow-Origin': '*'
     }
     send(status: number, body: any = {}, headers: any = this.defaultHeaders) {
-        /*console.log({
+        console.log('RISPOSTA', {
             statusCode: status,
             headers: headers,
             body: JSON.stringify(body)
-        });*/
+        });
         return {
             statusCode: status,
             headers: headers,
