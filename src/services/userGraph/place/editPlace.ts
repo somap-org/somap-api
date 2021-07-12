@@ -13,6 +13,7 @@ const s3 = new AWS.S3({ apiVersion: "2006-03-01" });
     Questa funzione deve restituire l'elenco completo di tutti gli utenti, ovvero un array contenente la rappresentazione json di tutti gli utenti
  */
 export async function main(event){
+    console.log('RICHIESTA', event);
     let responseManager = new ResponseManager();
     let repo = new PlaceRepository();
     let userRepo = new UserRepository();
