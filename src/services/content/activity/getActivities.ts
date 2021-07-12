@@ -32,6 +32,7 @@ export async function main(event){
 
     try {
         let activities = await repo.getActivies(placeId, page, limit);
+        console.log(activities);
         let response:Activities = [];
         activities.map(async (activity) => {
             let presignedUrl = null;
