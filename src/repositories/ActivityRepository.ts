@@ -38,7 +38,7 @@ export class ActivityRepository {
         const startIndex = (page - 1) * limit;
         const endIndex = limit;
         let regex = new RegExp(query, 'i');
-        if (query === "ALLENTITIES")
+        if (query == "ALLENTITIES")
             return ActivityModel.find();
 
         return ActivityModel.find({

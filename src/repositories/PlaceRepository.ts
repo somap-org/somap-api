@@ -45,7 +45,7 @@ export class PlaceRepository {
         const endIndex = limit;
         let regex = new RegExp(query, 'i');
 
-        if (query === "ALLENTITIES")
+        if (query == "ALLENTITIES")
             return PlaceModel.find();
 
         return await PlaceModel.find({
