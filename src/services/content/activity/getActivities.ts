@@ -24,6 +24,7 @@ export async function main(event){
     let securityManager = new SecurityManager(userRepo, event);
     const placeId = event.pathParameters.placeId;
 
+    const type = event.queryStringParameters.type;
     const page = parseInt(event.queryStringParameters.page) || 1;
     const limit = parseInt(event.queryStringParameters.limit) || 10;
 
@@ -31,7 +32,7 @@ export async function main(event){
         return responseManager.send(401);
 
     try {
-        let activities = await repo.getActivies(placeId, page, limit);
+        let activities = await repo.getActivies(placeId, type, page, limit);
         console.log(activities);
         let response:Activities = [];
         for (const activity of activities) {

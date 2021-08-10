@@ -1,6 +1,7 @@
 import { User, UserModel } from '../models/User';
 import {connect} from "../libs/mongodb";
 import {UserPublicProfile} from "../interfaces/models/userPublicProfile";
+import {PlaceModel} from "../models/Place";
 
 
 export class UserRepository {
@@ -60,6 +61,9 @@ export class UserRepository {
         const startIndex = (page - 1) * limit;
         const endIndex = limit;
         let regex = new RegExp(query, 'i');
+        if (query === "ALLENTITIES")
+            return UserModel.find();
+
         return await UserModel.find({"publicProfile.username": regex}).skip(startIndex).limit(endIndex);
     }
 

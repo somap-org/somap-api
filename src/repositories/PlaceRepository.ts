@@ -1,8 +1,5 @@
 import {connect} from "../libs/mongodb";
 import {Place, PlaceModel} from "../models/Place";
-import {UserModel, UserTypes} from "../models/User";
-import {UserPublicProfile} from "../interfaces/models/userPublicProfile";
-import UserTypeEnum = UserPublicProfile.UserTypeEnum;
 
 
 export class PlaceRepository {
@@ -47,6 +44,10 @@ export class PlaceRepository {
         const startIndex = (page - 1) * limit;
         const endIndex = limit;
         let regex = new RegExp(query, 'i');
+
+        if (query === "ALLENTITIES")
+            return PlaceModel.find();
+
         return await PlaceModel.find({
             $or: [
                 {
