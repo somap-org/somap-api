@@ -141,6 +141,8 @@ components:
       properties:
         activityId:
           $ref: "#/components/schemas/objectId"
+        placeId:
+          $ref: "#/components/schemas/objectId"
         name:
           type: string
           example: "White Party"

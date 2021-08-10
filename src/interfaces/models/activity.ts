@@ -13,6 +13,7 @@ import { ObjectId } from './objectId';
 
 export interface Activity { 
     activityId?: ObjectId;
+    placeId?: ObjectId;
     name: string;
     date: string;
     description: string;

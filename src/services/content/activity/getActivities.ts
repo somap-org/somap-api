@@ -52,6 +52,7 @@ export async function main(event){
 
             response.push({
                 activityId: activity['_id'],
+                placeId: activity['place'].toString(),
                 name: activity.name,
                 description: activity.description,
                 date: activity.date,

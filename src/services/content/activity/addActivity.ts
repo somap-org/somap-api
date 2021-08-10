@@ -54,6 +54,7 @@ export async function main(event){
 
         const response:Activity = {
             activityId: activity['_id'],
+            placeId: activity['place'].toString(),
             name: activity.name,
             description: activity.description,
             date: activity.date,
