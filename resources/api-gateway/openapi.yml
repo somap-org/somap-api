@@ -32,29 +32,7 @@ components:
       type: array
       items:
         $ref: "#/components/schemas/UserPublicProfile"
-      example: [
-      {
-        "userId": "507f1f77bcf86cd799439011",
-        "userType": "classic",
-        "firstName": "Mario",
-        "lastName": "Rossi",
-        "profileImage": "http://www.example.com"
-      },
-      {
-        "userId": "507f1f77bcf86cd799439011",
-        "userType": "classic",
-        "firstName": "Luca",
-        "lastName": "Bianchi",
-        "profileImage": "http://www.example.com"
-      },
-      {
-        "userId": "507f1f77bcf86cd799439011",
-        "userType": "camUser",
-        "firstName": "Francesco",
-        "lastName": "Brambilla",
-        "profileImage": "http://www.example.com"
-      }
-      ]
+
     UserSettings:
       type: object
       required:
@@ -158,22 +136,6 @@ components:
       type: array
       items:
         $ref: "#/components/schemas/Activity"
-      example: [
-      {
-        "activityId": "977f1f77bcf88md799439043",
-        "name": "White Party",
-        "date": "2020-05-21T13:00:35+00:00",
-        "description": "Very big white party",
-        "thumbnail": "https://s1.wklcdn.com/image_35/1059170/6706815/3739102Master.jpg"
-      },
-      {
-        "activityId": "977f1f77bcf88md799439043",
-        "name": "Black Party",
-        "date": "2019-05-21T13:00:35+00:00",
-        "description": "Very big black party",
-        "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTYYuE9q0d0Zj7GeaZ-IM1RD5PSbRachwgt77QF8k2ek_76d3gq&usqp=CAU"
-      }
-      ]
     Live:
       type: object
       required:
