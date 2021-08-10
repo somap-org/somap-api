@@ -41,80 +41,93 @@ export async function main(event) {
       new Promise(async (resolve, reject) => { //Cerco Activities
         let activities = await activityRepository.searchByQuery(query, page, limit);
         for (const activity of activities) {
-          let presignedUrl = null;
-          if (activity.thumbnail) {
-            const params = {
-              Bucket: process.env.PHOTOS_BUCKET_S3,
-              Key: activity.thumbnail,
-              Expires: signedUrlExpiresSeconds
-            };
-            presignedUrl = await s3.getSignedUrl('getObject', params);
+          try {
+            let presignedUrl = null;
+            if (activity.thumbnail) {
+              const params = {
+                Bucket: process.env.PHOTOS_BUCKET_S3,
+                Key: activity.thumbnail,
+                Expires: signedUrlExpiresSeconds
+              };
+              presignedUrl = await s3.getSignedUrl('getObject', params);
+            }
+            responseActivities.push({
+              activityId: activity['_id'].toString(),
+              name: activity.name,
+              description: activity.description,
+              date: activity.date,
+              thumbnail: presignedUrl
+            });
+          } catch (e) {
+            console.error(e);
           }
-          responseActivities.push({
-            activityId: activity['_id'].toString(),
-            name: activity.name,
-            description: activity.description,
-            date: activity.date,
-            thumbnail: presignedUrl
-          });
-        };
+        }
+
         resolve();
       }),
       new Promise(async (resolve, reject) => { //Cerco Places
         let places = await placeRepository.searchByQuery(query, page, limit);
         console.log('PLACES', places);
         for (const place of places) {
-          console.log('PLACE', place);
-          let coordinates: PlaceCoordinates = {
-            latitude: place.location.coordinates[1],
-            longitude: place.location.coordinates[0]
-          };
-          let presignedUrl = null;
-          if (place.camUser['publicProfile']['profileImage']) {
-            const params = {
-              Bucket: process.env.PHOTOS_BUCKET_S3,
-              Key: place.camUser['publicProfile']['profileImage'],
-              Expires: signedUrlExpiresSeconds
+          try {
+            console.log('PLACE', place);
+            let coordinates: PlaceCoordinates = {
+              latitude: place.location.coordinates[1],
+              longitude: place.location.coordinates[0]
             };
-            presignedUrl = await s3.getSignedUrl('getObject', params);
-          }
-
-          responsePlaces.push({
-            placeId: place['_id'].toString(),
-            name: place.name,
-            currentLiveUrl: place.currentLiveUrl,
-            description: place.description,
-            address: place.address,
-            coordinates: coordinates,
-            userCam: {
-              userId: place.camUser['_id'],
-              userType: place.camUser['userType'],
-              username: place.camUser['username'],
-              profileImage: presignedUrl
+            let presignedUrl = null;
+            if (place.camUser['publicProfile']['profileImage']) {
+              const params = {
+                Bucket: process.env.PHOTOS_BUCKET_S3,
+                Key: place.camUser['publicProfile']['profileImage'],
+                Expires: signedUrlExpiresSeconds
+              };
+              presignedUrl = await s3.getSignedUrl('getObject', params);
             }
-          });
+
+            responsePlaces.push({
+              placeId: place['_id'].toString(),
+              name: place.name,
+              currentLiveUrl: place.currentLiveUrl,
+              description: place.description,
+              address: place.address,
+              coordinates: coordinates,
+              userCam: {
+                userId: place.camUser['_id'],
+                userType: place.camUser['userType'],
+                username: place.camUser['username'],
+                profileImage: presignedUrl
+              }
+            });
+          } catch (e) {
+            console.error(e);
+          }
         }
+
         resolve();
       }),
       new Promise(async (resolve, reject) => { //Cerco Users
         let users = await userRepository.searchByQuery(query, page, limit);
         for (const user of users) {
-
-          let presignedUrl = null;
-          if (user.publicProfile.profileImage) {
-            const params = {
-              Bucket: process.env.PHOTOS_BUCKET_S3,
-              Key: user.publicProfile.profileImage,
-              Expires: signedUrlExpiresSeconds
-            };
-            presignedUrl = await s3.getSignedUrl('getObject', params);
+          try {
+            let presignedUrl = null;
+            if (user.publicProfile.profileImage) {
+              const params = {
+                Bucket: process.env.PHOTOS_BUCKET_S3,
+                Key: user.publicProfile.profileImage,
+                Expires: signedUrlExpiresSeconds
+              };
+              presignedUrl = await s3.getSignedUrl('getObject', params);
+            }
+            responseUsers.push({
+              userId: user['_id'].toString(),
+              userType: user.userType,
+              username: user.publicProfile.username,
+              profileImage: presignedUrl
+            });
+          } catch (e) {
+            console.error(e);
           }
-          responseUsers.push({
-            userId: user['_id'].toString(),
-            userType: user.userType,
-            username: user.publicProfile.username,
-            profileImage: presignedUrl
-          });
         }
         resolve();
       })
