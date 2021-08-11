@@ -3,86 +3,93 @@ import {ActivityModel} from "../models/Activity";
 
 
 export class ActivityRepository {
-    constructor() {
-        connect();
-    }
+  constructor() {
+    connect();
+  }
 
-    async addActivity(activity){
-        return await ActivityModel.create(activity);
-    }
+  async addActivity(activity) {
+    return await ActivityModel.create(activity);
+  }
 
-    async getActivies(placeId, type, page, limit) {
-        const startIndex = (page - 1) * limit;
-        const endIndex = limit;
+  async getActivies(placeId, type, page, limit) {
+    const startIndex = (page - 1) * limit;
+    const endIndex = limit;
 
-        var start = new Date();
-        start.setUTCHours(0,0,0,0);
+    var start = new Date();
+    start.setUTCHours(0, 0, 0, 0);
 
-        var end = new Date();
-        end.setUTCHours(23,59,59,999);
-        console.log({
-            place: placeId,
-            date: {
-                $gte: start,
-                $lte: end
-            }
-        });
-        switch (type) {
-            case 'onging': {
-                return ActivityModel.find({
-                    place: placeId,
-                    date: {
-                        $gte: start,
-                        $lte: end
-                    }
-                }).skip(startIndex).limit(endIndex);
-                break;
-            }
-            case 'scheduled': {
-                return ActivityModel.find({place: placeId, date: {$gte: new Date()}}).skip(startIndex).limit(endIndex);
-                break;
-            }
-            case 'past': {
-                return ActivityModel.find({place: placeId, date: {$lte: new Date()}}).skip(startIndex).limit(endIndex);
-                break;
-            }
-            default: {
-                return await ActivityModel.find({place: placeId}).skip(startIndex).limit(endIndex);
-                break;
-            }
-        }
-    }
-
-    async searchByQuery(query, page, limit) {
-        const startIndex = (page - 1) * limit;
-        const endIndex = limit;
-        let regex = new RegExp(query, 'i');
-        if (query === "ALLENTITIES")
-            return ActivityModel.find().skip(startIndex).limit(endIndex);
-
+    var end = new Date();
+    end.setUTCHours(23, 59, 59, 999);
+    console.log({
+      place: placeId,
+      date: {
+        $gte: start,
+        $lte: end
+      }
+    });
+    switch (type) {
+      case 'onging': {
         return ActivityModel.find({
-            $or: [
-                {
-                    name: regex
-                },
-                {
-                    description: regex
-                }
-            ]
+          place: placeId,
+          $and: [
+            {
+              date: {
+                $gte: start,
+              }
+            },
+            {
+              date: {
+                $lte: end,
+              }
+            }]
         }).skip(startIndex).limit(endIndex);
+        break;
+      }
+      case 'scheduled': {
+        return ActivityModel.find({place: placeId, date: {$gte: new Date()}}).skip(startIndex).limit(endIndex);
+        break;
+      }
+      case 'past': {
+        return ActivityModel.find({place: placeId, date: {$lte: new Date()}}).skip(startIndex).limit(endIndex);
+        break;
+      }
+      default: {
+        return await ActivityModel.find({place: placeId}).skip(startIndex).limit(endIndex);
+        break;
+      }
     }
+  }
 
-    async getActivity(activityId) {
-        return await ActivityModel.findOne({_id: activityId});
-    }
+  async searchByQuery(query, page, limit) {
+    const startIndex = (page - 1) * limit;
+    const endIndex = limit;
+    let regex = new RegExp(query, 'i');
+    if (query === "ALLENTITIES")
+      return ActivityModel.find().skip(startIndex).limit(endIndex);
 
-    async editActivity(activityId, activity) {
-        return await ActivityModel.findOneAndUpdate({_id: activityId}, activity, {new: true});
-    }
+    return ActivityModel.find({
+      $or: [
+        {
+          name: regex
+        },
+        {
+          description: regex
+        }
+      ]
+    }).skip(startIndex).limit(endIndex);
+  }
 
-    async deleteActivity(activityId) {
-        return ActivityModel.findOneAndDelete({_id: activityId});
-    }
+  async getActivity(activityId) {
+    return await ActivityModel.findOne({_id: activityId});
+  }
+
+  async editActivity(activityId, activity) {
+    return await ActivityModel.findOneAndUpdate({_id: activityId}, activity, {new: true});
+  }
+
+  async deleteActivity(activityId) {
+    return ActivityModel.findOneAndDelete({_id: activityId});
+  }
 
 
 }
