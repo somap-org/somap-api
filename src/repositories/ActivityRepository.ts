@@ -20,10 +20,22 @@ export class ActivityRepository {
 
         var end = new Date();
         end.setUTCHours(23,59,59,999);
-
+        console.log({
+            place: placeId,
+            date: {
+                $gte: start,
+                $lte: end
+            }
+        });
         switch (type) {
             case 'onging': {
-                return ActivityModel.find({place: placeId, date: {$gte: start, $lte: end}}).skip(startIndex).limit(endIndex);
+                return ActivityModel.find({
+                    place: placeId,
+                    date: {
+                        $gte: start,
+                        $lte: end
+                    }
+                }).skip(startIndex).limit(endIndex);
                 break;
             }
             case 'scheduled': {
