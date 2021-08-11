@@ -39,7 +39,7 @@ export class ActivityRepository {
         const endIndex = limit;
         let regex = new RegExp(query, 'i');
         if (query === "ALLENTITIES")
-            return ActivityModel.find();
+            return ActivityModel.find().skip(startIndex).limit(endIndex);
 
         return ActivityModel.find({
             $or: [

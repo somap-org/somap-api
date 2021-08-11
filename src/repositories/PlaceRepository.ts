@@ -46,7 +46,7 @@ export class PlaceRepository {
         let regex = new RegExp(query, 'i');
 
         if (query === "ALLENTITIES")
-            return PlaceModel.find();
+            return PlaceModel.find().skip(startIndex).limit(endIndex);
 
         return await PlaceModel.find({
             $or: [

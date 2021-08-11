@@ -62,7 +62,7 @@ export class UserRepository {
         const endIndex = limit;
         let regex = new RegExp(query, 'i');
         if (query === "ALLENTITIES")
-            return UserModel.find();
+            return UserModel.find().skip(startIndex).limit(endIndex);
 
         return await UserModel.find({"publicProfile.username": regex}).skip(startIndex).limit(endIndex);
     }
