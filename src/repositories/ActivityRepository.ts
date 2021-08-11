@@ -16,15 +16,15 @@ export class ActivityRepository {
         const endIndex = limit;
         switch (type) {
             case 'onging': {
-                return await ActivityModel.find({place: placeId}).skip(startIndex).limit(endIndex);
+                return ActivityModel.find({place: placeId}).skip(startIndex).limit(endIndex);
                 break;
             }
             case 'scheduled': {
-                return await ActivityModel.find({place: placeId}).skip(startIndex).limit(endIndex);
+                return ActivityModel.find({place: placeId, date: {$gte: new Date()}}).skip(startIndex).limit(endIndex);
                 break;
             }
             case 'past': {
-                return await ActivityModel.find({place: placeId}).skip(startIndex).limit(endIndex);
+                return ActivityModel.find({place: placeId, date: {$lte: new Date()}}).skip(startIndex).limit(endIndex);
                 break;
             }
             default: {

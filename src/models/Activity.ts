@@ -9,7 +9,7 @@ class Activity extends Typegoose {
   @prop({ required: true })
   name: string;
   @prop({ required: true })
-  date: string;
+  date: Date;
   @prop({ required: true })
   description: string;
   @prop({ required: false })

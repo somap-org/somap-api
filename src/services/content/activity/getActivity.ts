@@ -44,7 +44,7 @@ export async function main(event){
             placeId: activity['place'].toString(),
             name: activity.name,
             description: activity.description,
-            date: activity.date,
+            date: activity.date.toISOString(),
             thumbnail: presignedUrl
         };
         return responseManager.send(200, response);
