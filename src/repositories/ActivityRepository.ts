@@ -14,9 +14,16 @@ export class ActivityRepository {
     async getActivies(placeId, type, page, limit) {
         const startIndex = (page - 1) * limit;
         const endIndex = limit;
+
+        var start = new Date();
+        start.setUTCHours(0,0,0,0);
+
+        var end = new Date();
+        end.setUTCHours(23,59,59,999);
+
         switch (type) {
             case 'onging': {
-                return ActivityModel.find({place: placeId}).skip(startIndex).limit(endIndex);
+                return ActivityModel.find({place: placeId, date: {$gte: start, $lte: end}}).skip(startIndex).limit(endIndex);
                 break;
             }
             case 'scheduled': {
