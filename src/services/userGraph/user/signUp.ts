@@ -32,7 +32,7 @@ export async function main(event) {
 
     // Build user document
     let userPublicProfile = {
-      profileImage: "test",
+      profileImage: null,
       username: event.request.userAttributes.name
     };
     let userSettings = {
