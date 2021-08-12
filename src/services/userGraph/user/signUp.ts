@@ -146,7 +146,7 @@ export async function main(event) {
       };
       await new AWS.SES({apiVersion: '2010-12-01'}).sendTemplatedEmail(paramsUserEmail).promise();
 
-      return userAdded;
+      return event;
     } catch (e) {
       console.log('ERROR ADDING USER', e);
       return null;
