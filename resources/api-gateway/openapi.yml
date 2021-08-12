@@ -72,7 +72,6 @@ components:
     Place:
       type: object
       required:
-        - placeId
         - name
         - description
         - address
