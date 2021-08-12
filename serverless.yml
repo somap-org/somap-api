@@ -48,6 +48,8 @@ functions:
     handler: build/services/userGraph/user/editUserSettings.main
   getUserCamLiveInfo:
     handler: build/services/userGraph/user/getUserCamLiveInfo.main
+  deleteAccount:
+    handler: build/services/userGraph/user/deleteAccount.main
 
   addPlace:
     handler: build/services/userGraph/place/addPlace.main
