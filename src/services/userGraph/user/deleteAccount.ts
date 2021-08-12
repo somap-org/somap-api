@@ -12,7 +12,7 @@ export async function main(event) {
   let repo = new UserRepository();
   let securityManager = new SecurityManager(repo, event);
 
-  if(!await securityManager.isUserIdLogged())
+  if(!await securityManager.isUserLogged())
     return responseManager.send(401);
 
   const deleteParams = {
