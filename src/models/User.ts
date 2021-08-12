@@ -14,7 +14,7 @@ export enum PrivacyTypes {
 export class UserPublicProfile extends Typegoose {
     @prop({ required: true })
     username: string;
-    @prop({ required: true })
+    @prop({ required: false })
     profileImage: string;
 }
 
