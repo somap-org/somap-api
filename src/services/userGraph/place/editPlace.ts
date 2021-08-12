@@ -26,6 +26,8 @@ export async function main(event){
     if(!await securityManager.isUserLogged() || !await securityManager.isUserCamPlaceOwner(placeId))
         return responseManager.send(401);
 
+    await userRepo.editUsername((await securityManager.getUserLogged())['_id'], body.userCam.username);
+
     //Costruisce documento da aggiungere nel db
     let newPlace = {
         name: body.name,

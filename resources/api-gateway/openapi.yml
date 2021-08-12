@@ -11,10 +11,7 @@ components:
     UserPublicProfile:
       type: object
       required:
-        - userId
-        - userType
         - username
-        - profileImage
       properties:
         userId:
           $ref: "#/components/schemas/objectId"
