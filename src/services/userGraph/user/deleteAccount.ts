@@ -17,7 +17,7 @@ export async function main(event) {
 
   const deleteParams = {
     Username: (await securityManager.getUserLogged()).email,
-    UserPoolId: process.env.COGNITO_CLIENT_ID
+    UserPoolId: process.env.COGNITO_USER_POOL_ID
   }
 
   try {
