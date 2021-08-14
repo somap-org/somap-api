@@ -8,7 +8,7 @@ export async function main(event) {
   if (event.triggerSource === "CustomMessage_SignUp") {
     event.response = {
       emailSubject: "SoMap | Confirm your email",
-      emailMessage: `Test provola testtest ${event.request.linkParameter}`
+      emailMessage: `Test provola testtest ${event.request.linkParameter} ${event.request.codeParameter} {####}`
     };
   }
   return event;
