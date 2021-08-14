@@ -42,7 +42,7 @@ export async function main(event){
           Data: body.name+' vuole prenotare un meeting!'
         }
       },
-      Source: 'business@somap.app',
+      Source: 'noreply@somap.app',
       ReplyToAddresses: [
         body.email
       ],
@@ -56,14 +56,14 @@ export async function main(event){
           body.email
         ]
       },
-      Source: 'business@somap.app',
+      Source: 'noreply@somap.app',
       Template: 'BookMeeting',
       TemplateData: JSON.stringify({
         ...body,
         date: moment(body.date).format('DD/MM/YYYY')
       }),
       ReplyToAddresses: [
-        'business@somap.app'
+        'noreply@somap.app'
       ],
     };
     await new AWS.SES({apiVersion: '2010-12-01'}).sendTemplatedEmail(paramsUserEmail).promise();

@@ -134,14 +134,14 @@ export async function main(event) {
             user.email
           ]
         },
-        Source: 'business@somap.app',
+        Source: 'noreply@somap.app',
         Template: 'CompleteSomapAccount',
         TemplateData: JSON.stringify({
           username: user.publicProfile.username,
           referralCode: user.referralCode
         }),
         ReplyToAddresses: [
-          'business@somap.app'
+          'noreply@somap.app'
         ],
       };
       await new AWS.SES({apiVersion: '2010-12-01'}).sendTemplatedEmail(paramsUserEmail).promise();
