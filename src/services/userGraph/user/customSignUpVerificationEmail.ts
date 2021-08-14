@@ -1,11 +1,14 @@
 export async function main(event) {
+  const sub = event.request.userAttributes.sub;
+  const link = `https://auth.somap.app/confirmUser?client_id=${process.env.COGNITO_CLIENT_ID}&user_name=${sub}&confirmation_code=${event.request.codeParameter}`;
+  const name = event.request.userAttributes.name;
 
   console.log(event);
 
   if (event.triggerSource === "CustomMessage_SignUp") {
     event.response = {
       emailSubject: "SoMap | Confirm your email",
-      emailMessage: `Test {####}`
+      emailMessage: `Test provola testtest ${event.request.linkParameter}`
     };
   }
   return event;
