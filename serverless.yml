@@ -36,6 +36,8 @@ functions:
     handler: build/services/userGraph/user/bookMeeting.main
   signUp:
     handler: build/services/userGraph/user/signUp.main
+  customSignUpVerificationEmail:
+    handler: build/services/userGraph/user/customSignUpVerificationEmail.main
   getUserPublicProfile:
     handler: build/services/userGraph/user/getUserPublicProfile.main
   uploadProfileImage:
