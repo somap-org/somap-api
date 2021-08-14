@@ -7,7 +7,7 @@ export async function main(event) {
   if (event.triggerSource === "CustomMessage_SignUp") {
     event.response = {
       emailSubject: "SoMap | Confirm your email",
-      emailMessage: template(name, link)
+      emailMessage: `Test ${link}`
     };
   }
   return event;
