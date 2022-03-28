@@ -91,5 +91,8 @@ export class ActivityRepository {
     return ActivityModel.findOneAndDelete({_id: activityId});
   }
 
+  async deleteActivityByPlaceId(placeId) {
+    return ActivityModel.deleteMany({place: placeId});
+  }
 
 }
