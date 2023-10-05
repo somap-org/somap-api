@@ -6,7 +6,7 @@ plugins:
   - serverless-dotenv-plugin # Load .env as environment variables
 provider:
   name: aws
-  runtime: nodejs14.x
+  runtime: nodejs18.x
   stage: ${opt:stage, 'dev'}
   region: us-east-1
   accountId: ${file(./environment/${self:provider.stage}.environment.json):ACCOUNT_ID}
