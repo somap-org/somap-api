@@ -64,7 +64,7 @@ function main(event) {
                     const params = {
                         latencyMode: 'LOW',
                         name: userAdded['_id'].toString(),
-                        type: 'STANDARD'
+                        type: 'ADVANCED_SD'
                     };
                     const ivsResult = yield ivs.createChannel(params).promise();
                     let live = yield repo.updateLiveInfo(userAdded._id, {
