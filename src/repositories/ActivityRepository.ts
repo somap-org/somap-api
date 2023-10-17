@@ -42,19 +42,19 @@ export class ActivityRepository {
                 $lte: end,
               }
             }]
-        }).skip(startIndex).limit(endIndex);
+        }).sort({date: 'desc'}).skip(startIndex).limit(endIndex);
         break;
       }
       case 'scheduled': {
-        return ActivityModel.find({place: placeId, date: {$gte: new Date()}}).skip(startIndex).limit(endIndex);
+        return ActivityModel.find({place: placeId, date: {$gte: new Date()}}).sort({date: 'desc'}).skip(startIndex).limit(endIndex);
         break;
       }
       case 'past': {
-        return ActivityModel.find({place: placeId, date: {$lte: new Date()}}).skip(startIndex).limit(endIndex);
+        return ActivityModel.find({place: placeId, date: {$lte: new Date()}}).sort({date: 'desc'}).skip(startIndex).limit(endIndex);
         break;
       }
       default: {
-        return await ActivityModel.find({place: placeId}).skip(startIndex).limit(endIndex);
+        return await ActivityModel.find({place: placeId}).sort({date: 'desc'}).skip(startIndex).limit(endIndex);
         break;
       }
     }

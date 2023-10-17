@@ -51,19 +51,19 @@ class ActivityRepository {
                                 }
                             }
                         ]
-                    }).skip(startIndex).limit(endIndex);
+                    }).sort({date: 'desc'}).skip(startIndex).limit(endIndex);
                     break;
                 }
                 case 'scheduled': {
-                    return Activity_1.ActivityModel.find({ place: placeId, date: { $gte: new Date() } }).skip(startIndex).limit(endIndex);
+                    return Activity_1.ActivityModel.find({ place: placeId, date: { $gte: new Date() } }).sort({date: 'desc'}).skip(startIndex).limit(endIndex);
                     break;
                 }
                 case 'past': {
-                    return Activity_1.ActivityModel.find({ place: placeId, date: { $lte: new Date() } }).skip(startIndex).limit(endIndex);
+                    return Activity_1.ActivityModel.find({ place: placeId, date: { $lte: new Date() } }).sort({date: 'desc'}).skip(startIndex).limit(endIndex);
                     break;
                 }
                 default: {
-                    return yield Activity_1.ActivityModel.find({ place: placeId }).skip(startIndex).limit(endIndex);
+                    return yield Activity_1.ActivityModel.find({ place: placeId }).sort({date: 'desc'}).skip(startIndex).limit(endIndex);
                     break;
                 }
             }
